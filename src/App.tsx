@@ -1,31 +1,21 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import "./App.css";
-import { Ticker } from "@Lordimass/lordis-react-components";
+import { Toast, ToastContainer } from "react-bootstrap";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <div>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <Ticker inputId={""} ariaLabel={""} />
+      <ToastContainer>
+        <Toast>
+          <Toast.Header>
+            {/*<img*/}
+            {/*  src="https://images-ext-1.discordapp.net/external/y9SuOvseQ8m_ozjbaWW7WaPXcH7nU4xyLtbW735n2_M/https/www.heynutritionlady.com/wp-content/uploads/2021/02/halloumi_carbonara-SQ.jpg?format=webp&width=50&height=50"*/}
+            {/*  className="rounded me-2"*/}
+            {/*  alt=""*/}
+            {/*/>*/}
+            <strong className="me-auto">Notification</strong>
+          </Toast.Header>
+          <Toast.Body>Hello, world! This is a toast message.</Toast.Body>
+        </Toast>
+      </ToastContainer>
     </>
   );
 }
