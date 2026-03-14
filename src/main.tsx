@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import "@Lordimass/lordis-react-components/dist/index.css";
+import "lordis-react-components/dist/index.css";
 import "./common.scss";
 
 createRoot(document.getElementById("root")!).render(
