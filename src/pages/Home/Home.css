@@ -1,0 +1,42 @@
+.home-title-container {
+  --dots-offset: 80px;
+  background-color: var(--bs-body-bg);
+
+  max-height: 50vh;
+  display: grid;
+  flex-direction: column;
+  justify-content: center;
+
+  .layer1, .layer2, .layer3 {
+    height: 50vh;
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .layer1 {
+    background-image: radial-gradient(#8d6b9b, #340048 70%);
+    height: calc(50vh + var(--dots-offset) - 1px);
+  }
+
+  .layer2 {
+    z-index: 2;
+  }
+
+  .layer3 {
+    z-index: 3;
+  }
+
+  img {
+    height: 100%;
+    width: auto;
+  }
+
+  svg {
+    position: relative;
+    min-width: 5000px;
+    top: var(--dots-offset);
+  }
+}
