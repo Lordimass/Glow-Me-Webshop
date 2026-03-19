@@ -1,6 +1,6 @@
 .home-title-container {
   --dots-offset: 80px;
-  background-color: var(--bs-body-bg);
+  position: absolute;
 
   max-height: 50vh;
   display: grid;
@@ -8,7 +8,7 @@
   justify-content: center;
 
   .layer1, .layer2, .layer3 {
-    height: 50vh;
+    max-height: 50vh;
     display: flex;
     width: 100vw;
     justify-content: center;
@@ -19,14 +19,16 @@
   .layer1 {
     background-image: radial-gradient(#8d6b9b, #340048 70%);
     height: calc(50vh + var(--dots-offset) - 1px);
+    z-index: -1;
+    max-height: unset;
   }
 
   .layer2 {
-    z-index: 2;
+    z-index: -1;
   }
 
   .layer3 {
-    z-index: 3;
+    background-color: transparent;
   }
 
   img {
@@ -38,5 +40,38 @@
     position: relative;
     min-width: 5000px;
     top: var(--dots-offset);
+  }
+
+  @media screen and (max-width: 800px) {
+    img {
+      height: min-content;
+      width: 100%;
+    }
+
+    --dots-offset: -20vw
+  }
+}
+
+.spacer {
+  height: 50vh;
+  @media screen and (max-width: 800px) {
+      height: calc(0.55 * 100vw);
+  }
+}
+
+.text-block {
+  position: relative;
+  margin: 20px;
+  padding: 10px;
+  filter: drop-shadow(0 0 3px var(--bs-primary));
+  box-shadow: 0 0 0 2px var(--bs-primary), 0 0 0 3px white, 0 0 0 5px var(--bs-primary);
+  border-radius: 3px;
+  background-color: var(--bs-body-bg);
+
+  text-align: center;
+
+  h1, p {
+    color: white;
+    filter: none
   }
 }
