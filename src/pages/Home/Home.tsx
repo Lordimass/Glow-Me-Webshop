@@ -33,8 +33,9 @@ export default function Home() {
         <p>
           We hand-craft glow in the dark models using resin and a variety of
           different glowing powders and colours. Each has its own personality,
-          imperfections, and love put into it by us 💜
+          imperfections, and love put into it by us
         </p>
+        <p>❤️🧡💛💚💙💜</p>
         <p>
           This website will be used to showcase and sell our models, once it's
           set up. But for now, if you're dying to get your hands on one, you can
