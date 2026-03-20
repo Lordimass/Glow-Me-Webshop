@@ -1,11 +1,16 @@
 import Page from "../../components/Page/Page.tsx";
 import "./Home.css";
-import { PRIMARY_PNG } from "../../assets/assets.ts";
+import {
+  GHOST_FACTORY_1,
+  GHOST_FACTORY_2,
+  GHOST_FACTORY_3,
+  PRIMARY_PNG,
+} from "../../assets/assets.ts";
 import Dots from "../../assets/Dots.tsx";
 
 export default function Home() {
   return (
-    <Page>
+    <Page id={"home"}>
       <div className={"home-title-container"}>
         <div className={"layer1"} />
         <div className={"layer2"}>
@@ -40,6 +45,18 @@ export default function Home() {
           <br />
           <a href={"https://maps.app.goo.gl/4K2Td9WSWWxjDewj8"}>CATS</a>
         </p>
+      </div>
+
+      <div className={"ghost-factory-showcase"}>
+        <div className={"text-block"}>
+          <img src={GHOST_FACTORY_1} />
+        </div>
+        <div className={"text-block"}>
+          <img src={GHOST_FACTORY_2} />
+        </div>
+        <div className={"text-block"}>
+          <img src={GHOST_FACTORY_3} />
+        </div>
       </div>
     </Page>
   );

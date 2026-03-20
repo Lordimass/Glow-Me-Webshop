@@ -8,3 +8,7 @@ export const FAVICON_PNG = `${SUPABASE_GLOW_ME_STORAGE}/Favicon.png`;
 export const FAVICON_SVG = `${SUPABASE_GLOW_ME_STORAGE}/Favicon.svg`;
 export const PRIMARY_PNG = `${SUPABASE_GLOW_ME_STORAGE}/Primary.png`;
 export const PRIMARY_SVG = `${SUPABASE_GLOW_ME_STORAGE}/Primary.svg`;
+
+export const GHOST_FACTORY_1 = `${SUPABASE_GLOW_ME_STORAGE}/ghost-factory-showcase/ghost-factory-1.webp`;
+export const GHOST_FACTORY_2 = `${SUPABASE_GLOW_ME_STORAGE}/ghost-factory-showcase/ghost-factory-2.webp`;
+export const GHOST_FACTORY_3 = `${SUPABASE_GLOW_ME_STORAGE}/ghost-factory-showcase/ghost-factory-3.webp`;
