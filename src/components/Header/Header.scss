@@ -1,0 +1,26 @@
+@import "../../common";
+
+.header {
+  --header-height: 64px;
+
+  z-index: 200;
+  display: flex;
+  background-color: transparent;
+  align-items: center;
+  height: var(--header-height);
+  @include neon-border;
+
+  .logo {
+    height: var(--header-height);
+    padding: 4px
+  }
+}
+
+.header-main {
+}
+
+.header-spacer{
+  width: 100%;
+  flex-grow: 1;
+}
+

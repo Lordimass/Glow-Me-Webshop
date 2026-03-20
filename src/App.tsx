@@ -1,21 +1,20 @@
-import { Toast, ToastContainer } from "react-bootstrap";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home/Home.tsx";
 
 function App() {
   return (
     <>
-      <ToastContainer>
-        <Toast>
-          <Toast.Header>
-            {/*<img*/}
-            {/*  src="https://images-ext-1.discordapp.net/external/y9SuOvseQ8m_ozjbaWW7WaPXcH7nU4xyLtbW735n2_M/https/www.heynutritionlady.com/wp-content/uploads/2021/02/halloumi_carbonara-SQ.jpg?format=webp&width=50&height=50"*/}
-            {/*  className="rounded me-2"*/}
-            {/*  alt=""*/}
-            {/*/>*/}
-            <strong className="me-auto">Notification</strong>
-          </Toast.Header>
-          <Toast.Body>Hello, world! This is a toast message.</Toast.Body>
-        </Toast>
-      </ToastContainer>
+      <meta name="author" content="Sam Knight" />
+      <meta name="author" content="Lordimass" />
+      <meta name="creator" content="Sam Knight" />
+      <meta name="creator" content="Lordimass" />
+      <meta name="generator" content="react" />
+
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Home />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
