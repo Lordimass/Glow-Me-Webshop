@@ -1,0 +1,33 @@
+@import "../../common";
+
+.footer {
+  @include neon-border($secondary);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+
+  justify-self: flex-end;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.footer-policy-links {
+  color: grey;
+  text-align: center;
+}
+
+.policy-separator {
+  color: grey;
+  margin-left: 0.5ch;
+  margin-right: 0.5ch;
+}
+
+.footer .additional-links {
+  text-align: center;
+}
+
+.footer-company-information {
+  font-size: 11px;
+  color: #ddd;
+  text-align: center;
+}

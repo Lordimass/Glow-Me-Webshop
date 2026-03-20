@@ -1,5 +1,5 @@
 import { SUBMARK_PNG } from "../../assets/assets.ts";
-import "./Header.css";
+import "./Header.scss";
 
 export default function Header() {
   return (

@@ -1,3 +1,5 @@
+@import "../../common";
+
 #home {
   --height: 50vh;
 
@@ -68,9 +70,7 @@
   .text-block {
     position: relative;
     padding: 10px;
-    filter: drop-shadow(0 0 3px var(--bs-primary));
-    box-shadow: 0 0 0 2px var(--bs-primary), 0 0 0 3px white, 0 0 0 5px var(--bs-primary);
-    border-radius: 3px;
+    @include neon-border;
     background-color: var(--bs-body-bg);
 
     text-align: center;

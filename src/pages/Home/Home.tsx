@@ -1,5 +1,5 @@
 import Page from "../../components/Page/Page.tsx";
-import "./Home.css";
+import "./Home.scss";
 import {
   GHOST_FACTORY_1,
   GHOST_FACTORY_2,

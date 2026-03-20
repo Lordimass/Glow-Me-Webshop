@@ -49,3 +49,19 @@ $headings-font-family: "Roadside Sans";
   gap: 20px;
   padding: 20px;
 }
+
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: $primary;
+}
+
+a:hover {
+  color: lighten($primary, 15%);
+}
+
+@mixin neon-border($neon-colour: $primary) {
+  box-shadow: 0 0 0 2px $neon-colour, 0 0 0 3px white, 0 0 0 5px $neon-colour;
+  filter: drop-shadow(0 0 3px $neon-colour);
+  border-radius: 3px;
+}
