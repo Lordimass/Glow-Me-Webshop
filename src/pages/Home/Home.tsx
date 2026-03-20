@@ -49,13 +49,28 @@ export default function Home() {
 
       <div className={"ghost-factory-showcase"}>
         <div className={"text-block"}>
-          <img src={GHOST_FACTORY_1} />
+          <img
+            src={GHOST_FACTORY_1}
+            alt={
+              "An angled photo of a bunch of colourful silicone moulds filled with unset resin."
+            }
+          />
         </div>
         <div className={"text-block"}>
-          <img src={GHOST_FACTORY_2} />
+          <img
+            src={GHOST_FACTORY_2}
+            alt={
+              "An angled photo of lots of translucent swirled peach-white paired resin ghosts. The paired ghosts are holding a red heart between them."
+            }
+          />
         </div>
         <div className={"text-block"}>
-          <img src={GHOST_FACTORY_3} />
+          <img
+            src={GHOST_FACTORY_3}
+            alt={
+              "A photo focused on a colourful resin cat with black eyes. Embossed text at its base reads 'YORK'. The model is part of a lineup of lots of others in a line behind and to either side of it."
+            }
+          />
         </div>
       </div>
     </Page>
