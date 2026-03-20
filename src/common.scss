@@ -5,8 +5,20 @@
 // 1. Include functions first (so we can manipulate colors, SVGs, calc, etc)
 @import "../node_modules/bootstrap/scss/functions";
 
+@font-face {
+  font-family: Open Dyslexic;
+  src: url("https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public/other-assets/Glow%20Me!/open_dyslexic/OpenDyslexicAlta-Regular.otf");
+}
+
+@font-face {
+  font-family: Roadside Sans;
+  src: url("https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public/other-assets/Glow%20Me!/roadside-sans-demo/RoadsideSansDemo-Regular.otf");
+}
+
 $primary: #f38cde;
 $secondary: #7a56b0;
+$font-family-sans-serif: "Open Dyslexic";
+$headings-font-family: "Roadside Sans";
 
 // 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
 @import "../node_modules/bootstrap/scss/variables";
