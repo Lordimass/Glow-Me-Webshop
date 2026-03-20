@@ -3,9 +3,11 @@
 
   z-index: 200;
   display: flex;
-  background-color: var(--bs-primary);
+  background-color: transparent;
   align-items: center;
   height: var(--header-height);
+  box-shadow: 0 0 0 2px var(--bs-primary), 0 0 0 3px white, 0 0 0 5px var(--bs-primary);
+  filter: drop-shadow(0 0 3px var(--bs-primary));
 
   .logo {
     height: var(--header-height);
