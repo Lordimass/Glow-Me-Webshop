@@ -4,7 +4,7 @@ import {
   GHOST_FACTORY_1,
   GHOST_FACTORY_2,
   GHOST_FACTORY_3,
-  PRIMARY_PNG,
+  PRIMARY_WEBP,
 } from "../../assets/assets.ts";
 import Dots from "../../assets/Dots.tsx";
 
@@ -18,10 +18,11 @@ export default function Home() {
         </div>
         <div className={"layer3"}>
           <img
-            src={PRIMARY_PNG}
+            src={PRIMARY_WEBP}
             alt={
               "A logo showing a cartoony neon sign that reads 'GLOW ME!'. There are two translucent glowing ghosts flanking the text."
             }
+            fetchPriority={"high"}
           />
         </div>
       </div>
@@ -55,6 +56,7 @@ export default function Home() {
             alt={
               "An angled photo of a bunch of colourful silicone moulds filled with unset resin."
             }
+            fetchPriority={"high"}
           />
         </div>
         <div className={"text-block"}>

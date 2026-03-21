@@ -8,11 +8,13 @@
 @font-face {
   font-family: Open Dyslexic;
   src: url("https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public/other-assets/Glow%20Me!/open_dyslexic/OpenDyslexicAlta-Regular.otf");
+  font-display: swap;
 }
 
 @font-face {
   font-family: Roadside Sans;
   src: url("https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public/other-assets/Glow%20Me!/roadside-sans-demo/RoadsideSansDemo-Regular.otf");
+  font-display: swap;
 }
 
 $primary: #f38cde;

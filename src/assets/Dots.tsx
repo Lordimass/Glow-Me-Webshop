@@ -5,6 +5,7 @@ export default function Dots() {
       height="auto"
       viewBox="0 0 739.02069 201.36172"
       version="1.1"
+      aria-hidden={true}
     >
       <path
         style={{ fill: "var(--bs-body-bg)" }}
