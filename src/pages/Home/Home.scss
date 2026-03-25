@@ -44,9 +44,10 @@
       width: auto;
     }
 
-    svg {
+    #dots {
       position: relative;
-      min-width: 5000px;
+      //min-width: 5000px;
+      //height: auto;
       top: var(--dots-offset);
     }
 

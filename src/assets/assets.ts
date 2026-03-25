@@ -9,6 +9,8 @@ export const SUBMARK_SVG = `${SUPABASE_LOGO_STORAGE}/Submark.svg`;
 export const PRIMARY_WEBP = `${SUPABASE_LOGO_STORAGE}/Primary.webp`;
 export const PRIMARY_SVG = `${SUPABASE_LOGO_STORAGE}/Primary.svg`;
 
+export const DOTS_WEBP = `${SUPABASE_GLOW_ME_STORAGE}/dots.webp`;
+
 export const GHOST_FACTORY_1 = `${SUPABASE_GLOW_ME_STORAGE}/ghost-factory-showcase/ghost-factory-1.webp`;
 export const GHOST_FACTORY_2 = `${SUPABASE_GLOW_ME_STORAGE}/ghost-factory-showcase/ghost-factory-2.webp`;
 export const GHOST_FACTORY_3 = `${SUPABASE_GLOW_ME_STORAGE}/ghost-factory-showcase/ghost-factory-3.webp`;
