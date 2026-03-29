@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home.tsx";
 import { StrictMode, useEffect } from "react";
+import { trackPageView } from "lordis-react-components";
 
 export default function App() {
   return (
@@ -13,12 +14,11 @@ export default function App() {
 function Inner() {
   const location = useLocation();
   useEffect(() => {
-    window.gtag("event", "page_view", {
-      page_title: document.title,
-      page_location: document.location.href,
-    });
+    trackPageView(document.title, document.location.href);
+    console.log(
+      `Tracked page view for ${document.title} - ${location.pathname}`,
+    );
   }, [location]);
-
   return (
     <>
       <meta name="author" content="Sam Knight" />
