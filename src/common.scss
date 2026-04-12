@@ -62,8 +62,47 @@ a:hover {
   color: lighten($primary, 15%);
 }
 
-@mixin neon-border($neon-colour: $primary) {
+@mixin neon-border($neon-colour: $primary, $border-radius: 3px) {
   box-shadow: 0 0 0 2px $neon-colour, 0 0 0 3px white, 0 0 0 5px $neon-colour;
   filter: drop-shadow(0 0 3px $neon-colour);
-  border-radius: 3px;
+  border-radius: $border-radius;
+}
+
+.btn-primary {
+  @include button-variant($primary, transparent,
+  $color: white,
+  $hover-background: darken($primary, 10%),
+  $hover-color: white,
+  $active-background: darken($primary, 15%),
+  $active-color: $gray-300
+  );
+}
+
+.btn-secondary {
+  @include button-variant($secondary, transparent,
+  $color: white,
+  $hover-background: darken($secondary, 10%),
+  $hover-color: white,
+  $active-background: darken($secondary, 15%),
+  $active-color: $gray-300
+  );
+}
+
+// ============ Product Styling ============
+.product {
+  @include neon-border($secondary, 20px);
+  background-color: transparent;
+  color: white;
+
+  .product-text {
+    color: inherit;
+  }
+}
+
+.ticker-text {
+  background-color: inherit;
+
+  input {
+    background-color: inherit;
+  }
 }

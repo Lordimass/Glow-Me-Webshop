@@ -7,8 +7,12 @@ import {
   PRIMARY_WEBP,
 } from "../../assets/assets.ts";
 import Dots from "../../assets/Dots.tsx";
+import { useGetProducts } from "../../lib/supabaseRPC.ts";
+import { ProductData, Products } from "lordis-react-components";
 
 export default function Home() {
+  const products: ProductData[] = useGetProducts();
+  console.log(products);
   return (
     <Page id={"home"}>
       <div className={"home-title-container"}>
@@ -76,6 +80,8 @@ export default function Home() {
           />
         </div>
       </div>
+
+      <Products prods={products} />
     </Page>
   );
 }
