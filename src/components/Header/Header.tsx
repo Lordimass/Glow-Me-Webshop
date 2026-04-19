@@ -1,5 +1,6 @@
 import { SUBMARK_WEBP } from "../../assets/assets.ts";
 import "./Header.scss";
+import { BasketManager } from "lordis-react-components";
 
 export default function Header() {
   return (
@@ -13,6 +14,7 @@ export default function Header() {
           />
         </a>
         <div className="header-spacer"></div>
+        <BasketManager />
       </div>
     </>
   );

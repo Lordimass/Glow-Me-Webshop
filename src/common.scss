@@ -1,3 +1,6 @@
+@use 'sass:color';
+@use "lordis-react-components/index" as *;
+
 // Sass deprecation warnings are shown when compiling source Sass files with the latest versions of Dart Sass. This
 // does not prevent compilation or usage of Bootstrap. A long-term fix is in progress, but in the meantime these
 // deprecation notices can be ignored.
@@ -74,7 +77,8 @@ a:hover {
   $hover-background: darken($primary, 10%),
   $hover-color: white,
   $active-background: darken($primary, 15%),
-  $active-color: $gray-300
+  $active-color: $gray-300,
+  $disabled-color: $gray-100,
   );
 }
 
@@ -88,14 +92,20 @@ a:hover {
   );
 }
 
-// ============ Product Styling ============
+// ============ Product ============ //
 .product {
   @include neon-border($secondary, 20px);
-  background-color: transparent;
+  background-color: $body-bg-dark;
   color: white;
+  overflow: hidden;
 
   .product-text {
     color: inherit;
+    margin: 15px;
+
+    .product-name {
+      font-size: 16px;
+    }
   }
 }
 
@@ -105,4 +115,18 @@ a:hover {
   input {
     background-color: inherit;
   }
+}
+
+// ============ Basket Manager ============ //
+
+#basket #basket-item-count {
+  background-color: color.adjust($primary, $alpha: -0.2);
+}
+
+.basket-display {
+  overflow-x: visible;
+}
+
+.basketItems {
+  padding: 5px;
 }

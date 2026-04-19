@@ -1,8 +1,8 @@
+import "./common.scss";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import "lordis-react-components/dist/index.css";
-import "./common.scss";
 import { initGA4, LRC } from "lordis-react-components";
 import { SupabaseClient } from "@supabase/supabase-js";
 

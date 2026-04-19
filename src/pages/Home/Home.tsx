@@ -12,7 +12,7 @@ import { ProductData, Products } from "lordis-react-components";
 
 export default function Home() {
   const products: ProductData[] = useGetProducts();
-  console.log(products);
+
   return (
     <Page id={"home"}>
       <div className={"home-title-container"}>

@@ -24,7 +24,7 @@
         "npm:eslint@^9.39.1",
         "npm:globals@^16.5.0",
         "npm:lighthouse@^13.0.3",
-        "npm:lordis-react-components@^1.2.3",
+        "npm:lordis-react-components@^1.4.1",
         "npm:netlify-cli@^24.5.1",
         "npm:prettier@3.8.1",
         "npm:react-bootstrap@^2.10.10",
