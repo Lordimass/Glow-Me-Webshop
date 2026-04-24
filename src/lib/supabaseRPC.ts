@@ -25,10 +25,16 @@ export function useGetProducts(): ProductData[] {
         return { uri };
       });
     }
-    return new ProductData(p.id, {
+    const opts = {
       ...p,
+      ...p.metadata,
       images,
       price: (p.price.unit_amount ?? 0) / 100,
-    });
+      priceId: p.price.id,
+    };
+
+    delete opts.metadata;
+
+    return new ProductData(p.id, opts);
   }) satisfies ProductData[];
 }

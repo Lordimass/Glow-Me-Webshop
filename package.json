@@ -11,16 +11,24 @@
     "lighthouse": "lighthouse http://localhost:8888 --output-path ./dist/lighthouse-results.html --view --chrome-flags=\"--headless\""
   },
   "dependencies": {
+    "@netlify/functions": "^5.2.0",
+    "@stripe/react-stripe-js": "^6.2.0",
+    "@stripe/stripe-js": "^9.2.0",
     "@supabase/supabase-js": "^2.101.1",
     "bootstrap": "^5.3.8",
-    "lordis-react-components": "^1.4.12",
+    "dinero.js": "^2.0.2",
+    "dotenv": "^17.4.2",
+    "locale-currency": "^1.0.0",
+    "lordis-react-components": "^1.5.3",
     "react": "^19.2.0",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.2.0",
-    "react-router-dom": "^7.13.1"
+    "react-router-dom": "^7.13.1",
+    "stripe": "^22.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@types/dinero.js": "^1.9.4",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",

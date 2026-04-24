@@ -22,6 +22,7 @@
 
 $primary: #f38cde;
 $secondary: #7a56b0;
+$link-color: $primary;
 $font-family-sans-serif: "Open Dyslexic";
 $headings-font-family: "Roadside Sans";
 
@@ -118,6 +119,10 @@ a:hover {
 }
 
 // ============ Basket Manager ============ //
+
+#basket {
+  margin: 10px;
+}
 
 #basket #basket-item-count {
   background-color: color.adjust($primary, $alpha: -0.2);

@@ -11,6 +11,7 @@ initGA4(
   import.meta.env.VITE_ENVIRONMENT === "DEVELOPMENT",
 );
 
+// @ts-ignore
 LRC.supabase = new SupabaseClient(
   import.meta.env.VITE_SUPABASE_DATABASE_URL,
   import.meta.env.VITE_SUPABASE_ANON_KEY,

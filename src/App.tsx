@@ -1,7 +1,9 @@
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home.tsx";
 import { StrictMode, useEffect } from "react";
-import { trackPageView } from "lordis-react-components";
+import { LRCContext, trackPageView } from "lordis-react-components";
+import { SITE_NAME } from "./lib/consts.ts";
+import Checkout from "./pages/Checkout/Checkout.tsx";
 
 export default function App() {
   return (
@@ -20,18 +22,19 @@ function Inner() {
     );
   }, [location]);
   return (
-    <>
+    <LRCContext>
       <meta name="author" content="Sam Knight" />
       <meta name="author" content="Lordimass" />
       <meta name="creator" content="Sam Knight" />
       <meta name="creator" content="Lordimass" />
       <meta name="generator" content="react" />
+      <title>{SITE_NAME}</title>
       <StrictMode>
         <Routes>
           <Route index element={<Home />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </StrictMode>
-    </>
+    </LRCContext>
   );
 }
