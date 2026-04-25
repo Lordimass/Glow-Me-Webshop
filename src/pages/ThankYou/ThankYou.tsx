@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import "./ThankYou.css";
+import "./ThankYou.scss";
 import Page from "../../components/Page/Page.tsx";
 
 const order_confirmed_gif: string =
@@ -22,7 +22,6 @@ export default function ThankYou() {
         <div className="thanks-top">
           <div className="order-confirmed-gif-container">
             <img id="order-confirmed-gif" src={order_confirmed_gif} />
-            <div id="drop-shadow" />
           </div>
         </div>
         <div className="thanks-bottom">
@@ -32,7 +31,7 @@ export default function ThankYou() {
             and your items will arrive in a few days!
           </p>
 
-          <button id="go-home" onClick={goHome}>
+          <button className="btn btn-primary" id="go-home" onClick={goHome}>
             Go Home
           </button>
         </div>
