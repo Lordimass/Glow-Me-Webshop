@@ -4,6 +4,7 @@ import { StrictMode, useEffect } from "react";
 import { LRCContext, trackPageView } from "lordis-react-components";
 import { SITE_NAME } from "./lib/consts.ts";
 import Checkout from "./pages/Checkout/Checkout.tsx";
+import ThankYou from "./pages/ThankYou/ThankYou.tsx";
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ function Inner() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/thankyou" element={<ThankYou />} />
         </Routes>
       </StrictMode>
     </LRCContext>
