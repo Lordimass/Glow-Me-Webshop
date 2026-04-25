@@ -6,7 +6,7 @@ export const UK: string[] = [
 
 // prettier-ignore
 /** ISO alpha-2 country codes corresponding to countries in the UK Zone that cannot currently be shipped to */
-const DISALLOWED_UK: string[] = [];
+// const DISALLOWED_UK: string[] = [];
 
 // prettier-ignore
 /** A list of ISO alpha-2 country codes corresponding to countries classified as part of Royal Mail's "Europe Zone 1",
@@ -19,9 +19,9 @@ export const EU: string[] = [
 
 // prettier-ignore
 /** ISO alpha-2 country codes corresponding to countries in Europe Zones that cannot currently be shipped to */
-const DISALLOWED_EU: string[] = [
-    "AZ", "AM", "BY", "RU", "UA"
-]
+// const DISALLOWED_EU: string[] = [
+//     "AZ", "AM", "BY", "RU", "UA"
+// ]
 
 // prettier-ignore
 /** A list of ISO alpha-2 country codes corresponding to countries classified as part of Royal Mail's "World Zone 1",
@@ -40,9 +40,9 @@ export const WORLD: string[] = [
 
 // prettier-ignore
 /** ISO alpha-2 country codes corresponding to countries in World Zones that cannot currently be shipped to */
-const DISALLOWED_WORLD: string[] = [
-    'MM', 'CN', 'CG', 'EG', 'ER', 'GN', 'HT', 'IQ', 'CI', 'LB', 'LR', 'LY', 'SL', 'SO', 'SS', 'SD', 'TN', 'ZW'
-]
+// const DISALLOWED_WORLD: string[] = [
+//     'MM', 'CN', 'CG', 'EG', 'ER', 'GN', 'HT', 'IQ', 'CI', 'LB', 'LR', 'LY', 'SL', 'SO', 'SS', 'SD', 'TN', 'ZW'
+// ]
 
 // prettier-ignore
 /** A list of ISO alpha-2 country codes corresponding to countries which we can ship to */
