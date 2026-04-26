@@ -1,7 +1,8 @@
-@import "../../common.scss";
+@use "../../common.scss" as c;
+@use "lordis-react-components/index" as bs;
 
 .thanks-box {
-  @include neon-border($primary, 20px);
+  @include c.neon-border(bs.$primary, 20px);
   display: flex;
   flex-direction: column;
 

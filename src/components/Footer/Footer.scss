@@ -1,7 +1,8 @@
-@import "../../common.scss";
+@use "../../common.scss" as c;
+@use "lordis-react-components/index" as bs;
 
 .footer {
-  @include neon-border($secondary);
+  @include c.neon-border(bs.$secondary);
   padding: 10px;
   display: flex;
   flex-direction: column;
