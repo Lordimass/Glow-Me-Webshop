@@ -1,14 +1,14 @@
 import Page from "../../components/Page/Page.tsx";
 import "./Home.scss";
+import Dots from "../../assets/Dots.tsx";
+import { useGetProducts } from "../../lib/supabaseRPC.ts";
+import { ProductData, Products } from "lordis-react-components";
 import {
   GHOST_FACTORY_1,
   GHOST_FACTORY_2,
   GHOST_FACTORY_3,
   PRIMARY_WEBP,
-} from "../../assets/assets.ts";
-import Dots from "../../assets/Dots.tsx";
-import { useGetProducts } from "../../lib/supabaseRPC.ts";
-import { ProductData, Products } from "lordis-react-components";
+} from "../../../shared/assets.ts";
 
 export default function Home() {
   const products: ProductData[] = useGetProducts();

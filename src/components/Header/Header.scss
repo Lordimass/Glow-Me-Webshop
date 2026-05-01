@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss" as c;
 
 .header {
   --header-height: 64px;
@@ -8,7 +8,7 @@
   background-color: transparent;
   align-items: center;
   height: var(--header-height);
-  @include neon-border;
+  @include c.neon-border;
 
   .logo {
     height: var(--header-height);

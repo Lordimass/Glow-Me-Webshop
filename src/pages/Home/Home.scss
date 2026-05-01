@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss" as c;
 
 #home {
   --height: 50vh;
@@ -71,7 +71,7 @@
   .text-block {
     position: relative;
     padding: 10px;
-    @include neon-border;
+    @include c.neon-border;
     background-color: var(--bs-body-bg);
 
     text-align: center;

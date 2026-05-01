@@ -1,6 +1,6 @@
-import { SUBMARK_WEBP } from "../../assets/assets.ts";
 import "./Header.scss";
 import { BasketManager } from "lordis-react-components";
+import { SUBMARK_WEBP } from "../../../shared/assets.ts";
 
 export default function Header() {
   return (

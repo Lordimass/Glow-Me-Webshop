@@ -27,7 +27,6 @@ export default async function handler(request: Request, _context: Context) {
     ui_mode: "embedded_page",
     line_items: body.stripe_line_items,
     mode: "payment",
-    // TODO: Replace body origin with the origin of actual request.
     return_url: body.origin + "/thankyou?session_id={CHECKOUT_SESSION_ID}",
     metadata: {
       gaClientID: body.gaClientID,
