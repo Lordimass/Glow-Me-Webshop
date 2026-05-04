@@ -44,6 +44,10 @@ export default async function handler(request: Request, _context: Context) {
       });
     }
 
+    if (await handleShipToSelf(body)) {
+      return new Response(JSON.stringify(["shr_1TSZ2SC1fpGB30NPV21ktaKg"]));
+    }
+
     let applicableRateNames = rateNames.world;
     if (UK.includes(country)) applicableRateNames = rateNames.uk;
     else if (EU.includes(country)) applicableRateNames = rateNames.eu;
@@ -72,4 +76,29 @@ export default async function handler(request: Request, _context: Context) {
     console.error(e);
     return new Response(undefined, { status: 500 });
   }
+}
+
+/**
+ * Handle the case where the address entered is our own address, in which case, make the shipping free. If this is used
+ * by a customer they will never receive their package because we won't have their address, so it cannot be exploited
+ * to dodge the shipping fee.
+ */
+async function handleShipToSelf(body: Body): Promise<boolean> {
+  const address = body.shipping_details.address;
+  if (
+    !(
+      address.line1 == "16 Parliament Street" &&
+      address.city == "York" &&
+      address.postal_code == "YO1 8SG"
+    )
+  ) {
+    return false;
+  }
+  await stripe.checkout.sessions.update(body.checkoutID, {
+    collected_information: { shipping_details: body.shipping_details as any },
+    shipping_options: [
+      { shipping_rate: "shr_1TSZ2SC1fpGB30NPV21ktaKg" },
+    ] as Stripe.Emptyable<any[]>,
+  });
+  return true;
 }

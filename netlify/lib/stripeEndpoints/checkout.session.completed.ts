@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import { supabaseService } from "../getSupabaseClient.ts";
-import { BasketProduct, GAItem } from "lordis-react-components";
+import { BasketProduct, GAItem, NetworkError } from "lordis-react-components";
 import { getCheckoutSessionItems } from "../checkoutSessionUtils.ts";
 import { sendGA4Event } from "../ga.ts";
 
@@ -11,12 +11,25 @@ export default async function handleCheckoutSessionCompleted(
     event.data.object.id,
   );
 
-  // await triggerGA4PurchaseEvent(event.data.object, lineItems);
-
-  // Perform actions only in Production
-  if (process.env.VITE_ENVIRONMENT == "PRODUCTION") {
-    await updateStock(lineItems);
-    await createRMOrder(event.data.object, lineItems);
+  const errors = [];
+  for (let action of [
+    () => triggerGA4PurchaseEvent(event.data.object, lineItems),
+    () => updateStock(lineItems),
+    () => createRMOrder(event.data.object, lineItems),
+  ]) {
+    try {
+      await action();
+    } catch (e) {
+      if (e instanceof AggregateError) {
+        console.error(e.message);
+        e.errors.forEach((error) => errors.push(error));
+      } else {
+        errors.push(e);
+      }
+    }
+  }
+  if (errors.length > 0) {
+    throw new AggregateError(errors);
   }
 
   console.log("ORDER PLACED");
@@ -25,6 +38,7 @@ export default async function handleCheckoutSessionCompleted(
 async function updateStock(products: BasketProduct[]) {
   for (const p of products) {
     const { error } = await supabaseService
+      .schema("glow_me")
       .from("products")
       .update({ stock: Math.max(p.stock - p.basketQuantity, 0) })
       .eq("id", p.sku);
@@ -44,6 +58,8 @@ async function createRMOrder(
   session: Stripe.Checkout.Session,
   prods: BasketProduct[],
 ) {
+  if (process.env.VITE_ENVIRONMENT !== "PRODUCTION") return;
+
   const royalMailKey = process.env.ROYAL_MAIL_KEY;
   if (!royalMailKey) throw new Error("No Royal Mail API Key Found");
 
@@ -52,7 +68,7 @@ async function createRMOrder(
   let orderWeight = 0;
   prods.forEach((p) => {
     subtotal += p.price;
-    orderWeight += (p.weight as number) ?? 0;
+    orderWeight += (p.weight as number) ?? 1;
   });
   const orderReference = session.id.slice(0, 40); // API max order ref length is 40
   const packageFormat = calculatePackageFormat(prods, orderWeight);
@@ -84,17 +100,17 @@ async function createRMOrder(
             },
             packages: [
               {
-                weightInGrams: orderWeight,
+                weightInGrams: orderWeight ?? 1,
                 packageFormatIdentifier: packageFormat,
                 contents: prods.map((prod) => {
                   return {
                     name: prod.name,
                     SKU: prod.sku,
-                    quantity: prod.quantity,
+                    quantity: prod.basketQuantity,
                     unitValue: prod.price / (prod.basketQuantity * 1.2), // Excluding tax for customs
-                    unitWeightInGrams: prod.weight ?? 0, // Weight is nullable in database
-                    customsDescription: prod.customs_description,
-                    originCountryCode: prod.origin_country_code,
+                    unitWeightInGrams: prod.metadata.weight ?? 1,
+                    customsDescription: prod.metadata.customs_description,
+                    originCountryCode: prod.metadata.origin_country_code,
                     customsDeclarationCategory: "saleOfGoods",
                   };
                 }),
@@ -111,9 +127,12 @@ async function createRMOrder(
     },
   );
 
-  const respBody = JSON.parse(await new Response(response.body).text());
+  const respBody = (await response.json()) as any;
   if (respBody.errorsCount > 0) {
-    throw new Error(respBody.failedOrders[0].errors);
+    throw new AggregateError(
+      respBody.failedOrders[0].errors,
+      "Something went wrong when recording order to Royal Mail:",
+    );
   }
 }
 
@@ -156,6 +175,8 @@ async function triggerGA4PurchaseEvent(
   const session_id = Number(session.metadata!.gaSessionID);
 
   // Compile payload for GA4.
+  const items = prods.map((p) => new GAItem(p)); // Map to GA4 item format
+  console.log("GAItems are:", items);
   const payload = {
     client_id,
     events: [
@@ -172,15 +193,15 @@ async function triggerGA4PurchaseEvent(
               (session.shipping_cost?.amount_total ?? 0)) /
             100,
           currency: session.currency,
-          items: prods.map((p) => new GAItem(p)), // Map to GA4 item format
+          items,
         },
       },
     ],
   };
   console.log(
-    `Triggering PURCHASE event for transaction with value ${payload.events[0].params.currency}${payload.events[0].params.value}`,
+    `Triggering PURCHASE event for transaction with value ${payload.events[0].params.currency} ${payload.events[0].params.value}`,
   );
   if (!(await sendGA4Event(payload))) {
-    throw new Error("Failed to trigger GA4 Purchase Event");
+    throw new NetworkError("Failed to trigger GA4 Purchase Event", 500);
   }
 }

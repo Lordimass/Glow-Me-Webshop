@@ -3,12 +3,7 @@ import { stripe } from "../lib/stripe.ts";
 import Stripe from "stripe";
 import handleCheckoutSessionCompleted from "../lib/stripeEndpoints/checkout.session.completed.ts";
 // import { handleRefundCreated } from "../lib/stripeEndpoints/refund.created.ts";
-import { configDotenv } from "dotenv";
-
-const dotenvConfigOutput = configDotenv({ path: ".env.secret" });
-const STRIPE_HOOK_SECRET =
-  dotenvConfigOutput.parsed?.STRIPE_HOOK_SECRET ??
-  process.env.STRIPE_HOOK_SECRET;
+import { NetworkError } from "lordis-react-components";
 
 /**
  * Endpoint for Stripe webhooks. Authenticates requests and forwards the request
@@ -21,17 +16,15 @@ export default async function handler(request: Request, _context: Context) {
     }
 
     // Extract signature and pick secret to authenticate with
-    const endpointSecret = STRIPE_HOOK_SECRET;
+    const endpointSecret = process.env.STRIPE_HOOK_SECRET;
     if (!endpointSecret)
-      return new Response(undefined, {
+      return new Response("No Stripe endpoint secret set", {
         status: 401,
-        statusText: "No Stripe endpoint secret set",
       });
     const sig = request.headers.get("stripe-signature");
     if (!sig)
-      return new Response(undefined, {
+      return new Response("No `stripe-signature` header received", {
         status: 401,
-        statusText: "No Stripe signature received",
       });
 
     // Extract body
@@ -43,9 +36,8 @@ export default async function handler(request: Request, _context: Context) {
       stripe.webhooks.constructEvent(bodyString, sig, endpointSecret);
     } catch (err) {
       console.error("Failed to verify webhook signature: ", err);
-      return new Response(undefined, {
-        status: 400,
-        statusText: "Failed to verify webhook signature",
+      return new Response("Failed to verify webhook signature", {
+        status: 401,
       });
     }
 
@@ -65,7 +57,18 @@ export default async function handler(request: Request, _context: Context) {
     }
     return new Response(undefined, { status: 200 });
   } catch (e) {
-    console.error(e);
-    return new Response(undefined, { status: 500 });
+    if (e instanceof AggregateError) {
+      console.error(e.message);
+      if (e.errors.length > 0) {
+        for (let error of e.errors) {
+          console.error(error);
+        }
+      }
+      e = e.errors[0];
+    }
+    if (e instanceof NetworkError) {
+      return new Response(e.responseBody, { status: e.status });
+    }
+    throw e;
   }
 }

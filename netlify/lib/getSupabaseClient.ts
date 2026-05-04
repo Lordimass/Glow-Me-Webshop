@@ -1,4 +1,11 @@
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
+import { NetworkError } from "lordis-react-components";
+import { configDotenv } from "dotenv";
+
+const dotenvConfigOutput = configDotenv({ path: ".env.secret" });
+const SUPABASE_SERVICE_ROLE_KEY =
+  dotenvConfigOutput.parsed?.SUPABASE_SERVICE_ROLE_KEY ??
+  process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 export const supabaseAnon = await getSupabaseClient();
 export const supabaseService = await getSupabaseClient(undefined, true);
@@ -16,22 +23,25 @@ export default async function getSupabaseClient(
   // Grab URL and Key from Netlify Env Variables.
   const supabaseUrl = process.env.SUPABASE_DATABASE_URL;
   const supabaseKey = process.env.SUPABASE_ANON_KEY;
-  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-  if (!supabaseUrl || !supabaseKey || !supabaseServiceKey) {
-    throw { status: 403, message: "Supabase credentials not set" };
+  const supabaseServiceKey = SUPABASE_SERVICE_ROLE_KEY;
+  if (
+    !supabaseUrl ||
+    (!supabaseKey && !serviceRole) ||
+    (!supabaseServiceKey && serviceRole)
+  ) {
+    throw new NetworkError("Supabase credentials not set", 403);
   }
 
   let supabase: SupabaseClient | undefined;
 
   if (serviceRole) {
-    supabase = createClient(supabaseUrl, supabaseServiceKey);
+    supabase = createClient(supabaseUrl, supabaseServiceKey!);
   } else if (authHeader) {
-    supabase = createClient(supabaseUrl, supabaseKey, {
+    supabase = createClient(supabaseUrl, supabaseKey!, {
       global: { headers: { Authorization: authHeader } },
     });
   } else {
-    supabase = createClient(supabaseUrl, supabaseKey);
+    supabase = createClient(supabaseUrl, supabaseKey!);
   }
 
   return supabase;

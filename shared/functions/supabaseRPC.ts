@@ -6,15 +6,15 @@ import { SUPABASE_STORAGE } from "../assets.ts";
 export async function getProducts(
   ids?: string[],
   in_stock_only = false,
+  livemode = true,
   notify?: (msg: string) => void,
   // @ts-ignore TODO: This is not being picked up as the right type and I have no idea why but it needs to be fixed
   supabase?: SupabaseClient = LRC.supabase,
 ): Promise<ProductData[]> {
   const products: any[] = await callRPC(
     "gm_get_products",
-    { ids, in_stock_only },
+    { ids, in_stock_only, p_livemode: livemode },
     notify,
-    // @ts-ignore
     supabase,
   );
 

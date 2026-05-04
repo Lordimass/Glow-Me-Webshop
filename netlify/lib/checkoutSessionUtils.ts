@@ -19,6 +19,7 @@ export async function getCheckoutSessionItems(sessionId: string) {
   const products = await getProducts(
     itemsWithProductIds.map((p) => p.productId),
     false,
+    process.env.VITE_ENVIRONMENT !== "DEVELOPMENT",
     undefined,
     supabaseAnon,
   );
