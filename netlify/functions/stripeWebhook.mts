@@ -2,7 +2,7 @@ import type { Context } from "@netlify/functions";
 import { stripe } from "../lib/stripe.ts";
 import Stripe from "stripe";
 import handleCheckoutSessionCompleted from "../lib/stripeEndpoints/checkout.session.completed.ts";
-// import { handleRefundCreated } from "../lib/stripeEndpoints/refund.created.ts";
+import { handleRefundCreated } from "../lib/stripeEndpoints/refund.created.ts";
 import { NetworkError } from "lordis-react-components";
 
 /**
@@ -49,7 +49,7 @@ export default async function handler(request: Request, _context: Context) {
         await handleCheckoutSessionCompleted(body);
         break;
       case "refund.created":
-        // await handleRefundCreated(body);
+        await handleRefundCreated(body);
         break;
       default:
         console.warn(`Event '${type}'did not map to a function`);

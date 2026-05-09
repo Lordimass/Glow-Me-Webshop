@@ -1,7 +1,11 @@
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home.tsx";
 import { StrictMode, useEffect } from "react";
-import { LRCContext, trackPageView } from "lordis-react-components";
+import {
+  LRCContext,
+  trackPageView,
+  useConsentMode,
+} from "lordis-react-components";
 import { SITE_NAME } from "./lib/consts.ts";
 import Checkout from "./pages/Checkout/Checkout.tsx";
 import ThankYou from "./pages/ThankYou/ThankYou.tsx";
@@ -9,12 +13,17 @@ import ThankYou from "./pages/ThankYou/ThankYou.tsx";
 export default function App() {
   return (
     <BrowserRouter>
-      <Inner />
+      <LRCContext>
+        <Inner />
+      </LRCContext>
     </BrowserRouter>
   );
 }
 
 function Inner() {
+  useConsentMode();
+
+  // Page view tracking
   const location = useLocation();
   useEffect(() => {
     trackPageView(document.title, document.location.href);
@@ -23,7 +32,7 @@ function Inner() {
     );
   }, [location]);
   return (
-    <LRCContext>
+    <>
       <meta name="author" content="Sam Knight" />
       <meta name="author" content="Lordimass" />
       <meta name="creator" content="Sam Knight" />
@@ -37,6 +46,6 @@ function Inner() {
           <Route path="/thankyou" element={<ThankYou />} />
         </Routes>
       </StrictMode>
-    </LRCContext>
+    </>
   );
 }
