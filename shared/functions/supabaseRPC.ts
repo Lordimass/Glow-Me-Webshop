@@ -1,6 +1,11 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { MinimalProductImage } from "lordis-react-components";
-import { callRPC, LRC, ProductData } from "lordis-react-components";
+import {
+  callRPC,
+  LRC,
+  type MinimalProductImage,
+  ProductData,
+  ProductGroup,
+} from "lordis-react-components";
 import { SUPABASE_STORAGE } from "../assets.ts";
 
 export async function getProducts(
@@ -43,10 +48,20 @@ export function handleGetProductsResponse(respData: any[]): ProductData[] {
       images,
       price: (p.price.unit_amount ?? 0) / 100,
       priceId: p.price.id,
+      groupName: p.group_name,
     };
 
     delete opts.metadata;
 
     return new ProductData(p.id, opts);
   }) satisfies ProductData[];
+}
+
+export function handleGetGroupedProductsResponse(
+  respData: any[][],
+): (ProductGroup | ProductData)[] {
+  return respData.map((g) => {
+    const group = handleGetProductsResponse(g);
+    return group.length == 1 ? group[0] : new ProductGroup(group);
+  });
 }

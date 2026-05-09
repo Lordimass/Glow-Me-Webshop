@@ -2,7 +2,11 @@ import Page from "../../components/Page/Page.tsx";
 import "./Home.scss";
 import Dots from "../../assets/Dots.tsx";
 import { useGetProducts } from "../../lib/supabaseRPC.ts";
-import { ProductData, Products } from "lordis-react-components";
+import {
+  ProductData,
+  type ProductGroup,
+  Products,
+} from "lordis-react-components";
 import {
   GHOST_FACTORY_1,
   GHOST_FACTORY_2,
@@ -11,7 +15,7 @@ import {
 } from "../../../shared/assets.ts";
 
 export default function Home() {
-  const products: ProductData[] = useGetProducts();
+  const products: (ProductGroup | ProductData)[] = useGetProducts();
 
   return (
     <Page id={"home"}>
