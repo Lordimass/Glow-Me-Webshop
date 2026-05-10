@@ -1,11 +1,4 @@
-import type { SupabaseClient } from "@supabase/supabase-js";
-import {
-  callRPC,
-  LRC,
-  type MinimalProductImage,
-  ProductData,
-  ProductGroup,
-} from "lordis-react-components";
+import { callRPC, LRC, type MinimalProductImage, ProductData, ProductGroup } from "lordis-react-components";
 import { SUPABASE_STORAGE } from "../assets.ts";
 
 export async function getProducts(
@@ -13,8 +6,7 @@ export async function getProducts(
   in_stock_only = false,
   livemode = true,
   notify?: (msg: string) => void,
-  // @ts-ignore TODO: This is not being picked up as the right type and I have no idea why but it needs to be fixed
-  supabase?: SupabaseClient = LRC.supabase,
+  supabase = LRC.supabase,
 ): Promise<ProductData[]> {
   const products: any[] = await callRPC(
     "gm_get_products",
