@@ -20,7 +20,7 @@
     "dinero.js": "^2.0.2",
     "dotenv": "^17.4.2",
     "locale-currency": "^1.0.0",
-    "lordis-react-components": "^1.6.1",
+    "lordis-react-components": "^1.7.0",
     "motion": "^12.38.0",
     "react": "^19.2.0",
     "react-bootstrap": "^2.10.10",

@@ -1,0 +1,32 @@
+@use "../../common.scss" as c;
+@use "lordis-react-components/index" as bs;
+@use 'sass:color';
+
+.product-box {
+  @include c.neon-border($neon-colour: bs.$primary, $border-radius: 20px);
+  background-color: lighten(bs.$body-bg-dark, 5%);
+  background-image: none;
+
+  .title {
+    color: white;
+  }
+}
+
+.additional-product-information {
+  @include c.neon-border($neon-colour: bs.$secondary, $border-radius: 20px);
+}
+
+.product-variant {
+  border: 1px solid rgb(255 255 255 / 0.8);
+}
+
+.product-variant:hover {
+  border: 2px solid bs.$secondary;
+  background-color: darken(bs.$secondary, 40%);
+}
+
+.selected-product-variant {
+  background-color: darken(bs.$primary, 60%);;
+  border: 2px solid bs.$primary;
+  margin-bottom: 10px;
+}

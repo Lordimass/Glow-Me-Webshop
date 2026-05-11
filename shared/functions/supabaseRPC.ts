@@ -1,21 +1,46 @@
-import { callRPC, LRC, type MinimalProductImage, ProductData, ProductGroup } from "lordis-react-components";
+import {
+  callRPC,
+  type IToast,
+  LRC,
+  type MinimalProductImage,
+  ProductData,
+  ProductGroup,
+} from "lordis-react-components";
 import { SUPABASE_STORAGE } from "../assets.ts";
 
 export async function getProducts(
   ids?: string[],
   in_stock_only = false,
   livemode = true,
-  notify?: (msg: string) => void,
+  toast?: (toast: IToast | string) => void,
   supabase = LRC.supabase,
 ): Promise<ProductData[]> {
   const products: any[] = await callRPC(
     "gm_get_products",
     { ids, in_stock_only, p_livemode: livemode },
-    notify,
+    toast,
     supabase,
   );
 
   return handleGetProductsResponse(products);
+}
+
+export async function getGroupedProducts(
+  ids?: string[],
+  in_stock_only = false,
+  livemode = true,
+  toast?: (toast: IToast | string) => void,
+  supabase = LRC.supabase,
+): Promise<ProductGroup[]> {
+  const groups: any[][] = await callRPC(
+    "gm_get_grouped_products",
+    { ids, in_stock_only, p_livemode: livemode },
+    toast,
+    supabase,
+  );
+  console.log("Groups:", groups);
+
+  return handleGetGroupedProductsResponse(groups);
 }
 
 export function handleGetProductsResponse(respData: any[]): ProductData[] {
@@ -51,9 +76,6 @@ export function handleGetProductsResponse(respData: any[]): ProductData[] {
 
 export function handleGetGroupedProductsResponse(
   respData: any[][],
-): (ProductGroup | ProductData)[] {
-  return respData.map((g) => {
-    const group = handleGetProductsResponse(g);
-    return group.length == 1 ? group[0] : new ProductGroup(group);
-  });
+): ProductGroup[] {
+  return respData.map((g) => new ProductGroup(handleGetProductsResponse(g)));
 }

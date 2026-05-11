@@ -1,7 +1,7 @@
 import Page from "../../components/Page/Page.tsx";
 import "./Home.scss";
 import Dots from "../../assets/Dots.tsx";
-import { useGetProducts } from "../../lib/supabaseRPC.ts";
+import { useGetGroupedProducts } from "../../lib/supabaseRPC.ts";
 import {
   ProductData,
   type ProductGroup,
@@ -15,7 +15,7 @@ import {
 } from "../../../shared/assets.ts";
 
 export default function Home() {
-  const products: (ProductGroup | ProductData)[] = useGetProducts();
+  const products: (ProductGroup | ProductData)[] = useGetGroupedProducts();
 
   return (
     <Page id={"home"}>

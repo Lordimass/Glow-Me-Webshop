@@ -1,15 +1,20 @@
-import {
-  ProductData,
-  type ProductGroup,
-  useCallRPC,
-} from "lordis-react-components";
-import { handleGetGroupedProductsResponse } from "../../shared/functions/supabaseRPC.ts";
+import { type ProductGroup, ToastContext } from "lordis-react-components";
+import { getGroupedProducts } from "../../shared/functions/supabaseRPC.ts";
+import { useContext, useEffect, useState } from "react";
 
-export function useGetProducts(): (ProductGroup | ProductData)[] {
+export function useGetGroupedProducts(
+  ids?: string[],
+  in_stock_only = false,
+): ProductGroup[] {
   const livemode = import.meta.env.VITE_ENVIRONMENT !== "DEVELOPMENT";
-  const resp = useCallRPC("gm_get_grouped_products", { p_livemode: livemode });
-  if (!resp.data) {
-    return [];
-  }
-  return handleGetGroupedProductsResponse(resp.data);
+  const { toast } = useContext(ToastContext);
+  const [groups, setGroups] = useState<ProductGroup[]>([]);
+  useEffect(() => {
+    async function fetch() {
+      setGroups(await getGroupedProducts(ids, in_stock_only, livemode, toast));
+    }
+    fetch().then();
+  }, []);
+
+  return groups;
 }
