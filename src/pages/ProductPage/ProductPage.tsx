@@ -4,16 +4,24 @@ import {
   ProductPageComponent,
 } from "../../../../Lordis-React-Components";
 import "./ProductPage.scss";
-import type { ProductGroup } from "lordis-react-components";
 import Page from "../../components/Page/Page.tsx";
 import { SITE_NAME } from "../../lib/consts.ts";
+import Page404 from "../Page404/Page404.tsx";
 
 export default function ProductPage() {
   // Fetch the product for this page.
   const path = window.location.pathname.split("/");
   const sku = path[path.length - 1];
-  const group: ProductGroup | undefined = useGetGroupedProducts([sku])[0];
-  const product = group?.products[0] ?? ProductData.NULL;
+  const resp = useGetGroupedProducts([sku]);
+  let product = ProductData.NULL;
+  let group = undefined;
+  if (!resp.loading) {
+    if (resp.error || !resp.data || resp.data?.length == 0) {
+      return <Page404 />;
+    }
+    group = resp.data[0];
+    product = group.products[0];
+  }
 
   return (
     <Page title={`${SITE_NAME} - ${product.name}`}>

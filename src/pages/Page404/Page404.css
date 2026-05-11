@@ -1,0 +1,12 @@
+#content-404 {
+    align-items: center;
+    justify-content: center;
+
+    h1 {
+        font-size: 8rem;
+    }
+
+    p {
+        font-size: 2rem;
+    }
+}

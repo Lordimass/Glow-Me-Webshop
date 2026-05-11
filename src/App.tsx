@@ -10,6 +10,7 @@ import { SITE_NAME } from "./lib/consts.ts";
 import Checkout from "./pages/Checkout/Checkout.tsx";
 import ThankYou from "./pages/ThankYou/ThankYou.tsx";
 import ProductPage from "./pages/ProductPage/ProductPage.tsx";
+import Page404 from "./pages/Page404/Page404.tsx";
 
 export default function App() {
   return (
@@ -46,6 +47,7 @@ function Inner() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/thankyou" element={<ThankYou />} />
           <Route path="/products/*" element={<ProductPage />} />
+          <Route path="*" element={<Page404 />} />
         </Routes>
       </StrictMode>
     </>

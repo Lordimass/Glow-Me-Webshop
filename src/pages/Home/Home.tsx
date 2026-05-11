@@ -2,11 +2,7 @@ import Page from "../../components/Page/Page.tsx";
 import "./Home.scss";
 import Dots from "../../assets/Dots.tsx";
 import { useGetGroupedProducts } from "../../lib/supabaseRPC.ts";
-import {
-  ProductData,
-  type ProductGroup,
-  Products,
-} from "lordis-react-components";
+import { Products } from "lordis-react-components";
 import {
   GHOST_FACTORY_1,
   GHOST_FACTORY_2,
@@ -15,7 +11,7 @@ import {
 } from "../../../shared/assets.ts";
 
 export default function Home() {
-  const products: (ProductGroup | ProductData)[] = useGetGroupedProducts();
+  const groups = useGetGroupedProducts().data;
 
   return (
     <Page id={"home"}>
@@ -85,7 +81,7 @@ export default function Home() {
         </div>
       </div>
 
-      <Products prods={products} />
+      {groups ? <Products prods={groups} /> : null}
     </Page>
   );
 }
