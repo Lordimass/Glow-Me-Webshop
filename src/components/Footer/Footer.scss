@@ -3,6 +3,7 @@
 
 .footer {
   @include c.neon-border(bs.$secondary);
+  background-color: bs.$body-bg-dark;
   padding: 10px;
   display: flex;
   flex-direction: column;

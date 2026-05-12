@@ -1,7 +1,9 @@
 @use "../../common.scss" as c;
+@use 'sass:color';
 
 .header {
   --header-height: 64px;
+  background-color: c;
 
   z-index: 200;
   display: flex;

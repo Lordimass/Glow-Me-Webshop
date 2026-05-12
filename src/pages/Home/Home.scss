@@ -29,6 +29,9 @@
       height: calc(50vh + var(--dots-offset) - 1px);
       z-index: -1;
       max-height: unset;
+      @media screen and (max-width: 800px) {
+        height: 40vh;
+      }
     }
 
     .layer2 {
@@ -46,9 +49,9 @@
 
     #dots {
       position: relative;
-      //min-width: 5000px;
+      //min-width: 1000px;
       //height: auto;
-      top: var(--dots-offset);
+      top: calc(var(--dots-offset));
     }
 
     @media screen and (max-width: 800px) {
@@ -57,7 +60,12 @@
         width: 100%;
       }
 
-      --dots-offset: -20vw
+      #dots {
+        min-height: 100%;
+        width: auto
+      }
+
+      --dots-offset: 5vw
     }
   }
 

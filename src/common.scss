@@ -27,9 +27,23 @@ h1 {
   font-family: "Roadside Sans", "Open Dyslexic", sans-serif;
 }
 
+/* Starry Background */
+body:before {
+  content: "";
+  background-image: url("https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public/other-assets/Glow%20Me!/Stars.svg");
+  background-size: 210px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  opacity: 0.5;
+}
+
 .content {
   gap: 20px;
-  padding: 20px;
+  padding: 2vh 1vw 3vh 1vw;
 }
 
 a {
