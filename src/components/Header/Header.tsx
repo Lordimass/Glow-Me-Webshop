@@ -5,6 +5,7 @@ import { SUBMARK_WEBP } from "../../../shared/assets.ts";
 export default function Header() {
   return (
     <>
+      <div className="header-page-space" />
       <div className="header">
         <a href={"/"} aria-label='Return to "This Shop Is So Gay" Home Page'>
           <img

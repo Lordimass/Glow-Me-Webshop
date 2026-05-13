@@ -1,24 +1,28 @@
 @use "../../common.scss" as c;
+@use "lordis-react-components/index" as bs;
 @use 'sass:color';
 
-.header {
-  --header-height: 64px;
-  background-color: c;
+$header-height: 64px;
 
-  z-index: 200;
-  display: flex;
-  background-color: transparent;
-  align-items: center;
-  height: var(--header-height);
-  @include c.neon-border;
-
-  .logo {
-    height: var(--header-height);
-    padding: 4px;
-  }
+.header-page-space {
+  height: $header-height;
 }
 
-.header-main {
+.header {
+  background-color: color.adjust(bs.$body-bg-dark, $alpha: -0.4);
+  position: fixed;
+  width: 100vw;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  height: $header-height;
+  @include c.neon-border;
+  filter: none;
+
+  .logo {
+    height: $header-height;
+    padding: 4px;
+  }
 }
 
 .header-spacer{
