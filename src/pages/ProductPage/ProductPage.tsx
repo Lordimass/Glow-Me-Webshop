@@ -1,8 +1,5 @@
 import { useGetGroupedProducts } from "../../lib/supabaseRPC.ts";
-import {
-  ProductData,
-  ProductPageComponent,
-} from "../../../../Lordis-React-Components";
+import { ProductData, ProductPageComponent } from "lordis-react-components";
 import "./ProductPage.scss";
 import Page from "../../components/Page/Page.tsx";
 import { SITE_NAME } from "../../lib/consts.ts";
