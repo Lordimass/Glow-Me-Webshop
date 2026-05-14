@@ -1,10 +1,9 @@
 import Page from "../../components/Page/Page.tsx";
 import "./ShopShowcase.scss";
 import type { ReactNode } from "react";
-import { GoHome, MinimalImage } from "../../../../Lordis-React-Components";
+import { GoHome, MinimalImage, Products } from "lordis-react-components";
 import { Carousel, CarouselItem } from "react-bootstrap";
 import { useGetGroupedProducts } from "../../lib/supabaseRPC.ts";
-import { Products } from "lordis-react-components";
 
 interface ShopShowcaseProps {
   /** The name of the shop */

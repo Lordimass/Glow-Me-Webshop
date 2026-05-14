@@ -34,25 +34,48 @@ export default function Home() {
         </div>
       </div>
       <div className={"spacer"} />
-
       <div></div>
+      <div className={"ghost-factory-showcase"}>
+        <div className={"showcase-item"}>
+          <img
+            src={GHOST_FACTORY_1}
+            alt={
+              "An angled photo of a bunch of colourful silicone moulds filled with unset resin."
+            }
+            fetchPriority={"high"}
+          />
+        </div>
+        <div className={"showcase-item"}>
+          <img
+            src={GHOST_FACTORY_2}
+            alt={
+              "An angled photo of lots of translucent swirled peach-white paired resin ghosts. The paired ghosts are holding a red heart between them."
+            }
+          />
+        </div>
+        <div className={"showcase-item"}>
+          <img
+            src={GHOST_FACTORY_3}
+            alt={
+              "A photo focused on a colourful resin cat with black eyes. Embossed text at its base reads 'YORK'. The model is part of a lineup of lots of others in a line behind and to either side of it."
+            }
+          />
+        </div>
+      </div>
       <div className={"text-block"}>
-        <h1>Work In Progress!</h1>
+        <h1>Welcome!</h1>
         <p>
           We hand-craft glow in the dark models using resin and a variety of
           different glowing powders and colours. Each has its own personality,
-          imperfections, and love put into it by us
+          imperfections, and love put into it by us.
         </p>
         <p>❤️🧡💛💚💙💜</p>
         <p>
-          This website will be used to showcase and sell our models, once it's
-          set up. But for now, if you're dying to get your hands on one, you can
-          visit one of our shops in York:
-          <br />
-          <br />
-          <a href={"https://maps.app.goo.gl/VYgvgztjZpTGZHz4A"}>GHOSTS</a>
-          <br />
-          <a href={"https://maps.app.goo.gl/4K2Td9WSWWxjDewj8"}>CATS</a>
+          This website is a showcase of our models, as well as a place to buy
+          them! We have two shops in York, England called GHOSTS and CATS
+          (you'll never guess what they sell) where you can go to see our full
+          selection of Glows, or find out more about each shop and see the full
+          selection from each on their pages below:
         </p>
       </div>
 
@@ -75,34 +98,6 @@ export default function Home() {
           />
           <h1>CATS</h1>
         </Button>
-      </div>
-
-      <div className={"ghost-factory-showcase"}>
-        <div className={"text-block"}>
-          <img
-            src={GHOST_FACTORY_1}
-            alt={
-              "An angled photo of a bunch of colourful silicone moulds filled with unset resin."
-            }
-            fetchPriority={"high"}
-          />
-        </div>
-        <div className={"text-block"}>
-          <img
-            src={GHOST_FACTORY_2}
-            alt={
-              "An angled photo of lots of translucent swirled peach-white paired resin ghosts. The paired ghosts are holding a red heart between them."
-            }
-          />
-        </div>
-        <div className={"text-block"}>
-          <img
-            src={GHOST_FACTORY_3}
-            alt={
-              "A photo focused on a colourful resin cat with black eyes. Embossed text at its base reads 'YORK'. The model is part of a lineup of lots of others in a line behind and to either side of it."
-            }
-          />
-        </div>
       </div>
 
       {groups ? <Products prods={groups} /> : null}

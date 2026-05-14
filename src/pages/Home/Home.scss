@@ -70,6 +70,29 @@
     }
   }
 
+  .ghost-factory-showcase {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+
+    > div {
+      @include c.neon-border(bs.$secondary);
+      display: flex;
+      overflow: hidden;
+      box-sizing: border-box;
+      background-color: transparent;
+      padding: 0;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    @media screen and (orientation: portrait) {
+      gap: 2px
+    }
+  }
+
   .spacer {
     height: calc(var(--height) - 3vh);
     @media screen and (max-width: 800px) {
@@ -112,26 +135,6 @@
       img {
         width: 90%;
       }
-    }
-  }
-
-  .ghost-factory-showcase {
-    display: flex;
-    gap: 15px;
-
-    > div {
-      max-width: 100%;
-      box-sizing: border-box;
-      background-color: transparent;
-      padding: 0;
-
-      img {
-        width: 100%;
-      }
-    }
-
-    @media screen and (orientation: portrait) {
-      flex-direction: column;
     }
   }
 }
