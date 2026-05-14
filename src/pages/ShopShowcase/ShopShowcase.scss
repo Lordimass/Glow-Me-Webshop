@@ -1,0 +1,79 @@
+@use "../../common.scss" as c;
+@use "lordis-react-components/index" as bs;
+
+$map-height: min(500px, 40vh);
+
+#shop-showcase {
+  align-items: center;
+  .go-home-button {
+    position: absolute;
+    @media screen and (max-width: 1000px){
+      position: initial;
+    }
+  }
+  .shop-title {
+    hr {
+      margin: 10px 0 10px 0;
+      border-width: 3px;
+    }
+    font-size: 4rem
+  }
+
+  .split {
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+
+    .left {
+      width: 100%;
+      max-width: 100%;
+      background-color: bs.$body-bg-dark;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .right {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gmap_iframe {
+      --margin: 20px;
+      @include c.neon-border;
+      height: $map-height;
+      margin: 0 var(--margin) 0 var(--margin);
+      width: calc(100% - 2 * var(--margin));
+    }
+
+    @media screen and (max-width: 1000px) {
+      flex-direction: column;
+    }
+  }
+
+  .left.carousel-outer {
+    width: 150%;
+    .carousel {
+      @include c.neon-border(bs.$secondary);
+      height: $map-height;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 20px;
+
+      .carousel-image {
+        min-height: $map-height;
+        background-position: center;
+        background-size: cover;
+      }
+    }
+  }
+
+  .submark {
+    height: $map-height;
+
+    @media screen and (max-width: 1000px){
+      display: none;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 @use "../../common.scss" as c;
+@use "lordis-react-components/index" as bs;
 
 #home {
   --height: 50vh;
@@ -87,6 +88,30 @@
     h1, p {
       color: white;
       filter: none
+    }
+  }
+
+  #shop-navigator {
+    display: flex;
+    gap: 5vw;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+    .btn {
+      @include c.neon-border(bs.$secondary, 25px);
+      background-color: var(--bs-body-bg);
+
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      max-width: min(40%, 400px);
+      max-height: 400px;
+      box-sizing: border-box;
+
+      img {
+        width: 90%;
+      }
     }
   }
 

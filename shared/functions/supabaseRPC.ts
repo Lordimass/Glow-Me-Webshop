@@ -12,12 +12,13 @@ export async function getProducts(
   ids?: string[],
   in_stock_only = false,
   livemode = true,
+  tags?: string[],
   toast?: (toast: IToast | string) => void,
   supabase = LRC.supabase,
 ): Promise<ProductData[]> {
   const products: any[] = await callRPC(
     "gm_get_products",
-    { ids, in_stock_only, p_livemode: livemode },
+    { ids, in_stock_only, p_livemode: livemode, p_tags: tags },
     toast,
     supabase,
   );
@@ -29,12 +30,13 @@ export async function getGroupedProducts(
   ids?: string[],
   in_stock_only = false,
   livemode = true,
+  tags?: string[],
   toast?: (toast: IToast | string) => void,
   supabase = LRC.supabase,
 ): Promise<ProductGroup[]> {
   const groups: any[][] = await callRPC(
     "gm_get_grouped_products",
-    { ids, in_stock_only, p_livemode: livemode },
+    { ids, in_stock_only, p_livemode: livemode, p_tags: tags },
     toast,
     supabase,
   );

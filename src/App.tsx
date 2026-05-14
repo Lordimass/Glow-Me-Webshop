@@ -11,6 +11,8 @@ import Checkout from "./pages/Checkout/Checkout.tsx";
 import ThankYou from "./pages/ThankYou/ThankYou.tsx";
 import ProductPage from "./pages/ProductPage/ProductPage.tsx";
 import Page404 from "./pages/Page404/Page404.tsx";
+import GHOSTS from "./pages/ShopShowcase/GHOSTS.tsx";
+import CATS from "./pages/ShopShowcase/CATS.tsx";
 
 export default function App() {
   return (
@@ -44,6 +46,8 @@ function Inner() {
       <StrictMode>
         <Routes>
           <Route index element={<Home />} />
+          <Route path={"/GHOSTS"} element={<GHOSTS />} />
+          <Route path={"/CATS"} element={<CATS />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/thankyou" element={<ThankYou />} />
           <Route path="/products/*" element={<ProductPage />} />

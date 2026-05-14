@@ -8,12 +8,14 @@ import { handleGetGroupedProductsResponse } from "../../shared/functions/supabas
 export function useGetGroupedProducts(
   ids?: string[],
   in_stock_only = false,
+  tags?: string[],
 ): UseRPCReturn<ProductGroup[]> {
   const livemode = import.meta.env.VITE_ENVIRONMENT !== "DEVELOPMENT";
   const resp = useCallRPC("gm_get_grouped_products", {
     ids,
     in_stock_only,
     p_livemode: livemode,
+    p_tags: tags,
   });
   if (resp.data) {
     resp.data = handleGetGroupedProductsResponse(resp.data);

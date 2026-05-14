@@ -20,9 +20,16 @@ export default function ProductPage() {
     product = group.products[0];
   }
 
+  // const carousel = document.getElementsByClassName("carousel")[0];
+  // if (carousel) {
+  //   carousel.setAttribute("data-bs-theme", "light");
+  // }
+
   return (
-    <Page title={`${SITE_NAME} - ${product.name}`}>
-      <ProductPageComponent p_product={product} group={group} />
-    </Page>
+    <div data-bs-theme={"light"}>
+      <Page title={`${SITE_NAME} - ${product.name}`}>
+        <ProductPageComponent p_product={product} group={group} />
+      </Page>
+    </div>
   );
 }

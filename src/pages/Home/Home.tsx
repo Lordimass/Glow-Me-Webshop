@@ -8,7 +8,10 @@ import {
   GHOST_FACTORY_2,
   GHOST_FACTORY_3,
   PRIMARY_WEBP,
+  SUBMARK_CATS_WEBP,
+  SUBMARK_WEBP,
 } from "../../../shared/assets.ts";
+import { Button } from "react-bootstrap";
 
 export default function Home() {
   const groups = useGetGroupedProducts().data;
@@ -51,6 +54,27 @@ export default function Home() {
           <br />
           <a href={"https://maps.app.goo.gl/4K2Td9WSWWxjDewj8"}>CATS</a>
         </p>
+      </div>
+
+      <div id={"shop-navigator"}>
+        <Button
+          className={"ratio-1x1"}
+          id={"ghosts-navigator"}
+          href={"/GHOSTS"}
+        >
+          <img
+            src={SUBMARK_WEBP}
+            alt="An icon of a translucent purple ghost with a radial rainbow glow"
+          />
+          <h1>GHOSTS</h1>
+        </Button>
+        <Button id={"cats-navigator"} className={"ratio-1x1"} href={"/CATS"}>
+          <img
+            src={SUBMARK_CATS_WEBP}
+            alt="An icon of a translucent blue-green cat with a colourful radial glow"
+          />
+          <h1>CATS</h1>
+        </Button>
       </div>
 
       <div className={"ghost-factory-showcase"}>
