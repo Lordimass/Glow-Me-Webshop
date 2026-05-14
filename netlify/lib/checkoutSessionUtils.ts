@@ -21,6 +21,7 @@ export async function getCheckoutSessionItems(sessionId: string) {
     false,
     process.env.VITE_ENVIRONMENT !== "DEVELOPMENT",
     undefined,
+    undefined,
     supabaseAnon,
   );
   return resp.data.map((lineItem) => {
