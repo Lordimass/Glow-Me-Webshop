@@ -1,78 +1,27 @@
 @use "../../common.scss" as c;
 @use "lordis-react-components/index" as bs;
+@use 'sass:color';
 
 #home {
-  --height: 50vh;
-
   .home-title-container {
-    --dots-offset: 80px;
-    position: absolute;
-    left: 0;
-
-    max-height: var(--height);
-    display: grid;
+    padding: 30px;
+    border-radius: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
     flex-direction: column;
     justify-content: center;
 
-    .layer1, .layer2, .layer3 {
-      position: relative;
-      top: -20px;
-      max-height: var(--height);
-      display: flex;
-      width: 100vw;
-      justify-content: center;
-      grid-column: 1;
-      grid-row: 1;
-    }
-
-    .layer1 {
-      background-image: radial-gradient(#8d6b9b, #340048 70%);
-      height: calc(50vh + var(--dots-offset) - 1px);
-      z-index: -1;
-      max-height: unset;
-      @media screen and (max-width: 800px) {
-        height: 40vh;
-      }
-    }
-
-    .layer2 {
-      z-index: -1;
-    }
-
-    .layer3 {
-      background-color: transparent;
-    }
-
     img {
-      height: 100%;
-      width: auto;
-    }
-
-    #dots {
-      position: relative;
-      //min-width: 1000px;
-      //height: auto;
-      top: calc(var(--dots-offset));
-    }
-
-    @media screen and (max-width: 800px) {
-      img {
-        height: min-content;
-        width: 100%;
-      }
-
-      #dots {
-        min-height: 100%;
-        width: auto
-      }
-
-      --dots-offset: 5vw
+      width: 100%;
+      max-height: 40vh;
     }
   }
 
   .ghost-factory-showcase {
     display: flex;
     gap: 10px;
+    margin-bottom: -15px;
     width: 100%;
 
     > div {
@@ -93,25 +42,12 @@
     }
   }
 
-  .spacer {
-    height: calc(var(--height) - 3vh);
-    @media screen and (max-width: 800px) {
-      height: 48vw;
-    }
-  }
-
   .text-block {
     position: relative;
     padding: 10px;
     @include c.neon-border;
     background-color: var(--bs-body-bg);
-
     text-align: center;
-
-    h1, p {
-      color: white;
-      filter: none
-    }
   }
 
   #shop-navigator {
@@ -121,7 +57,7 @@
     box-sizing: border-box;
     justify-content: center;
     .btn {
-      @include c.neon-border(bs.$secondary, 25px);
+      @include c.neon-border(bs.$primary, 25px);
       background-color: var(--bs-body-bg);
 
       display: flex;
@@ -133,7 +69,7 @@
       box-sizing: border-box;
 
       img {
-        width: 90%;
+        width: 80%;
       }
     }
   }

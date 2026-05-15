@@ -9,7 +9,7 @@ $header-height: 64px;
 }
 
 .header {
-  background-color: color.adjust(bs.$body-bg-dark, $alpha: -0.4);
+  background-color: color.adjust(bs.$body-bg, $alpha: -0.4);
   position: fixed;
   top: 0;
   box-sizing: border-box;
@@ -33,3 +33,25 @@ $header-height: 64px;
   flex-grow: 1;
 }
 
+// ============ Basket Manager ============ //
+
+#basket {
+  margin: 10px;
+
+  svg {
+    color: bs.$primary;
+  }
+}
+
+#basket #basket-item-count {
+  background-color: color.adjust(bs.$primary, $alpha: -0.2);
+}
+
+.basket-display {
+  overflow-x: visible;
+}
+
+.basketItems {
+  padding-right: 10px;
+  overflow-x: hidden !important;
+}

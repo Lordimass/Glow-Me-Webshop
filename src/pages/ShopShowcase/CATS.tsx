@@ -9,7 +9,7 @@ interface CATSProps {}
 export default function CATS({}: CATSProps) {
   return (
     <ShopShowcase
-      shopName={"CATS"}
+      shopName={"Cats"}
       mapEmbed="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=GLOW CATS, 6 Stonegate, York&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
       description={
         <span>

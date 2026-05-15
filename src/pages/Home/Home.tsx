@@ -1,13 +1,12 @@
 import Page from "../../components/Page/Page.tsx";
 import "./Home.scss";
-import Dots from "../../assets/Dots.tsx";
 import { useGetGroupedProducts } from "../../lib/supabaseRPC.ts";
 import { Products } from "lordis-react-components";
 import {
   GHOST_FACTORY_1,
   GHOST_FACTORY_2,
   GHOST_FACTORY_3,
-  PRIMARY_WEBP,
+  PRIMARY_AI_JPEG,
   SUBMARK_CATS_WEBP,
   SUBMARK_WEBP,
 } from "../../../shared/assets.ts";
@@ -19,22 +18,56 @@ export default function Home() {
   return (
     <Page id={"home"}>
       <div className={"home-title-container"}>
-        <div className={"layer1"} />
-        <div className={"layer2"}>
-          <Dots />
-        </div>
         <div className={"layer3"}>
           <img
-            src={PRIMARY_WEBP}
+            src={PRIMARY_AI_JPEG}
             alt={
-              "A logo showing a cartoony neon sign that reads 'GLOW ME!'. There are two translucent glowing ghosts flanking the text."
+              'A logo which reads "Glow Me". It has gold sparkles, a ghost, a black cat, and a pumpkin nearby.'
             }
             fetchPriority={"high"}
           />
         </div>
       </div>
-      <div className={"spacer"} />
-      <div></div>
+      <div className={"text-block"}>
+        <h1>Welcome!</h1>
+        <p>
+          We hand-craft glow in the dark models using resin and a variety of
+          different glowing powders and colours. Each has its own personality,
+          imperfections, and love put into it by us.
+        </p>
+        <p>🧡💛🧡💛🧡💛🧡💛🧡💛</p>
+        <p>
+          This website is a showcase of our models, as well as a place to buy
+          them! We have two shops in York, England called GHOSTS and CATS
+          (you'll never guess what they sell) where you can go to see our full
+          selection of Glows, or find out more about each shop and see the full
+          selection from each on their pages below:
+        </p>
+      </div>
+
+      <div id={"shop-navigator"}>
+        <Button
+          className={"ratio-1x1"}
+          id={"ghosts-navigator"}
+          href={"/GHOSTS"}
+        >
+          <img
+            src={SUBMARK_WEBP}
+            alt="An icon of a translucent purple ghost with a radial rainbow glow"
+          />
+          <h1>Ghosts</h1>
+        </Button>
+        <Button id={"cats-navigator"} className={"ratio-1x1"} href={"/CATS"}>
+          <img
+            src={SUBMARK_CATS_WEBP}
+            alt="An icon of a translucent blue-green cat with a colourful radial glow"
+          />
+          <h1>Cats</h1>
+        </Button>
+      </div>
+
+      {groups ? <Products prods={groups} /> : null}
+
       <div className={"ghost-factory-showcase"}>
         <div className={"showcase-item"}>
           <img
@@ -62,45 +95,6 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className={"text-block"}>
-        <h1>Welcome!</h1>
-        <p>
-          We hand-craft glow in the dark models using resin and a variety of
-          different glowing powders and colours. Each has its own personality,
-          imperfections, and love put into it by us.
-        </p>
-        <p>❤️🧡💛💚💙💜</p>
-        <p>
-          This website is a showcase of our models, as well as a place to buy
-          them! We have two shops in York, England called GHOSTS and CATS
-          (you'll never guess what they sell) where you can go to see our full
-          selection of Glows, or find out more about each shop and see the full
-          selection from each on their pages below:
-        </p>
-      </div>
-
-      <div id={"shop-navigator"}>
-        <Button
-          className={"ratio-1x1"}
-          id={"ghosts-navigator"}
-          href={"/GHOSTS"}
-        >
-          <img
-            src={SUBMARK_WEBP}
-            alt="An icon of a translucent purple ghost with a radial rainbow glow"
-          />
-          <h1>GHOSTS</h1>
-        </Button>
-        <Button id={"cats-navigator"} className={"ratio-1x1"} href={"/CATS"}>
-          <img
-            src={SUBMARK_CATS_WEBP}
-            alt="An icon of a translucent blue-green cat with a colourful radial glow"
-          />
-          <h1>CATS</h1>
-        </Button>
-      </div>
-
-      {groups ? <Products prods={groups} /> : null}
     </Page>
   );
 }

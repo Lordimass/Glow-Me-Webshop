@@ -3,7 +3,8 @@
 
 .footer {
   @include c.neon-border(bs.$secondary);
-  background-color: bs.$body-bg-dark;
+  background-color: bs.$body-bg;
+  color: bs.$dark;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -14,12 +15,12 @@
 }
 
 .footer-policy-links {
-  color: grey;
+  color: bs.$primary;
   text-align: center;
 }
 
 .policy-separator {
-  color: grey;
+  color: bs.$text-muted;
   margin-left: 0.5ch;
   margin-right: 0.5ch;
 }
@@ -30,6 +31,6 @@
 
 .footer-company-information {
   font-size: 11px;
-  color: #ddd;
+  color: bs.$dark;
   text-align: center;
 }

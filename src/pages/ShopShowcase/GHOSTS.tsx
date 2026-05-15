@@ -9,7 +9,7 @@ interface GHOSTSProps {}
 export default function GHOSTS({}: GHOSTSProps) {
   return (
     <ShopShowcase
-      shopName={"GHOSTS"}
+      shopName={"Ghosts"}
       description={
         <span>
           <i>

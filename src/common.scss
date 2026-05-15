@@ -4,11 +4,10 @@
 
 @use 'sass:color';
 @use "lordis-react-components/index" as bs with (
- $primary: #f38cde,
- $secondary: #7a56b0,
- $link-color: #f38cde,
+ $primary: #f4a635,
+ $secondary: #7c746b,
  $font-family-sans-serif: "Open Dyslexic",
- $enable-dark-mode: true
+ $enable-dark-mode: false
 );
 
 @font-face {
@@ -18,19 +17,23 @@
 }
 
 @font-face {
-  font-family: Roadside Sans;
-  src: url("https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public/other-assets/Glow%20Me!/roadside-sans-demo/RoadsideSansDemo-Regular.otf");
+  font-family: British Letter;
+  src: url("https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public/other-assets/Glow%20Me!/British Letter.ttf");
   font-display: swap;
 }
 
 h1 {
-  font-family: "Roadside Sans", "Open Dyslexic", sans-serif;
+  font-family: "British Letter", "Open Dyslexic", sans-serif;
+  font-size: 4rem;
+  color: bs.$primary;
+  filter: drop-shadow(0px 0px 5px color.adjust(bs.$primary, $alpha: -0.5));
+  text-decoration: dotted underline 2px bs.$secondary;
 }
 
 /* Starry Background */
 body:before {
   content: "";
-  background-image: url("https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public/other-assets/Glow%20Me!/Stars.svg");
+  background-image: url("https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public/other-assets/Glow%20Me!/StarsGold.svg");
   background-size: 210px;
   position: fixed;
   top: 0;
@@ -57,7 +60,7 @@ a {
 }
 
 a:hover {
-  color: lighten(bs.$primary, 15%);
+  color: darken(bs.$primary, 15%);
 }
 
 @mixin neon-border($neon-colour: bs.$primary, $border-radius: 3px) {
@@ -67,32 +70,10 @@ a:hover {
   margin: 5px;
 }
 
-.btn-primary {
-  @include bs.button-variant(bs.$primary, transparent,
-  $color: white,
-  $hover-background: darken(bs.$primary, 10%),
-  $hover-color: white,
-  $active-background: darken(bs.$primary, 15%),
-  $active-color: bs.$gray-300,
-  $disabled-color: bs.$gray-100,
-  );
-}
-
-.btn-secondary {
-  @include bs.button-variant(bs.$secondary, transparent,
-  $color: white,
-  $hover-background: darken(bs.$secondary, 10%),
-  $hover-color: white,
-  $active-background: darken(bs.$secondary, 15%),
-  $active-color: bs.$gray-300
-  );
-}
-
 // ============ Product ============ //
 .product {
-  @include neon-border(bs.$secondary, 20px);
-  background-color: bs.$body-bg-dark;
-  color: white;
+  @include neon-border(bs.$primary, 20px);
+  color: bs.$dark;
   overflow: hidden;
 
   .product-text {
@@ -113,20 +94,9 @@ a:hover {
   }
 }
 
-// ============ Basket Manager ============ //
+// ============ GoHome ============ //
 
-#basket {
-  margin: 10px;
-}
-
-#basket #basket-item-count {
-  background-color: color.adjust(bs.$primary, $alpha: -0.2);
-}
-
-.basket-display {
-  overflow-x: visible;
-}
-
-.basketItems {
-  padding: 5px;
+.go-home-button h1 {
+  color: bs.$primary;
+  text-decoration: none;
 }

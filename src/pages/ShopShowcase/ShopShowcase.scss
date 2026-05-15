@@ -12,6 +12,7 @@ $map-height: min(500px, 40vh);
     }
   }
   .shop-title {
+    text-decoration: none;
     hr {
       margin: 10px 0 10px 0;
       border-width: 3px;
@@ -27,7 +28,7 @@ $map-height: min(500px, 40vh);
     .left {
       width: 100%;
       max-width: 100%;
-      background-color: bs.$body-bg-dark;
+      background-color: var(--bs-body-bg);
       padding: 10px;
       border-radius: 10px;
     }
