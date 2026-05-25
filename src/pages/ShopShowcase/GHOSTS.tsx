@@ -1,6 +1,6 @@
 import ShopShowcase from "./ShopShowcase.tsx";
 import {
-  SUBMARK_WEBP,
+  GHOST_WEBP,
   SUPABASE_GLOW_ME_STORAGE,
 } from "../../../shared/assets.ts";
 
@@ -42,7 +42,7 @@ export default function GHOSTS({}: GHOSTSProps) {
         },
       ]}
       submark={{
-        uri: SUBMARK_WEBP,
+        uri: GHOST_WEBP,
         alt: "An icon of a translucent purple ghost with a radial rainbow glow",
       }}
       tags={["ghosts"]}

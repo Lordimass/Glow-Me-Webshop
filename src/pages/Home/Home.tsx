@@ -3,12 +3,12 @@ import "./Home.scss";
 import { useGetGroupedProducts } from "../../lib/supabaseRPC.ts";
 import { Products } from "lordis-react-components";
 import {
+  CAT_WEBP,
   GHOST_FACTORY_1,
   GHOST_FACTORY_2,
   GHOST_FACTORY_3,
-  PRIMARY_AI_JPEG,
-  SUBMARK_CATS_WEBP,
-  SUBMARK_WEBP,
+  GHOST_WEBP,
+  PRIMARY_WEBP
 } from "../../../shared/assets.ts";
 import { Button } from "react-bootstrap";
 
@@ -20,7 +20,7 @@ export default function Home() {
       <div className={"home-title-container"}>
         <div className={"layer3"}>
           <img
-            src={PRIMARY_AI_JPEG}
+            src={PRIMARY_WEBP}
             alt={
               'A logo which reads "Glow Me". It has gold sparkles, a ghost, a black cat, and a pumpkin nearby.'
             }
@@ -52,14 +52,14 @@ export default function Home() {
           href={"/GHOSTS"}
         >
           <img
-            src={SUBMARK_WEBP}
+            src={GHOST_WEBP}
             alt="An icon of a translucent purple ghost with a radial rainbow glow"
           />
           <h1>Ghosts</h1>
         </Button>
         <Button id={"cats-navigator"} className={"ratio-1x1"} href={"/CATS"}>
           <img
-            src={SUBMARK_CATS_WEBP}
+            src={CAT_WEBP}
             alt="An icon of a translucent blue-green cat with a colourful radial glow"
           />
           <h1>Cats</h1>

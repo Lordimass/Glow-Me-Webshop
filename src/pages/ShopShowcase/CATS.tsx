@@ -1,8 +1,5 @@
 import ShopShowcase from "./ShopShowcase.tsx";
-import {
-  SUBMARK_CATS_WEBP,
-  SUPABASE_GLOW_ME_STORAGE,
-} from "../../../shared/assets.ts";
+import { CAT_WEBP, SUPABASE_GLOW_ME_STORAGE } from "../../../shared/assets.ts";
 
 interface CATSProps {}
 
@@ -43,7 +40,7 @@ export default function CATS({}: CATSProps) {
         },
       ]}
       submark={{
-        uri: SUBMARK_CATS_WEBP,
+        uri: CAT_WEBP,
         alt: "An icon of a translucent blue-green cat with a colourful radial glow",
       }}
       tags={["cat"]}

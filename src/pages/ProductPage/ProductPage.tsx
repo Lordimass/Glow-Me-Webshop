@@ -1,9 +1,9 @@
 import { useGetGroupedProducts } from "../../lib/supabaseRPC.ts";
 import { ProductData, ProductPageComponent } from "lordis-react-components";
-import "./ProductPage.scss";
 import Page from "../../components/Page/Page.tsx";
 import { SITE_NAME } from "../../lib/consts.ts";
 import Page404 from "../Page404/Page404.tsx";
+import "./ProductPage.scss";
 
 export default function ProductPage() {
   // Fetch the product for this page.

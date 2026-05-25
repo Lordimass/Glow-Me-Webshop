@@ -6,10 +6,8 @@ export const SUPABASE_GLOW_ME_STORAGE =
 const SUPABASE_LOGO_STORAGE = SUPABASE_GLOW_ME_STORAGE + "/logo";
 export const SUBMARK_WEBP = `${SUPABASE_LOGO_STORAGE}/Submark.webp`;
 export const PRIMARY_WEBP = `${SUPABASE_LOGO_STORAGE}/Primary.webp`;
-export const SUBMARK_CATS_WEBP = `${SUPABASE_LOGO_STORAGE}/Submark CATS.webp`;
-
-export const SUBMARK_AI_JPEG = `${SUPABASE_GLOW_ME_STORAGE}/AI Variant/glow-me-submark-ai.jpeg`;
-export const PRIMARY_AI_JPEG = `${SUPABASE_GLOW_ME_STORAGE}/AI Variant/glow-me-primary-ai.jpeg`;
+export const CAT_WEBP = `${SUPABASE_LOGO_STORAGE}/Cat.webp`;
+export const GHOST_WEBP = `${SUPABASE_LOGO_STORAGE}/Ghost.webp`;
 
 export const DOTS_WEBP = `${SUPABASE_GLOW_ME_STORAGE}/dots.webp`;
 
