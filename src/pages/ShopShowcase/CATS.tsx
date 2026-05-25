@@ -41,7 +41,7 @@ export default function CATS({}: CATSProps) {
       ]}
       submark={{
         uri: CAT_WEBP,
-        alt: "An icon of a translucent blue-green cat with a colourful radial glow",
+        alt: "A vector graphic of a happy black cat with a gold glow",
       }}
       tags={["cat"]}
     />

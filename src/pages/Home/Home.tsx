@@ -8,7 +8,7 @@ import {
   GHOST_FACTORY_2,
   GHOST_FACTORY_3,
   GHOST_WEBP,
-  PRIMARY_WEBP
+  PRIMARY_WEBP,
 } from "../../../shared/assets.ts";
 import { Button } from "react-bootstrap";
 
@@ -53,14 +53,14 @@ export default function Home() {
         >
           <img
             src={GHOST_WEBP}
-            alt="An icon of a translucent purple ghost with a radial rainbow glow"
+            alt="A vector graphic of a smiling ghost with a gold outline and glow"
           />
           <h1>Ghosts</h1>
         </Button>
         <Button id={"cats-navigator"} className={"ratio-1x1"} href={"/CATS"}>
           <img
             src={CAT_WEBP}
-            alt="An icon of a translucent blue-green cat with a colourful radial glow"
+            alt="A vector graphic of a happy black cat with a gold glow"
           />
           <h1>Cats</h1>
         </Button>
@@ -73,7 +73,7 @@ export default function Home() {
           <img
             src={GHOST_FACTORY_1}
             alt={
-              "An angled photo of a bunch of colourful silicone moulds filled with unset resin."
+              "An angled photo of a bunch of colourful silicone moulds filled with uncured resin."
             }
             fetchPriority={"high"}
           />

@@ -43,7 +43,7 @@ export default function GHOSTS({}: GHOSTSProps) {
       ]}
       submark={{
         uri: GHOST_WEBP,
-        alt: "An icon of a translucent purple ghost with a radial rainbow glow",
+        alt: "A vector graphic of a smiling ghost with a gold outline and glow",
       }}
       tags={["ghosts"]}
     />
