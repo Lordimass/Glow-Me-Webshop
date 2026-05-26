@@ -13,7 +13,7 @@ import {
 import { Button } from "react-bootstrap";
 
 export default function Home() {
-  const groups = useGetGroupedProducts().data;
+  const groups = useGetGroupedProducts(undefined, true).data;
 
   return (
     <Page id={"home"}>
