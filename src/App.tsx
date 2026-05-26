@@ -13,6 +13,7 @@ import ProductPage from "./pages/ProductPage/ProductPage.tsx";
 import Page404 from "./pages/Page404/Page404.tsx";
 import GHOSTS from "./pages/ShopShowcase/GHOSTS.tsx";
 import CATS from "./pages/ShopShowcase/CATS.tsx";
+import Policy from "./pages/Policies/Policy.tsx";
 
 export default function App() {
   return (
@@ -52,6 +53,57 @@ function Inner() {
           <Route path="/thankyou" element={<ThankYou />} />
           <Route path="/products/*" element={<ProductPage />} />
           <Route path="*" element={<Page404 />} />
+
+          <Route
+            path={"privacy"}
+            element={
+              <Policy
+                file_name="privacy-policy"
+                title="Privacy Policy"
+                canonical="privacy"
+              />
+            }
+          />
+          <Route
+            path={"refunds"}
+            element={
+              <Policy
+                file_name="returns"
+                title="Refunds & Returns Policy"
+                canonical="returns"
+              />
+            }
+          />
+          <Route
+            path={"returns"}
+            element={
+              <Policy
+                file_name="returns"
+                title="Refunds & Returns Policy"
+                canonical="returns"
+              />
+            }
+          />
+          <Route
+            path={"cancellations"}
+            element={
+              <Policy
+                file_name="cancellation"
+                title="Cancellation Policy"
+                canonical="cancellation"
+              />
+            }
+          />
+          <Route
+            path={"/shipping"}
+            element={
+              <Policy
+                file_name="shipping"
+                title="Shipping Policy"
+                canonical="shipping"
+              />
+            }
+          />
         </Routes>
       </StrictMode>
     </>

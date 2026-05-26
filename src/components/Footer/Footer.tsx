@@ -7,15 +7,7 @@ export default function Footer() {
       <p>
         Website made by <a href="https://lordimass.net">Sam Knight</a> <br />
       </p>
-      {/* TODO: Policies */}
-      {/*<p className="footer-policy-links">*/}
-      {/*  <a href={getPath("PRIVACY_POLICY")}>Privacy Policy</a><span className="policy-separator" aria-hidden="true">/</span>*/}
-      {/*  <a href={getPath("RETURNS_POLICY")}>Refund and Return Policy</a><span className="policy-separator" aria-hidden="true">/</span>*/}
-      {/*  <a href={getPath("CANCELLATIONS_POLICY")}>Cancellation Policy</a><span className="policy-separator" aria-hidden="true">/</span>*/}
-      {/*  <a href={getPath("SHIPPING_POLICY")}>Shipping Policy</a>*/}
-      {/*</p>*/}
-      {/*<br />*/}
-
+      <br />
       <p className="additional-links">
         <a href="https://www.instagram.com/yorkghostshop/" target="_blank">
           Instagram
@@ -41,8 +33,22 @@ export default function Footer() {
         <br />
       </p>
       <br />
+      <p className="footer-policy-links">
+        <a href={"/privacy"}>Privacy Policy</a>
+        <span className="policy-separator" aria-hidden="true">
+          /
+        </span>
+        <a href={"/returns"}>Refund and Return Policy</a>
+        <span className="policy-separator" aria-hidden="true">
+          /
+        </span>
+        <a href={"/cancellations"}>Cancellation Policy</a>
+        <span className="policy-separator" aria-hidden="true">
+          /
+        </span>
+        <a href={"/shipping"}>Shipping Policy</a>
+      </p>
       <br />
-
       <p className="footer-company-information">
         <Copyright />
         <span className="policy-separator" aria-hidden="true">
