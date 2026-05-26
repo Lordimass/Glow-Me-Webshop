@@ -1,22 +1,31 @@
-@import "../../common";
+@use "../../common.scss" as c;
+@use "lordis-react-components/index" as bs;
+@use 'sass:color';
 
-.header {
-  --header-height: 64px;
+$header-height: 64px;
 
-  z-index: 200;
-  display: flex;
-  background-color: transparent;
-  align-items: center;
-  height: var(--header-height);
-  @include neon-border;
-
-  .logo {
-    height: var(--header-height);
-    padding: 4px;
-  }
+.header-page-space {
+  height: calc($header-height + 5px);
 }
 
-.header-main {
+.header {
+  background-color: color.adjust(bs.$body-bg, $alpha: -0.4);
+  position: fixed;
+  top: 0;
+  box-sizing: border-box;
+  width: calc(100vw - 10px);
+
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  height: $header-height;
+  @include c.neon-border;
+  filter: none;
+
+  .logo {
+    height: $header-height;
+    padding: 4px;
+  }
 }
 
 .header-spacer{
@@ -24,3 +33,25 @@
   flex-grow: 1;
 }
 
+// ============ Basket Manager ============ //
+
+#basket {
+  margin: 10px;
+
+  svg {
+    color: bs.$primary;
+  }
+}
+
+#basket #basket-item-count {
+  background-color: color.adjust(bs.$primary, $alpha: -0.2);
+}
+
+.basket-display {
+  overflow-x: visible;
+}
+
+.basketItems {
+  padding-right: 10px;
+  overflow-x: hidden !important;
+}

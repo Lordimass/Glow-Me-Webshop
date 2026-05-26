@@ -1,93 +1,33 @@
-@import "../../common";
+@use "../../common.scss" as c;
+@use "lordis-react-components/index" as bs;
+@use 'sass:color';
 
 #home {
-  --height: 50vh;
-
   .home-title-container {
-    --dots-offset: 80px;
-    position: absolute;
-    left: 0;
-
-    max-height: var(--height);
-    display: grid;
+    padding: 30px;
+    border-radius: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
     flex-direction: column;
     justify-content: center;
 
-    .layer1, .layer2, .layer3 {
-      position: relative;
-      top: -20px;
-      max-height: var(--height);
-      display: flex;
-      width: 100vw;
-      justify-content: center;
-      grid-column: 1;
-      grid-row: 1;
-    }
-
-    .layer1 {
-      background-image: radial-gradient(#8d6b9b, #340048 70%);
-      height: calc(50vh + var(--dots-offset) - 1px);
-      z-index: -1;
-      max-height: unset;
-    }
-
-    .layer2 {
-      z-index: -1;
-    }
-
-    .layer3 {
-      background-color: transparent;
-    }
-
     img {
-      height: 100%;
-      width: auto;
-    }
-
-    #dots {
-      position: relative;
-      //min-width: 5000px;
-      //height: auto;
-      top: var(--dots-offset);
-    }
-
-    @media screen and (max-width: 800px) {
-      img {
-        height: min-content;
-        width: 100%;
-      }
-
-      --dots-offset: -20vw
-    }
-  }
-
-  .spacer {
-    height: calc(var(--height) - 3vh);
-    @media screen and (max-width: 800px) {
-      height: 48vw;
-    }
-  }
-
-  .text-block {
-    position: relative;
-    padding: 10px;
-    @include neon-border;
-    background-color: var(--bs-body-bg);
-
-    text-align: center;
-
-    h1, p {
-      color: white;
-      filter: none
+      width: 100%;
+      max-height: 40vh;
     }
   }
 
   .ghost-factory-showcase {
     display: flex;
-    gap: 15px;
+    gap: 10px;
+    margin-bottom: -15px;
+    width: 100%;
 
     > div {
-      max-width: 100%;
+      @include c.neon-border(bs.$secondary);
+      display: flex;
+      overflow: hidden;
       box-sizing: border-box;
       background-color: transparent;
       padding: 0;
@@ -98,7 +38,39 @@
     }
 
     @media screen and (orientation: portrait) {
+      gap: 2px
+    }
+  }
+
+  .text-block {
+    position: relative;
+    padding: 10px;
+    @include c.neon-border;
+    background-color: var(--bs-body-bg);
+    text-align: center;
+  }
+
+  #shop-navigator {
+    display: flex;
+    gap: 5vw;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+    .btn {
+      @include c.neon-border(bs.$primary, 25px);
+      background-color: var(--bs-body-bg);
+
+      display: flex;
+      align-items: center;
       flex-direction: column;
+
+      max-width: min(40%, 400px);
+      max-height: 400px;
+      box-sizing: border-box;
+
+      img {
+        width: 80%;
+      }
     }
   }
 }
