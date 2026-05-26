@@ -11,7 +11,7 @@ export default async function handler(_request: Request, _context: Context) {
   const products = await getProducts(
     undefined,
     true,
-    process.env.VITE_ENVIRONMENT == "DEVELOPMENT",
+    process.env.VITE_ENVIRONMENT !== "DEVELOPMENT",
     undefined,
     undefined,
     supabaseAnon,
