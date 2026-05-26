@@ -101,22 +101,9 @@ export default function Checkout() {
             },
           }}
         >
-          <CheckoutAux />
+          <EmbeddedCheckout className={"embedded-checkout"} />
         </EmbeddedCheckoutProvider>
       ) : null}
     </Page>
   );
-}
-
-function CheckoutAux() {
-  // checkout.getShippingAddressElement()?.on("change", async (e: StripeAddressElementChangeEvent) => {
-  //     console.log("Shipping details changed!")
-  //     const address = e.shippingDetails.address
-  //     if (!address.line1 || !address.city || !address.state || !address.postal_code) {
-  //         return
-  //     }
-  //     await updateShippingOptions(e.checkoutSessionId, e.shippingDetails)
-  // })
-  // TODO: Charge separate prices based on address
-  return <EmbeddedCheckout className={"embedded-checkout"} />;
 }
