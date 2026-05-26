@@ -20,14 +20,12 @@ export default function ProductPage() {
     product = group.products[0];
   }
 
-  // const carousel = document.getElementsByClassName("carousel")[0];
-  // if (carousel) {
-  //   carousel.setAttribute("data-bs-theme", "light");
-  // }
-
   return (
     <div data-bs-theme={"light"}>
-      <Page title={`${SITE_NAME} - ${product.name}`}>
+      <Page
+        title={`${SITE_NAME} - ${product.name}`}
+        metaDescription={product.metadata.description}
+      >
         <ProductPageComponent p_product={product} group={group} />
       </Page>
     </div>

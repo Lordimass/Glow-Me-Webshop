@@ -16,14 +16,8 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: British Letter;
-  src: url("https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public/other-assets/Glow%20Me!/British Letter.woff");
-  font-display: swap;
-}
-
 h1 {
-  font-family: "British Letter", "Open Dyslexic", sans-serif;
+  font-family: "Open Dyslexic", sans-serif;
   font-size: 4rem;
   color: bs.$primary;
   filter: drop-shadow(0px 0px 5px color.adjust(bs.$primary, $alpha: -0.5));

@@ -9,6 +9,7 @@ interface ShopShowcaseProps {
   /** The name of the shop */
   shopName: string;
   description: ReactNode;
+  metaDescription: string;
   /**
    * Google Maps embed link for the location of the shop
    * @example https://maps.google.com/maps?amp;hl=en&amp;q=GHOSTS, 74 Low Petergate, York&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed
@@ -25,7 +26,11 @@ export default function ShopShowcase(props: ShopShowcaseProps) {
   const groups = useGetGroupedProducts(undefined, undefined, props.tags).data;
 
   return (
-    <Page id={`shop-showcase`}>
+    <Page
+      id={`shop-showcase`}
+      title={props.shopName}
+      metaDescription={props.metaDescription}
+    >
       <GoHome />
       <h1 className={"shop-title"}>
         <hr />

@@ -8,7 +8,7 @@ import {
   GHOST_FACTORY_2,
   GHOST_FACTORY_3,
   GHOST_WEBP,
-  PRIMARY_WEBP,
+  PRIMARY_WEBP
 } from "../../../shared/assets.ts";
 import { Button } from "react-bootstrap";
 
@@ -16,7 +16,14 @@ export default function Home() {
   const groups = useGetGroupedProducts(undefined, true).data;
 
   return (
-    <Page id={"home"}>
+    <Page
+      id={"home"}
+      metaDescription={
+        "We hand-craft glow in the dark models using resin and a variety of " +
+        "different glowing powders and colours. Each has its own " +
+        "personality, imperfections, and love put into it by us."
+      }
+    >
       <div className={"home-title-container"}>
         <div className={"layer3"}>
           <img

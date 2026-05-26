@@ -11,15 +11,18 @@ import {
   createCheckoutSession,
   redirectIfEmptyBasket,
   stripePromise,
-  updateShippingOptions
+  updateShippingOptions,
 } from "./lib.ts";
 import React, { useContext, useEffect, useState } from "react";
-import { EmbeddedCheckout, EmbeddedCheckoutProvider } from "@stripe/react-stripe-js";
+import {
+  EmbeddedCheckout,
+  EmbeddedCheckoutProvider,
+} from "@stripe/react-stripe-js";
 import {
   LocaleContext,
   LRCRemoteSettingsContext,
   ToastContext,
-  trackBeginCheckoutWithBasket
+  trackBeginCheckoutWithBasket,
 } from "lordis-react-components";
 import Page from "../../components/Page/Page.tsx";
 import { SITE_NAME } from "../../lib/consts.ts";
@@ -65,13 +68,12 @@ export default function Checkout() {
     trackBeginCheckoutWithBasket(currency);
   }, []);
 
-  const title = SITE_NAME + " - Checkout";
   return (
     <Page
       id="checkout-content"
       noindex={true}
       canonical="https://thisshopissogay.com/checkout"
-      title={title}
+      title={SITE_NAME + " - Checkout"}
       loadCondition={canCheckout && !siteSettings.kill_switch?.enabled}
       loadingText="We're loading your basket..."
     >
