@@ -1,11 +1,7 @@
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home.tsx";
-import { StrictMode, useEffect } from "react";
-import {
-  LRCContext,
-  trackPageView,
-  useConsentMode,
-} from "lordis-react-components";
+import { StrictMode } from "react";
+import { LRCContext, useConsentMode } from "lordis-react-components";
 import { SITE_NAME } from "./lib/consts.ts";
 import Checkout from "./pages/Checkout/Checkout.tsx";
 import ThankYou from "./pages/ThankYou/ThankYou.tsx";
@@ -14,11 +10,12 @@ import Page404 from "./pages/Page404/Page404.tsx";
 import GHOSTS from "./pages/ShopShowcase/GHOSTS.tsx";
 import CATS from "./pages/ShopShowcase/CATS.tsx";
 import Policy from "./pages/Policies/Policy.tsx";
+import { usePageViewTracking, useSiteSettings } from "./AppHooks.tsx";
 
 export default function App() {
   return (
     <BrowserRouter>
-      <LRCContext>
+      <LRCContext getLRCRemoteSettingsHook={useSiteSettings}>
         <Inner />
       </LRCContext>
     </BrowserRouter>
@@ -27,15 +24,8 @@ export default function App() {
 
 function Inner() {
   useConsentMode();
+  usePageViewTracking();
 
-  // Page view tracking
-  const location = useLocation();
-  useEffect(() => {
-    trackPageView(document.title, document.location.href);
-    console.log(
-      `Tracked page view for ${document.title} - ${location.pathname}`,
-    );
-  }, [location]);
   return (
     <>
       <meta name="author" content="Sam Knight" />
