@@ -63,7 +63,7 @@ export function useSiteSettings() {
         siteSettings[setting.id] = setting.value;
       });
       setSiteSettings(siteSettings);
-      console.log(siteSettings);
+
       // Enable kill switch and toast user if not already notified this session
       const killSwitchNotified = sessionStorage.getItem("killSwitchNotified");
       if (siteSettings.kill_switch?.enabled && !killSwitchNotified) {
