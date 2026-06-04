@@ -26,7 +26,11 @@ export default function ProductPage() {
         title={`${SITE_NAME} - ${product.name}`}
         metaDescription={product.metadata.description}
       >
-        <ProductPageComponent p_product={product} group={group} />
+        <ProductPageComponent
+          p_product={product}
+          group={group}
+          clickableTags={true}
+        />
       </Page>
     </div>
   );

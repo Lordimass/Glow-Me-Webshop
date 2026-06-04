@@ -13,14 +13,6 @@ interface Body {
 }
 
 export default async function handler(request: Request, _context: Context) {
-  // TODO: Add authentication for this request
-  if (!stripe) {
-    return new Response(null, {
-      status: 400,
-      statusText: "Failed to connect to stripe.",
-    });
-  }
-
   const body: Body = (await request.json()) as Body;
 
   const session = await stripe.checkout.sessions.create({

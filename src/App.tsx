@@ -11,6 +11,7 @@ import GHOSTS from "./pages/ShopShowcase/GHOSTS.tsx";
 import CATS from "./pages/ShopShowcase/CATS.tsx";
 import Policy from "./pages/Policies/Policy.tsx";
 import { usePageViewTracking, useSiteSettings } from "./AppHooks.tsx";
+import TagPage from "./pages/TagPage/TagPage.tsx";
 
 export default function App() {
   return (
@@ -42,6 +43,7 @@ function Inner() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/thankyou" element={<ThankYou />} />
           <Route path="/products/*" element={<ProductPage />} />
+          <Route path="/tag/*" element={<TagPage />} />
           <Route path="*" element={<Page404 />} />
 
           <Route

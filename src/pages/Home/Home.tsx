@@ -8,7 +8,7 @@ import {
   GHOST_FACTORY_2,
   GHOST_FACTORY_3,
   GHOST_WEBP,
-  PRIMARY_WEBP
+  PRIMARY_WEBP,
 } from "../../../shared/assets.ts";
 import { Button } from "react-bootstrap";
 
@@ -73,7 +73,7 @@ export default function Home() {
         </Button>
       </div>
 
-      {groups ? <Products prods={groups} /> : null}
+      {groups ? <Products prods={groups} pageSize={20} /> : null}
 
       <div className={"ghost-factory-showcase"}>
         <div className={"showcase-item"}>
