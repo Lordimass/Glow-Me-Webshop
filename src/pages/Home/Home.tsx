@@ -8,7 +8,8 @@ import {
   GHOST_FACTORY_2,
   GHOST_FACTORY_3,
   GHOST_WEBP,
-  PRIMARY_WEBP,
+  LIGHTS_CHANGE_VIDEO,
+  PRIMARY_WEBP
 } from "../../../shared/assets.ts";
 import { Button } from "react-bootstrap";
 
@@ -64,6 +65,13 @@ export default function Home() {
           />
           <h1>Ghosts</h1>
         </Button>
+        <video
+          id="lights-change-video"
+          src={LIGHTS_CHANGE_VIDEO}
+          autoPlay
+          loop
+          muted
+        />
         <Button id={"cats-navigator"} className={"ratio-1x1"} href={"/CATS"}>
           <img
             src={CAT_WEBP}

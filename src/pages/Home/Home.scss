@@ -79,4 +79,21 @@
       }
     }
   }
+
+  #lights-change-video {
+    @include c.neon-border(bs.$secondary);
+    max-width: min(800px, 100%);
+    max-height: 400px;
+    align-self: center;
+  }
+
+  @media screen and (max-width: 1400px) {
+    #lights-change-video {
+      order: 1;
+    }
+
+    #shop-navigator {
+      flex-wrap: wrap;
+    }
+  }
 }

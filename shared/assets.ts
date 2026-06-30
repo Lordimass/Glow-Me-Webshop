@@ -9,6 +9,8 @@ export const PRIMARY_WEBP = `${SUPABASE_LOGO_STORAGE}/Primary.webp`;
 export const CAT_WEBP = `${SUPABASE_LOGO_STORAGE}/Cat.webp`;
 export const GHOST_WEBP = `${SUPABASE_LOGO_STORAGE}/Ghost.webp`;
 
+export const LIGHTS_CHANGE_VIDEO = `${SUPABASE_GLOW_ME_STORAGE}/lights-change.webm`;
+
 export const DOTS_WEBP = `${SUPABASE_GLOW_ME_STORAGE}/dots.webp`;
 
 export const GHOST_FACTORY_1 = `${SUPABASE_GLOW_ME_STORAGE}/ghost-factory-showcase/ghost-factory-1.webp`;
