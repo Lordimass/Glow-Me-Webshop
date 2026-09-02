@@ -1,6 +1,6 @@
 import type { Context } from "@netlify/functions";
 import { stripe } from "../lib/stripe.ts";
-import { SHIPPING_COUNTRIES } from "../../shared/consts/shipping.ts";
+import { SHIPPING_COUNTRIES } from "../../src/lib/consts/shipping.ts";
 import type { Basket } from "lordis-react-components";
 
 interface Body {

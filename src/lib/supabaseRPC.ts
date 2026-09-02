@@ -3,14 +3,14 @@ import {
   useCallRPC,
   type UseRPCReturn,
 } from "lordis-react-components";
-import { handleGetGroupedProductsResponse } from "../../shared/functions/supabaseRPC.ts";
+import { handleGetGroupedProductsResponse } from "./functions/supabaseRPC.ts";
 
 export function useGetGroupedProducts(
   ids?: string[],
   in_stock_only = false,
   tags?: string[],
 ): UseRPCReturn<ProductGroup[]> {
-  const livemode = import.meta.env.VITE_ENVIRONMENT !== "DEVELOPMENT";
+  const livemode = import.meta.env.NEXT_PUBLIC_ENVIRONMENT !== "DEVELOPMENT";
   const resp = useCallRPC("gm_get_grouped_products", {
     ids,
     in_stock_only,

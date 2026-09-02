@@ -58,7 +58,7 @@ async function createRMOrder(
   session: Stripe.Checkout.Session,
   prods: BasketProduct[],
 ) {
-  if (process.env.VITE_ENVIRONMENT !== "PRODUCTION") return;
+  if (process.env.NEXT_PUBLIC_ENVIRONMENT !== "PRODUCTION") return;
 
   const royalMailKey = process.env.ROYAL_MAIL_KEY;
   if (!royalMailKey) throw new Error("No Royal Mail API Key Found");
@@ -183,7 +183,7 @@ async function triggerGA4PurchaseEvent(
       {
         name: "purchase",
         params: {
-          debug_mode: process.env.VITE_ENVIRONMENT === "DEVELOPMENT",
+          debug_mode: process.env.NEXT_PUBLIC_ENVIRONMENT === "DEVELOPMENT",
           session_id,
           transaction_id: session.id, // Stripe Checkout Session ID is the ID of an order/transaction.
           shipping: (session.total_details?.amount_shipping ?? 0) / 100,

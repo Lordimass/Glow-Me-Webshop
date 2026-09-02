@@ -1,17 +1,25 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home/Home.tsx";
+import { BrowserRouter, Routes } from "react-router-dom";
 import { StrictMode } from "react";
-import { LRCContext, useConsentMode } from "lordis-react-components";
+import {
+  initGA4,
+  LRC,
+  LRCContext,
+  useConsentMode,
+} from "lordis-react-components";
 import { SITE_NAME } from "./lib/consts.ts";
-import Checkout from "./pages/Checkout/Checkout.tsx";
-import ThankYou from "./pages/ThankYou/ThankYou.tsx";
-import ProductPage from "./pages/ProductPage/ProductPage.tsx";
-import Page404 from "./pages/Page404/Page404.tsx";
-import GHOSTS from "./pages/ShopShowcase/GHOSTS.tsx";
-import CATS from "./pages/ShopShowcase/CATS.tsx";
-import Policy from "./pages/Policies/Policy.tsx";
 import { usePageViewTracking, useSiteSettings } from "./AppHooks.tsx";
-import TagPage from "./pages/TagPage/TagPage.tsx";
+import { SupabaseClient } from "@supabase/supabase-js";
+
+initGA4(
+  import.meta.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID,
+  import.meta.env.NEXT_PUBLIC_ENVIRONMENT === "DEVELOPMENT",
+);
+
+// @ts-ignore
+LRC.supabase = new SupabaseClient(
+  import.meta.env.NEXT_PUBLIC_SUPABASE_DATABASE_URL,
+  import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+);
 
 export default function App() {
   return (
@@ -37,65 +45,65 @@ function Inner() {
       <title>{SITE_NAME}</title>
       <StrictMode>
         <Routes>
-          <Route index element={<Home />} />
-          <Route path={"/GHOSTS"} element={<GHOSTS />} />
-          <Route path={"/CATS"} element={<CATS />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/thankyou" element={<ThankYou />} />
-          <Route path="/products/*" element={<ProductPage />} />
-          <Route path="/tag/*" element={<TagPage />} />
-          <Route path="*" element={<Page404 />} />
+          {/*<Route index element={<Home />} />*/}
+          {/*<Route path={"/GHOSTS"} element={<GHOSTS />} />*/}
+          {/*<Route path={"/CATS"} element={<CATS />} />*/}
+          {/*<Route path="/checkout" element={<Checkout />} />*/}
+          {/*<Route path="/thankyou" element={<ThankYou />} />*/}
+          {/*<Route path="/products/*" element={<ProductPage />} />*/}
+          {/*<Route path="/tag/*" element={<TagPage />} />*/}
+          {/*<Route path="*" element={<Page404 />} />*/}
 
-          <Route
-            path={"privacy"}
-            element={
-              <Policy
-                file_name="privacy-policy"
-                title="Privacy Policy"
-                canonical="privacy"
-              />
-            }
-          />
-          <Route
-            path={"refunds"}
-            element={
-              <Policy
-                file_name="returns"
-                title="Refunds & Returns Policy"
-                canonical="returns"
-              />
-            }
-          />
-          <Route
-            path={"returns"}
-            element={
-              <Policy
-                file_name="returns"
-                title="Refunds & Returns Policy"
-                canonical="returns"
-              />
-            }
-          />
-          <Route
-            path={"cancellations"}
-            element={
-              <Policy
-                file_name="cancellation"
-                title="Cancellation Policy"
-                canonical="cancellation"
-              />
-            }
-          />
-          <Route
-            path={"/shipping"}
-            element={
-              <Policy
-                file_name="shipping"
-                title="Shipping Policy"
-                canonical="shipping"
-              />
-            }
-          />
+          {/*<Route*/}
+          {/*  path={"privacy"}*/}
+          {/*  element={*/}
+          {/*    <Policy*/}
+          {/*      file_name="privacy-policy"*/}
+          {/*      title="Privacy Policy"*/}
+          {/*      canonical="privacy"*/}
+          {/*    />*/}
+          {/*  }*/}
+          {/*/>*/}
+          {/*<Route*/}
+          {/*  path={"refunds"}*/}
+          {/*  element={*/}
+          {/*    <Policy*/}
+          {/*      file_name="returns"*/}
+          {/*      title="Refunds & Returns Policy"*/}
+          {/*      canonical="returns"*/}
+          {/*    />*/}
+          {/*  }*/}
+          {/*/>*/}
+          {/*<Route*/}
+          {/*  path={"returns"}*/}
+          {/*  element={*/}
+          {/*    <Policy*/}
+          {/*      file_name="returns"*/}
+          {/*      title="Refunds & Returns Policy"*/}
+          {/*      canonical="returns"*/}
+          {/*    />*/}
+          {/*  }*/}
+          {/*/>*/}
+          {/*<Route*/}
+          {/*  path={"cancellations"}*/}
+          {/*  element={*/}
+          {/*    <Policy*/}
+          {/*      file_name="cancellation"*/}
+          {/*      title="Cancellation Policy"*/}
+          {/*      canonical="cancellation"*/}
+          {/*    />*/}
+          {/*  }*/}
+          {/*/>*/}
+          {/*<Route*/}
+          {/*  path={"/shipping"}*/}
+          {/*  element={*/}
+          {/*    <Policy*/}
+          {/*      file_name="shipping"*/}
+          {/*      title="Shipping Policy"*/}
+          {/*      canonical="shipping"*/}
+          {/*    />*/}
+          {/*  }*/}
+          {/*/>*/}
         </Routes>
       </StrictMode>
     </>

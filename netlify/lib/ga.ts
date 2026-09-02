@@ -5,12 +5,12 @@ const dotenvConfigOutput = configDotenv({ path: ".env.secret" });
 const GA4_MEASUREMENT_PROTOCOL_SECRET =
   dotenvConfigOutput.parsed?.GA4_MEASUREMENT_PROTOCOL_SECRET ??
   process.env.GA4_MEASUREMENT_PROTOCOL_SECRET;
-const GA4_MEASUREMENT_ID = process.env.VITE_GA4_MEASUREMENT_ID;
+const GA4_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID;
 
 export async function sendGA4Event(payload: any, debug = false) {
   if (!GA4_MEASUREMENT_PROTOCOL_SECRET || !GA4_MEASUREMENT_ID) {
     throw new Error(
-      "Missing required VITE_GA4_MEASUREMENT_ID or GA4_MEASUREMENT_PROTOCOL_SECRET",
+      "Missing required NEXT_PUBLIC_GA4_MEASUREMENT_ID or GA4_MEASUREMENT_PROTOCOL_SECRET",
     );
   }
 

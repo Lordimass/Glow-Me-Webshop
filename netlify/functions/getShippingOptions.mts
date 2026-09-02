@@ -1,7 +1,7 @@
 import type { Context } from "@netlify/functions";
 import { stripe } from "../lib/stripe.ts";
-import { EU, SHIPPING_COUNTRIES, UK } from "../../shared/consts/shipping.ts";
-import type { ShippingOptionGroups } from "../../shared/types/shipping.ts";
+import { EU, SHIPPING_COUNTRIES, UK } from "../../src/lib/consts/shipping.ts";
+import type { ShippingOptionGroups } from "../../src/lib/types/shipping.ts";
 import Stripe from "stripe";
 import type { StripeAddressElementChangeEvent } from "@stripe/stripe-js";
 
@@ -11,7 +11,7 @@ interface Body {
 }
 
 const rateNames: ShippingOptionGroups = JSON.parse(
-  process.env.VITE_SHIPPING_RATES ?? "{}",
+  process.env.NEXT_PUBLIC_SHIPPING_RATES ?? "{}",
 ) as ShippingOptionGroups;
 
 /**

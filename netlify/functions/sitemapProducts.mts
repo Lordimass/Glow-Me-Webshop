@@ -5,13 +5,13 @@
 import { baseUrl } from "./sitemap.mts";
 import { supabaseAnon } from "../lib/getSupabaseClient.ts";
 import type { Context } from "@netlify/functions";
-import { getProducts } from "../../shared/functions/supabaseRPC.ts";
+import { getProducts } from "../../src/lib/functions/supabaseRPC.ts";
 
 export default async function handler(_request: Request, _context: Context) {
   const products = await getProducts(
     undefined,
     true,
-    process.env.VITE_ENVIRONMENT !== "DEVELOPMENT",
+    process.env.NEXT_PUBLIC_ENVIRONMENT !== "DEVELOPMENT",
     undefined,
     undefined,
     supabaseAnon,

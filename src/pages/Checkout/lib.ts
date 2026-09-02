@@ -6,13 +6,13 @@ import {
 } from "lordis-react-components";
 import { getCurrency } from "locale-currency";
 import type { StripeEmbeddedCheckoutShippingDetails } from "@stripe/stripe-js/dist/stripe-js/embedded-checkout";
-import type { StockDiscrepency } from "../../../shared/types/types.ts";
+import type { StockDiscrepency } from "../../lib/types/types.ts";
 import { loadStripe, type Stripe } from "@stripe/stripe-js";
 
-const STRIPE_KEY = import.meta.env.VITE_STRIPE_KEY;
-if (!STRIPE_KEY) {
-  console.error("No VITE_STRIPE_KEY!");
-}
+const STRIPE_KEY = import.meta.env.NEXT_PUBLIC_STRIPE_KEY;
+console.log("Environment " + JSON.stringify(process));
+if (!STRIPE_KEY) console.error("No NEXT_PUBLIC_STRIPE_KEY!");
+
 export const stripePromise: Promise<Stripe | null> = STRIPE_KEY
   ? loadStripe(STRIPE_KEY, {
       betas: ["custom_checkout_server_updates_1"],
@@ -46,7 +46,7 @@ export async function createCheckoutSession(): Promise<string> {
   const basketString = localStorage.getItem("basket");
   const gaClientID = getGAClientId();
   const gaSessionID = await getGASessionId(
-    import.meta.env.VITE_GA4_MEASUREMENT_ID,
+    import.meta.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID,
   );
   console.log("Test");
   const response = await fetch(".netlify/functions/createCheckoutSession", {

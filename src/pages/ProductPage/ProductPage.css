@@ -1,0 +1,25 @@
+.product-box {
+  background-color: var(--secondary-light) !important;
+  background-image: none;
+}
+
+.additional-product-information {
+  background-color: var(--bs-body-bg);
+  background-image: none !important;
+  border-radius: 10px !important;
+}
+
+.product-variant {
+  border: 1px solid rgb(255 255 255 / 0.8) !important;
+}
+
+.product-variant:hover {
+  border: 2px solid var(--secondary) !important;
+  background-color: var(--secondary-dark) !important;
+}
+
+.selected-product-variant {
+  background-color: var(--secondary-darker);
+  border: 2px solid var(--primary) !important;
+  margin-bottom: 10px;
+}

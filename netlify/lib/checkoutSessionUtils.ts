@@ -4,7 +4,7 @@
  * @param sessionId The ID of the checkout session from which to fetch line items.
  */
 import { stripe } from "./stripe.ts";
-import { getProducts } from "../../shared/functions/supabaseRPC.ts";
+import { getProducts } from "../../src/lib/functions/supabaseRPC.ts";
 import { supabaseAnon } from "./getSupabaseClient.ts";
 import { BasketProduct } from "lordis-react-components";
 
@@ -19,7 +19,7 @@ export async function getCheckoutSessionItems(sessionId: string) {
   const products = await getProducts(
     itemsWithProductIds.map((p) => p.productId),
     false,
-    process.env.VITE_ENVIRONMENT !== "DEVELOPMENT",
+    process.env.NEXT_PUBLIC_ENVIRONMENT !== "DEVELOPMENT",
     undefined,
     undefined,
     supabaseAnon,

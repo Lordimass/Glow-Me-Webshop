@@ -36,7 +36,7 @@ export async function handleRefundCreated(event: Stripe.RefundCreatedEvent) {
       {
         name: "refund",
         params: {
-          debug_mode: process.env.VITE_ENVIRONMENT === "DEVELOPMENT",
+          debug_mode: process.env.NEXT_PUBLIC_ENVIRONMENT === "DEVELOPMENT",
           session_id: session_id,
           transaction_id: session.id,
           value:

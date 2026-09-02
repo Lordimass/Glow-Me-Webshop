@@ -4,15 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently --kill-others \"npm run startStripeListener\" \"vite dev\"",
+    "dev": "concurrently --kill-others \"npm run startStripeListener\" \"next dev\"",
+    "start": "npx serve@latest ./build",
     "startStripeListener": "stripe listen --forward-to localhost:8888/.netlify/functions/stripeWebhook --events checkout.session.completed,refund.created",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && next build",
     "lint": "eslint .",
     "preview": "vite preview",
     "lighthouse": "lighthouse http://localhost:8888 --output-path ./dist/lighthouse-results.html --view --chrome-flags=\"--headless\""
   },
   "dependencies": {
     "@netlify/functions": "^5.2.0",
+    "@next/env": "^16.3.4",
     "@stripe/react-stripe-js": "^6.2.0",
     "@stripe/stripe-js": "^9.2.0",
     "@supabase/supabase-js": "^2.105.1",
@@ -22,6 +24,7 @@
     "locale-currency": "^1.0.0",
     "lordis-react-components": "^1.8.0",
     "motion": "^12.38.0",
+    "next": "^16.3.4",
     "react": "^19.2.0",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.2.0",
@@ -29,6 +32,7 @@
     "react-router-dom": "^7.13.1",
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
+    "sass": "^1.103.1",
     "stripe": "^22.0.2"
   },
   "devDependencies": {
