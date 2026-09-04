@@ -4,7 +4,7 @@ import "./global.css";
 import { useEffect, useState } from "react";
 import { SUPABASE_STORAGE } from "../../lib/assets.ts";
 import Page from "../../components/Page/Page.tsx";
-import { SITE_NAME } from "../../lib/consts.ts";
+import { SITE_NAME } from "../../lib/consts";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";

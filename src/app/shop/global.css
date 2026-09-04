@@ -1,7 +1,7 @@
 #shop-showcase {
   --map-height: min(500px, 40vh);
-
   align-items: center;
+
   .go-home-button {
     position: absolute;
     @media screen and (max-width: 1000px){
@@ -20,6 +20,7 @@
   .split {
     display: flex;
     box-sizing: border-box;
+    margin: 10px 0;
     width: 100%;
 
     .left {
@@ -40,7 +41,7 @@
     .gmap_iframe {
       --margin: 20px;
       height: var(--map-height);
-      margin: 0 var(--margin) 0 var(--margin);
+      margin: 5px var(--margin) 5px var(--margin);
       width: calc(100% - 2 * var(--margin));
     }
 

@@ -1,7 +1,5 @@
-export const SUPABASE_STORAGE =
-  "https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public";
-export const SUPABASE_GLOW_ME_STORAGE =
-  SUPABASE_STORAGE + "/other-assets/Glow%20Me!";
+export const SUPABASE_STORAGE = "https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public";
+export const SUPABASE_GLOW_ME_STORAGE = SUPABASE_STORAGE + "/other-assets/Glow%20Me!";
 
 const SUPABASE_LOGO_STORAGE = SUPABASE_GLOW_ME_STORAGE + "/logo";
 export const SUBMARK_WEBP = `${SUPABASE_LOGO_STORAGE}/Submark.webp`;

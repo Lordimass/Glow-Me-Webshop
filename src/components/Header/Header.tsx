@@ -1,13 +1,12 @@
 import "./Header.css";
-import { BasketManager } from "lordis-react-components";
-import { SUBMARK_WEBP } from "../../lib/assets.ts";
+import {SUBMARK_WEBP} from "@/lib";
 
 export default function Header() {
   return (
     <>
       <div className="header-page-space" />
-      <div className="header">
-        <a href={"/"} aria-label='Return to "This Shop Is So Gay" Home Page'>
+      <div className="header neon-border">
+        <a href={"/"} aria-label='Return to "Glow Me!" Home Page'>
           <img
             className="logo"
             src={SUBMARK_WEBP}
@@ -15,7 +14,7 @@ export default function Header() {
           />
         </a>
         <div className="header-spacer"></div>
-        <BasketManager />
+        {/*<BasketManager /> TODO: FIX*/}
       </div>
     </>
   );

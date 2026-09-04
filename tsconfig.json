@@ -1,4 +1,14 @@
 {
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },

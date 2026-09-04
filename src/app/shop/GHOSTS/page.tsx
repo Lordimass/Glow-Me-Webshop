@@ -1,5 +1,5 @@
 import ShopShowcase from "../ShopShowcase.tsx";
-import { GHOST_WEBP, SUPABASE_GLOW_ME_STORAGE } from "../../../lib/assets.ts";
+import {GHOST_WEBP, SUPABASE_GLOW_ME_STORAGE} from "@/lib";
 
 export default function Page() {
   return (

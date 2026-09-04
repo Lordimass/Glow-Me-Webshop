@@ -1,0 +1,67 @@
+@use "bootstrap/scss/bootstrap" as bs;
+
+.zero-quantity-basket-modifier {
+  border: none;
+  width: 100%;
+  box-sizing: border-box;
+
+  p {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    color: white;
+    text-decoration: none;
+
+    width: 100%;
+    height: 50px;
+
+    border-radius: 20px;
+    border: none;
+
+    transition-duration: 100ms, 200ms;
+    transition-property: font-size, background-color;
+
+    font-size: 26px;
+    font-family: "Backso", sans-serif;
+    gap: 3px;
+    font-weight: bold;
+
+    i {
+      height: 1em;
+      font-size: 26px;
+      margin-bottom: 3px;
+      transition: font-size 100ms;
+    }
+  }
+
+  button:disabled {
+    cursor: not-allowed !important;
+  }
+}
+
+.product-group-basket-modifier {
+  color: white;
+  text-decoration: none;
+  padding: 0 10px 0 10px;
+
+  height: 50px;
+  max-height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 20px !important;
+}
+
+.product-group-basket-modifier:hover {
+  text-decoration: underline;
+}

@@ -1,11 +1,11 @@
-"use client";
-
-import Page from "../../components/Page/Page.tsx";
 import "./global.css";
-import type { ReactNode } from "react";
-import { GoHome, MinimalImage, Products } from "lordis-react-components";
-import { Carousel, CarouselItem } from "react-bootstrap";
-import { useGetGroupedProducts } from "../../lib/supabaseRPC.ts";
+import type {ReactNode} from "react";
+import {Carousel, CarouselItem} from "react-bootstrap";
+import {MinimalImage} from "@/lib";
+import Products from "../../components/Product/Products/Products.tsx";
+import GoHome from "../../components/GoHome/GoHome.tsx";
+import {getGroupedProducts} from "@/lib/functions/supabaseRPC.ts";
+import {createClient} from "@/lib/supabase/server.ts";
 
 interface ShopShowcaseProps {
   /** The name of the shop */
@@ -24,14 +24,14 @@ interface ShopShowcaseProps {
   tags?: string[];
 }
 
-export default function ShopShowcase(props: ShopShowcaseProps) {
-  const groups = useGetGroupedProducts(undefined, undefined, props.tags).data;
+export default async function ShopShowcase(props: ShopShowcaseProps) {
+  const groups = await getGroupedProducts(await createClient(), undefined, undefined, undefined, props.tags);
 
   return (
-    <Page
+    <div
       id={`shop-showcase`}
-      title={props.shopName}
-      metaDescription={props.metaDescription}
+      // TODO: title={props.shopName}
+      // metaDescription={props.metaDescription}
     >
       <GoHome />
       <h1 className={"shop-title"}>
@@ -51,7 +51,7 @@ export default function ShopShowcase(props: ShopShowcaseProps) {
       </div>
       <div className={"split"}>
         <div className={"left carousel-outer neon-border"}>
-          <Carousel data-bs-theme={"light"}>
+          <Carousel>
             {props.images?.map((img, i) => (
               <CarouselItem key={i}>
                 <div
@@ -72,7 +72,7 @@ export default function ShopShowcase(props: ShopShowcaseProps) {
           />
         </div>
       </div>
-      {groups ? <Products prods={groups} /> : null}
-    </Page>
+      {groups ? <Products prods={JSON.stringify(groups)} /> : null}
+    </div>
   );
 }

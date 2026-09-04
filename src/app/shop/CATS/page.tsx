@@ -1,5 +1,5 @@
 import ShopShowcase from "../ShopShowcase.tsx";
-import { CAT_WEBP, SUPABASE_GLOW_ME_STORAGE } from "../../../lib/assets.ts";
+import {CAT_WEBP, SUPABASE_GLOW_ME_STORAGE} from "@/lib";
 
 export default function Page() {
   return (
