@@ -101,4 +101,5 @@ a:hover {
   --bs-btn-hover-bg: var(--primary-dark);
   --bs-btn-active-bg: var(--primary);
   --bs-btn-border-color: none;
+  --bs-btn-disabled-bg: var(--primary-dark);
 }

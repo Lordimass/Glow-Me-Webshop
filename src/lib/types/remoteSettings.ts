@@ -14,8 +14,6 @@ export interface SessionNotif {
     duration: number;
 }
 
-// TODO: Send configured session notifications (and kill switch notif) since this doesn't do it anymore
-
 /**
  * Fetches the Remote Settings from the Supabase site_settings table.
  *
@@ -47,30 +45,5 @@ export async function determineRemoteSettings() {
         remoteSettings[setting.id] = setting.value;
     });
 
-    // // Enable kill switch and toast user if not already notified this session
-    // const killSwitchNotified = sessionStorage.getItem("killSwitchNotified");
-    // if (remoteSettings.kill_switch?.enabled && !killSwitchNotified) {
-    //     sessionStorage.setItem("killSwitchNotified", "true");
-    //     console.log("== KILL SWITCH ENABLED ==");
-    //     toast({ msg: remoteSettings.kill_switch.message, variant: "danger" });
-    // }
-
-    // Show current session notification if not already shown this session
-    // const sessionNotifNotified = sessionStorage.getItem("sessionNotifNotified");
-    // const sessionNotif = remoteSettings.session_notif;
-    // const now = new Date();
-    // if (
-    //     !sessionNotifNotified &&
-    //     sessionNotif &&
-    //     +new Date(sessionNotif.endTime) > +now && // Coerce dates to numbers
-    //     +new Date(sessionNotif.startTime) < +now
-    // ) {
-    //     sessionStorage.setItem("sessionNotifNotified", "true");
-    //     toast({
-    //         msg: sessionNotif.message,
-    //         duration: sessionNotif.duration ?? undefined,
-    //         variant: "warning",
-    //     });
-    // }
     return remoteSettings;
 }

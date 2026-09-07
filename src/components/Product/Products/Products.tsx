@@ -41,7 +41,6 @@ export default function Products({
 }: ProductsProps) {
   const products: ProductCollection = typeof prods === "string" ? ProductCollection.deserialise(prods) : prods;
   const { currency } = useContext(LocaleContext);
-
   const [page, setPage] = useState(1);
   const [toShow, setToShow] = useState<ProductCollection>(new ProductCollection());
 

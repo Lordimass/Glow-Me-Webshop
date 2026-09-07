@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+"use client"
+
+import {useEffect} from "react";
 import "./ThankYou.css";
-import PageComp from "../../components/Page/Page.tsx";
 
 const order_confirmed_gif: string =
   "https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public/other-assets//order-confirmed.gif";
@@ -12,13 +13,8 @@ export default function Page() {
     window.dispatchEvent(new CustomEvent("basketUpdate"));
   }, []);
 
-  return (
-    <PageComp
-      title="Thank you for your order!"
-      noindex={true}
-      canonical="https://thisshopissogay.com/thankyou"
-    >
-      <div className="thanks-box">
+  return ( <div className={"thanks-page"}>
+      <div className="thanks-box neon-border">
         <div className="thanks-top">
           <div className="order-confirmed-gif-container">
             <img id="order-confirmed-gif" src={order_confirmed_gif} />
@@ -36,7 +32,7 @@ export default function Page() {
           </button>
         </div>
       </div>
-    </PageComp>
+      </div>
   );
 }
 

@@ -2,6 +2,7 @@ import {SUPABASE_STORAGE} from "../assets.ts";
 import {type MinimalProductImage, ProductCollection, ProductData, ProductGroup} from "../types";
 import type {SupabaseClient} from "@supabase/supabase-js";
 import {callRPC} from "../supabase/server.ts";
+import type {IToast} from "@/lib/types/toasts.ts";
 
 export async function getProducts(
     supabase: SupabaseClient,

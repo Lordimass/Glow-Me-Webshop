@@ -2,7 +2,7 @@
 
 import {createContext, type ReactNode, useEffect, useState} from "react";
 import {determineRemoteSettings, type RemoteSettings} from "../types/remoteSettings.ts";
-import {DEFAULT_REMOTE_SETTINGS} from "../../config.ts";
+import {DEFAULT_REMOTE_SETTINGS} from "@/config.ts";
 
 export const RemoteSettingsContext = createContext<RemoteSettings>(DEFAULT_REMOTE_SETTINGS)
 
