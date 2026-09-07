@@ -7,7 +7,7 @@
 // stripe listen --forward-to localhost:8888/.netlify/functions/createOrder --events checkout.session.completed
 // This is done automatically by launch-dev-server.ps1
 
-import "./global.scss";
+import "./global.css";
 import {
   checkStock,
   createCheckoutSession,
@@ -15,24 +15,19 @@ import {
   stripePromise,
   updateShippingOptions,
 } from "./lib.ts";
-import React, { useContext, useEffect, useState } from "react";
-import {
-  EmbeddedCheckout,
-  EmbeddedCheckoutProvider,
-} from "@stripe/react-stripe-js";
-import {
-  LocaleContext,
-  LRCRemoteSettingsContext,
-  ToastContext,
-  trackBeginCheckoutWithBasket,
-} from "lordis-react-components";
-import PageComp from "../../components/Page/Page.tsx";
-import { SITE_NAME } from "../../lib/consts";
+import React, {useContext, useEffect, useState} from "react";
+import {EmbeddedCheckout, EmbeddedCheckoutProvider,} from "@stripe/react-stripe-js";
+import {ToastContext} from "@/lib/context/toasts.tsx";
+import {LocaleContext} from "@/lib/context/locale.tsx";
+import {RemoteSettingsContext} from "@/lib/context/remoteSettings.tsx";
+import {createClient} from "@/lib/supabase/client.ts";
 
 export default function Page() {
   // If the user has nothing in their basket, they should not
   // be on this page and will be redirected home
   useEffect(redirectIfEmptyBasket, []);
+
+  const supabase = createClient()
 
   useEffect(() => {
     /**
@@ -40,7 +35,7 @@ export default function Page() {
      * @returns true if stock is OK, false if it is not.
      */
     async function checkProductStock() {
-      const discrepancies = await checkStock();
+      const discrepancies = await checkStock(supabase);
 
       // If there were no discrepancies
       if (discrepancies.length === 0) {
@@ -64,26 +59,25 @@ export default function Page() {
   const { toast } = useContext(ToastContext);
   const { currency } = useContext(LocaleContext);
   const [canCheckout, setCanCheckout] = useState<boolean>(false);
-  const siteSettings = useContext(LRCRemoteSettingsContext);
+  const siteSettings = useContext(RemoteSettingsContext);
 
-  useEffect(() => {
-    trackBeginCheckoutWithBasket(currency);
-  }, []);
+  // TODO: useEffect(() => {
+  //   trackBeginCheckoutWithBasket(currency);
+  // }, []);
 
   return (
-    <PageComp
-      id="checkout-content"
-      noindex={true}
-      canonical="https://thisshopissogay.com/checkout"
-      title={SITE_NAME + " - Checkout"}
-      loadCondition={canCheckout && !siteSettings.kill_switch?.enabled}
-      loadingText="We're loading your basket..."
-    >
-      {canCheckout && !siteSettings.kill_switch?.enabled ? (
+      // id="checkout-content"
+      // noindex={true}
+      // canonical="https://thisshopissogay.com/checkout"
+      // title={SITE_NAME + " - Checkout"}
+      // TODO: loadCondition={canCheckout && !siteSettings.kill_switch?.enabled}
+      // loadingText="We're loading your basket..."
+
+      canCheckout && !siteSettings.kill_switch?.enabled ? (
         <EmbeddedCheckoutProvider
           stripe={stripePromise}
           options={{
-            fetchClientSecret: createCheckoutSession,
+            fetchClientSecret: () => createCheckoutSession(currency),
             onShippingDetailsChange: async (e) => {
               console.log("Checkout Session Data:", JSON.stringify(e));
               const resp = await updateShippingOptions(
@@ -105,7 +99,6 @@ export default function Page() {
         >
           <EmbeddedCheckout className={"embedded-checkout"} />
         </EmbeddedCheckoutProvider>
-      ) : null}
-    </PageComp>
+      ) : null
   );
 }

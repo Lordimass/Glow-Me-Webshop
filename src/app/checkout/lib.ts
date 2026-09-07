@@ -1,16 +1,10 @@
-import {
-  Basket,
-  getGAClientId,
-  getGASessionId,
-  LRC,
-} from "lordis-react-components";
-import { getCurrency } from "locale-currency";
-import type { StripeEmbeddedCheckoutShippingDetails } from "@stripe/stripe-js/dist/stripe-js/embedded-checkout";
-import type { StockDiscrepency } from "../../lib/types";
-import { loadStripe, type Stripe } from "@stripe/stripe-js";
+import type {StripeEmbeddedCheckoutShippingDetails} from "@stripe/stripe-js/dist/stripe-js/embedded-checkout";
+import {Basket, type StockDiscrepency} from "@/lib";
+import {loadStripe, type Stripe} from "@stripe/stripe-js";
+import type {SupabaseClient} from "@supabase/supabase-js";
+import type {Currency} from "dinero.js";
 
-const STRIPE_KEY = import.meta.env.NEXT_PUBLIC_STRIPE_KEY;
-console.log("Environment " + JSON.stringify(process));
+const STRIPE_KEY = process.env.NEXT_PUBLIC_STRIPE_KEY;
 if (!STRIPE_KEY) console.error("No NEXT_PUBLIC_STRIPE_KEY!");
 
 export const stripePromise: Promise<Stripe | null> = STRIPE_KEY
@@ -34,21 +28,14 @@ export function redirectIfEmptyBasket() {
  * Creates a Stripe Checkout Session.
  * @return The client secret for the created checkout session.
  */
-export async function createCheckoutSession(): Promise<string> {
-  // Get the user's location from the query string since we can't access Context here.
-  const urlParams = new URLSearchParams(window.location.search);
-  const locale = urlParams.get("locale") || LRC.defaultLocale;
-  /** 3-Character ISO Currency Code to use for the prices */
-  const currency: string = getCurrency(locale) || LRC.defaultCurrency;
-
+export async function createCheckoutSession(currency: Currency): Promise<string> {
   // Construct parameters for request to createCheckoutSession
   const prices = fetchStripePrices();
   const basketString = localStorage.getItem("basket");
-  const gaClientID = getGAClientId();
-  const gaSessionID = await getGASessionId(
-    import.meta.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID,
-  );
-  console.log("Test");
+  // TODO: const gaClientID = getGAClientId();
+  // const gaSessionID = await getGASessionId(
+  //   process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID,
+  // );
   const response = await fetch(".netlify/functions/createCheckoutSession", {
     method: "POST",
     headers: {
@@ -56,16 +43,21 @@ export async function createCheckoutSession(): Promise<string> {
     },
     body: JSON.stringify({
       stripe_line_items: prices,
-      basket: JSON.parse(basketString ? basketString : "{basket:[]}"),
+      basket: JSON.parse(basketString ? basketString : "{\"products\":[]}"),
       origin: window.location.origin,
-      gaClientID,
-      gaSessionID,
+      // gaClientID,
+      // gaSessionID,
       // Stripe uses the location to determine currency automatically, so we pass the location instead of currency.
       currency,
     }),
   });
-  const body = await response.json();
-  return body.client_secret;
+  if (response.ok) {
+    const body = await response.json();
+    return body.client_secret;
+  } else {
+    console.error(await response.text());
+    return ""
+  }
 }
 
 export async function updateShippingOptions(
@@ -91,14 +83,14 @@ export function fetchStripePrices(): { price: string; quantity: number }[] {
 /**
  * Find discrepencies between the basket quantities and fresh stock numbers from the database.
  */
-export async function checkStock() {
+export async function checkStock(supabase: SupabaseClient) {
   const prods = Basket.getBasket().products;
-  if (LRC.supabase == undefined) {
+  if (supabase == undefined) {
     throw new Error("LRC.supabase is undefined");
   }
 
   // Fetch up-to-date data from Supabase.
-  const { data, error } = await LRC.supabase
+  const { data, error } = await supabase
     .schema("glow_me")
     .from("products")
     .select("id, stock")
