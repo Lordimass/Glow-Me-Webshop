@@ -1,5 +1,6 @@
 import "./Header.css";
 import {SUBMARK_WEBP} from "@/lib";
+import BasketManager from "@/components/BasketManager/BasketManager.tsx";
 
 export default function Header() {
   return (
@@ -14,7 +15,7 @@ export default function Header() {
           />
         </a>
         <div className="header-spacer"></div>
-        {/*<BasketManager /> TODO: FIX*/}
+        <BasketManager />
       </div>
     </>
   );
