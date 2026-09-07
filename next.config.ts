@@ -1,15 +1,34 @@
 import type {NextConfig} from "next";
-import path from "node:path";
 
 const nextConfig: NextConfig = {
-    // `lordis-react-components` is npm-linked from the sibling repository.
-    // Tell Next/Turbopack to follow and compile the linked package instead of
-    // treating it as an unresolved external module.
-    transpilePackages: ["lordis-react-components"],
-    // Turbopack must consider the linked package part of its project root on
-    // Windows; otherwise it cannot follow the junction outside this repository.
-    turbopack: {
-        root: path.resolve(".."),
+    async redirects() {
+        return [
+            {
+                source: "/sitemap.xml",
+                destination: "/api/sitemap",
+                permanent: true,
+            },
+            {
+                source: "/sitemapStatic.xml",
+                destination: "/api/sitemap/static",
+                permanent: true,
+            },
+            {
+                source: "/sitemapProducts.xml",
+                destination: "/api/sitemap/products",
+                permanent: true,
+            },
+            {
+                source: "/CATS/",
+                destination: "/shop/CATS",
+                permanent: true,
+            },
+            {
+                source: "/GHOSTS/",
+                destination: "/shop/GHOSTS",
+                permanent: true,
+            }
+        ]
     },
     distDir: "dist", // Changes the build output directory to `dist`
     images: {
