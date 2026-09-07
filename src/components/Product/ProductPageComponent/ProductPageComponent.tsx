@@ -1,18 +1,22 @@
+"use client";
+
 import {useEffect, useState} from "react";
 import "./ProductPageComponent.css";
 import {ProductContext} from "./lib";
-import {ProductData, ProductGroup, snakeToTitleCase} from "../../../lib";
+import {ProductData, ProductGroup, snakeToTitleCase} from "@/lib";
 import SquareImageBox from "../../SquareImageBox/SquareImageBox";
-import {BasketModifier, GoHome, Tags} from "../../index";
 import ProductGroupComponent from "./ProductGroup";
 import Markdown from "react-markdown";
 import ProductPrice from "../../Price/ProductPrice/ProductPrice";
+import GoHome from "@/components/GoHome/GoHome.tsx";
+import BasketModifier from "@/components/Ticker/BasketModifier/BasketModifier.tsx";
+import Tags from "@/components/Tag/Tags.tsx";
 
 interface ProductPageComponentProps {
-  /** Product to display */
-  p_product: ProductData;
-  /** Group that this product is part of to display */
-  group?: ProductGroup;
+  /** Product to display, or serialised string representing {@link ProductData}*/
+  p_product: ProductData | string;
+  /** Group that this product is part of to display, or serialised string representing {@link ProductGroup} */
+  p_group?: ProductGroup | string;
   /** Whether tags should be clickable to go to a /tag/TAG_NAME page. Defaults to `true` */
   clickableTags?: boolean;
 }
@@ -20,11 +24,17 @@ interface ProductPageComponentProps {
 /** A full screen component giving information on a product. Designed to be used on a dedicated page. */
 export default function ProductPageComponent({
   p_product = ProductData.NULL,
-  group,
+  p_group,
   clickableTags = true,
 }: ProductPageComponentProps) {
   // The product being viewed
-  const [product, setProduct] = useState<ProductData>(p_product);
+  const [product, setProduct] = useState<ProductData>(typeof p_product === "string"
+      ? ProductData.deserialize(p_product)
+      : p_product
+  );
+  // The group being viewed
+  const [group, setGroup] = useState<ProductGroup | undefined>();
+
   // Displays the first image of the hovered product in place of the carousel if set.
   const [hoveredVariant, setHoveredVariant] = useState<ProductData>();
 
@@ -34,17 +44,23 @@ export default function ProductPageComponent({
   // When the parameter changes, update the selected product to match. This is also useful to allow late updating of the
   // product data if content is still loading
   useEffect(() => {
-    setProduct(p_product);
+    setProduct(typeof p_product === "string"
+        ? ProductData.deserialize(p_product)
+        : p_product);
   }, [p_product]);
+
+  useEffect(() => {
+    setGroup(typeof p_group === "string"
+        ? ProductGroup.deserialize(p_group)
+        : p_group)
+  }, [p_group]);
 
   return (
     <div className={"product-page-component"}>
       <ProductContext.Provider
         value={{
-          product,
-          setProduct,
-          hoveredVariant,
-          setHoveredVariant,
+          product, setProduct,
+          hoveredVariant, setHoveredVariant,
           group,
         }}
       >
@@ -52,7 +68,7 @@ export default function ProductPageComponent({
         <GoHome />
 
         {/* Actual box containing this product's primary information */}
-        <div className="product-box">
+        <div className="product-box neon-border">
           <div className="image">
             <SquareImageBox
               image={
@@ -110,7 +126,7 @@ function AdditionalInformation({ prod }: { prod: ProductData }) {
   const keys = Object.keys(data);
 
   return (
-    <div className="product-box additional-product-information">
+    <div className="product-box additional-product-information neon-border">
       <h2>Item Details</h2>
       <div className="additional-product-information-container">
         {keys.map((key) => {

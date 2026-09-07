@@ -1,5 +1,6 @@
 import React from "react";
 import Ticker from "../Ticker";
+import "./PageSelector.css"
 
 /**
  * Wrapper for {@link Ticker}. Constructs a component to give the user an interface for selecting a page number

@@ -5,7 +5,7 @@ import {BasketProduct, getProductPagePath, ProductData, ProductGroup,} from "../
 import ProductPrice from "../Price/ProductPrice/ProductPrice.tsx";
 import BasketModifier from "../Ticker/BasketModifier/BasketModifier.tsx";
 import SquareImageBox from "../SquareImageBox/SquareImageBox.tsx";
-import "./Product.scss"
+import "./Product.css"
 
 interface ProductProps {
   /** The product or product group to display. */
@@ -120,7 +120,6 @@ function HyperlinkedProductImage({
   href: string;
   prod: ProductData | ProductGroup;
 }) {
-  console.log(prod)
   const representativeImage = prod.getRepresentativeImage();
   return (
     <a className="product-image-link" href={href}>

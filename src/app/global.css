@@ -24,7 +24,9 @@
   --secondary-dark: #4a4540;
   --secondary-darker: #312e2b;
 
-  --font-family-sans-serif: "Open Dyslexic";
+  --bs-primary: var(--primary) !important;
+  --bs-secondary: var(--secondary) !important;
+
   --bs-font-sans-serif: "Open Dyslexic";
   --bs-box-shadow: 1px 0 2px rgba(0, 0, 0, 0.3);
   font-family: Open Dyslexic, sans-serif;
@@ -92,18 +94,11 @@ a:hover {
   margin: 5px;
 }
 
-/*============ Product ============*/
-.ticker-text {
-  background-color: inherit;
+/*============ Bootstrap ============*/
 
-  input {
-    background-color: inherit;
-  }
-}
-
-/*============ GoHome ============*/
-
-.go-home-button h1 {
-  color: var(--primary);
-  text-decoration: none;
+.btn-primary {
+  --bs-btn-bg: var(--primary);
+  --bs-btn-hover-bg: var(--primary-dark);
+  --bs-btn-active-bg: var(--primary);
+  --bs-btn-border-color: none;
 }

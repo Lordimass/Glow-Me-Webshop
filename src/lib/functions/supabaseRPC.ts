@@ -1,5 +1,5 @@
 import {SUPABASE_STORAGE} from "../assets.ts";
-import {type MinimalProductImage, ProductData, ProductGroup} from "../types";
+import {type MinimalProductImage, ProductCollection, ProductData, ProductGroup} from "../types";
 import type {SupabaseClient} from "@supabase/supabase-js";
 import {callRPC} from "../supabase/server.ts";
 
@@ -28,7 +28,7 @@ export async function getGroupedProducts(
     livemode = true,
     tags?: string[],
     toast?: (toast: IToast | string) => void,
-): Promise<ProductGroup[]> {
+): Promise<ProductCollection> {
     const groups: any[][] = await callRPC(
         supabase,
         "gm_get_grouped_products",
@@ -72,6 +72,8 @@ export function handleGetProductsResponse(respData: any[]): ProductData[] {
 
 export function handleGetGroupedProductsResponse(
     respData: any[][],
-): ProductGroup[] {
-    return respData.map((g) => new ProductGroup(handleGetProductsResponse(g)));
+): ProductCollection {
+    const collection = new ProductCollection();
+    collection.push(...respData.map((g) => new ProductGroup(handleGetProductsResponse(g))));
+    return collection;
 }

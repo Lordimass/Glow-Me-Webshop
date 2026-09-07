@@ -45,7 +45,7 @@ export default function Products({
   const [page, setPage] = useState(1);
   const [toShow, setToShow] = useState<ProductCollection>(new ProductCollection());
 
-  const pageCount = pageSize ? Math.ceil(prods.length / pageSize) : undefined;
+  const pageCount = pageSize ? Math.ceil(products.length / pageSize) : undefined;
 
   useEffect(() => {
     console.log("Products: ", products)
@@ -71,7 +71,7 @@ export default function Products({
           <Product prod={p} key={i} />
         ))}
       </div>
-      {pageCount ? (
+      {pageCount && pageCount > 1 ? (
         <PageSelector
           id="product-list-page-selector"
           pageCount={pageCount}

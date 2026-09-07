@@ -10,3 +10,5 @@ export * from "./consts";
 export * from "./routing.ts"
 export * from "./assets.ts";
 export * from "./currencySymbols.ts"
+export * from "./formatting.ts"
+export * from "./price.ts"

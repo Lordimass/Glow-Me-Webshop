@@ -1,5 +1,3 @@
-@forward "./ProductPrice/ProductPrice";
-
 .price {
   display: flex;
   margin: 0 2px 0 2px;

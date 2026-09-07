@@ -1,47 +1,34 @@
-"use client";
-
-import {
-  ProductData,
-  ProductGroup,
-  ProductPageComponent,
-} from "lordis-react-components";
-import Page from "../../../components/Page/Page.tsx";
-import { SITE_NAME } from "../../../lib/consts";
 import "./global.css";
-import { notFound } from "next/navigation";
-import { useEffect, useState } from "react";
-import { getGroupedProducts } from "../../../lib/functions/supabaseRPC.ts";
+import {notFound} from "next/navigation";
+import {getGroupedProducts} from "@/lib/functions/supabaseRPC.ts";
+import {ProductData, ProductGroup} from "@/lib";
+import ProductPageComponent from "@/components/Product/ProductPageComponent/ProductPageComponent.tsx";
+import {createClient} from "@/lib/supabase/server.ts";
 
-export default function ProductPage({
+export default async function ProductPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const [group, setGroup] = useState<ProductGroup>();
+  const { id } = await params;
+  const supabase = await createClient()
+  const productGroups: ProductGroup[] = await getGroupedProducts(supabase, [id])
+  if (!productGroups || productGroups.length === 0) notFound();
+
+  const group = productGroups[0];
   const product = group?.products[0] ?? ProductData.NULL;
 
-  // Fetch the product for this page.
-  useEffect(() => {
-    async function get() {
-      const { id } = await params;
-      const productGroups: ProductGroup[] = await getGroupedProducts([id]);
-      if (!productGroups || productGroups.length === 0) notFound();
-    }
-    get().then();
-  }, []);
+  // TODO:
+  // title={`${SITE_NAME} - ${product.name}`}
+  // metaDescription={product.metadata.description}
 
   return (
-    <div data-bs-theme={"light"}>
-      <Page
-        title={`${SITE_NAME} - ${product.name}`}
-        metaDescription={product.metadata.description}
-      >
+    <div>
         <ProductPageComponent
-          p_product={product}
-          group={group}
+          p_product={product.serialise()}
+          p_group={group.serialise()}
           clickableTags={true}
         />
-      </Page>
     </div>
   );
 }

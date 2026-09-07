@@ -3,7 +3,9 @@
 import DineroFactory, {type Currency, type Dinero} from "dinero.js";
 import {useContext, useEffect, useState} from "react";
 import {LocaleContext} from "../../lib/context/locale.tsx";
-import {CURRENCY_SYMBOLS, TAX_EXCLUSIVE_COUNTRIES} from "../../lib";
+import {CURRENCY_SYMBOLS, TAX_EXCLUSIVE_COUNTRIES} from "@/lib";
+import "./Price.css"
+import {convertDinero} from "@/lib/price.ts";
 
 /**
  * Price display in user's local currency provided by {@link LocaleContext} (default , or any custom currency supplied through the `currency` property.

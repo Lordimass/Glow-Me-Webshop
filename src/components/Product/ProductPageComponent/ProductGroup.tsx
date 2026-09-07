@@ -1,17 +1,16 @@
-import { useContext, useEffect, useRef } from "react";
-import { ProductContext } from "./lib";
+import {useContext, useEffect, useRef} from "react";
+import {ProductContext} from "./lib";
 import DineroFactory from "dinero.js";
-import {
-  getProductPagePath,
-  LocaleContext,
-  ProductData,
-  trackViewItemAutoConvert,
-} from "../../../lib";
-import { Price, SquareImageBox } from "../../index";
+import {getProductPagePath, ProductData} from "@/lib";
+import {LocaleContext} from "@/lib/context/locale.tsx";
+import SquareImageBox from "@/components/SquareImageBox/SquareImageBox.tsx";
+import Price from "@/components/Price/Price.tsx";
 
 export default function ProductGroup() {
   const { product, group, hoveredVariant, setHoveredVariant } =
     useContext(ProductContext);
+  if (!group || group?.products.length <= 1) return
+
   const groupRef = useRef<HTMLDivElement>(null);
   /**
    * The name of the current hovered variant, or the selected product if none is hovered.
@@ -63,7 +62,7 @@ function ProductVariant({ product }: { product: ProductData }) {
       product.name,
       getProductPagePath(product.sku),
     );
-    trackViewItemAutoConvert(currency, product);
+    // TODO: trackViewItemAutoConvert(currency, product);
   }
 
   const {

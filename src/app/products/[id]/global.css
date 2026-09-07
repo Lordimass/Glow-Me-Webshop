@@ -1,9 +1,10 @@
 .product-box {
-  background-color: var(--secondary-light) !important;
+  background-color: var(--bs-gray-200) !important;
   background-image: none;
 }
 
 .additional-product-information {
+  --neon-border-colour: var(--secondary);
   background-color: var(--bs-body-bg);
   background-image: none !important;
   border-radius: 10px !important;
