@@ -1,17 +1,8 @@
 import type {StripeEmbeddedCheckoutShippingDetails} from "@stripe/stripe-js/dist/stripe-js/embedded-checkout";
 import {Basket, type StockDiscrepency} from "@/lib";
-import {loadStripe, type Stripe} from "@stripe/stripe-js";
 import type {SupabaseClient} from "@supabase/supabase-js";
 import type {Currency} from "dinero.js";
 
-const STRIPE_KEY = process.env.NEXT_PUBLIC_STRIPE_KEY;
-if (!STRIPE_KEY) console.error("No NEXT_PUBLIC_STRIPE_KEY!");
-
-export const stripePromise: Promise<Stripe | null> = STRIPE_KEY
-  ? loadStripe(STRIPE_KEY, {
-      betas: ["custom_checkout_server_updates_1"],
-    })
-  : new Promise(() => {});
 
 export function redirectIfEmptyBasket() {
   const basketString: string | null = localStorage.getItem("basket");
@@ -23,7 +14,6 @@ export function redirectIfEmptyBasket() {
     window.location.href = "/";
   }
 }
-
 /**
  * Creates a Stripe Checkout Session.
  * @return The client secret for the created checkout session.
@@ -36,7 +26,7 @@ export async function createCheckoutSession(currency: Currency): Promise<string>
   // const gaSessionID = await getGASessionId(
   //   process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID,
   // );
-  const response = await fetch(".netlify/functions/createCheckoutSession", {
+  const response = await fetch("api/createCheckoutSession", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -55,7 +45,7 @@ export async function createCheckoutSession(currency: Currency): Promise<string>
     const body = await response.json();
     return body.client_secret;
   } else {
-    console.error(await response.text());
+    console.error("Something went wrong when fetching client secret ", await response.text());
     return ""
   }
 }
@@ -65,7 +55,7 @@ export async function updateShippingOptions(
   shippingDetails: StripeEmbeddedCheckoutShippingDetails,
 ) {
   return await fetch(
-    window.location.origin + "/.netlify/functions/getShippingOptions",
+    window.location.origin + "/api/getShippingOptions",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

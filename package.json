@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "concurrently --kill-others \"npm run startStripeListener\" \"next dev\"",
     "start": "npx serve@latest ./build",
-    "startStripeListener": "stripe listen --forward-to localhost:8888/.netlify/functions/stripeWebhook --events checkout.session.completed,refund.created",
+    "startStripeListener": "stripe listen --forward-to localhost:8888/api/stripeWebhook --events checkout.session.completed,refund.created",
     "build": "tsc -b && next build",
     "lint": "eslint .",
     "lighthouse": "lighthouse http://localhost:8888 --output-path ./dist/lighthouse-results.html --view --chrome-flags=\"--headless\""

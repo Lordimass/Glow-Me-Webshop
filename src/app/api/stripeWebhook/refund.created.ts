@@ -1,8 +1,8 @@
 import Stripe from "stripe";
-import { getCheckoutSessionItems } from "../checkoutSessionUtils.ts";
-import { stripe } from "../stripe.ts";
-import { sendGA4Event } from "../ga.ts";
-import { type BasketProduct, GAItem } from "lordis-react-components";
+import {stripe} from "@/lib/stripe/server.ts";
+import {getCheckoutSessionItems} from "@/lib/functions/checkoutSessionUtils.ts";
+import {BasketProduct} from "@/lib";
+import {createClient} from "@/lib/supabase/server.ts";
 
 /**
  * Triggers a GA4 event for a refund.
@@ -24,7 +24,8 @@ export async function handleRefundCreated(event: Stripe.RefundCreatedEvent) {
   }
 
   // Get the associated LineItems and Products compounded together.
-  const lineItems: BasketProduct[] = await getCheckoutSessionItems(session.id);
+  const supabase = await createClient()
+  const lineItems: BasketProduct[] = await getCheckoutSessionItems(supabase, session.id);
 
   // Extract client ID and session ID
   const client_id = session.metadata?.gaClientID;
@@ -46,7 +47,7 @@ export async function handleRefundCreated(event: Stripe.RefundCreatedEvent) {
           tax: (session.total_details?.amount_tax ?? 0) / 100,
           shipping: (session.total_details?.amount_shipping ?? 0) / 100,
           currency: refund.currency,
-          items: lineItems.map((p) => new GAItem(p)),
+          // items: lineItems.map((p) => new GAItem(p)),
         },
       },
     ],
@@ -54,5 +55,5 @@ export async function handleRefundCreated(event: Stripe.RefundCreatedEvent) {
   console.log(
     `Triggering REFUND event for transaction with value ${payload.events[0].params.currency} ${payload.events[0].params.value}`,
   );
-  await sendGA4Event(payload);
+  // TODO: await sendGA4Event(payload);
 }

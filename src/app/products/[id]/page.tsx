@@ -1,7 +1,7 @@
 import "./global.css";
 import {notFound} from "next/navigation";
 import {getGroupedProducts} from "@/lib/functions/supabaseRPC.ts";
-import {ProductData, ProductGroup} from "@/lib";
+import {ProductCollection, ProductData, ProductGroup} from "@/lib";
 import ProductPageComponent from "@/components/Product/ProductPageComponent/ProductPageComponent.tsx";
 import {createClient} from "@/lib/supabase/server.ts";
 
@@ -12,11 +12,15 @@ export default async function ProductPage({
 }) {
   const { id } = await params;
   const supabase = await createClient()
-  const productGroups: ProductGroup[] = await getGroupedProducts(supabase, [id])
+  const productGroups: ProductCollection = await getGroupedProducts(
+      supabase, [id], true, process.env.NODE_ENV === "production"
+  )
   if (!productGroups || productGroups.length === 0) notFound();
 
   const group = productGroups[0];
-  const product = group?.products[0] ?? ProductData.NULL;
+  const product = group instanceof ProductGroup
+      ? group?.products[0] ?? ProductData.NULL
+      : group;
 
   // TODO:
   // title={`${SITE_NAME} - ${product.name}`}

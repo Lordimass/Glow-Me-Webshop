@@ -42,7 +42,9 @@ export default function RootLayout({children}: { children: ReactNode }) {
                 <RemoteSettingsContextProvider>
                     <ToastWrapper>
                         <LayoutContextInternal>
-                            {children}
+                            <main>
+                                {children}
+                            </main>
                         </LayoutContextInternal>
                     </ToastWrapper>
                 </RemoteSettingsContextProvider>

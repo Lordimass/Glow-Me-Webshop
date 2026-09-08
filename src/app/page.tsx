@@ -14,7 +14,12 @@ import {createClient} from "../lib/supabase/server.ts";
 import Products from "@/components/Product/Products/Products.tsx";
 
 export default async function Page() {
-    const groups = await getGroupedProducts(await createClient(), undefined, true);
+    const groups = await getGroupedProducts(
+        await createClient(),
+        undefined,
+        true,
+        process.env.NODE_ENV === "production",
+    );
 
     return (
         <>
