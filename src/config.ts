@@ -1,6 +1,6 @@
 import {getCurrency} from "locale-currency";
 import type {Currency} from "dinero.js";
-import type {Locale} from "./lib/types/locale.ts";
+import type {Locale} from "@/lib";
 import type {RemoteSettings} from "./lib/types/remoteSettings.ts";
 
 /*============================== LOCALE ==============================*/

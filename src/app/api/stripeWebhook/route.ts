@@ -10,9 +10,7 @@ import {handleRefundCreated} from "@/app/api/stripeWebhook/refund.created.ts";
  */
 export async function POST(request: NextRequest) {
     try {
-        if (!stripe) {
-            return new Response("Stripe object didn't initialise", { status: 500 });
-        }
+        if (!stripe) return new Response("Stripe object didn't initialise", { status: 500 });
 
         // Extract signature and pick secret to authenticate with
         const endpointSecret = process.env.STRIPE_HOOK_SECRET;

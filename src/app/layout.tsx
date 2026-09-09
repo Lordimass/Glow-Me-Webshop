@@ -9,7 +9,8 @@ import Footer from "../components/Footer/Footer.tsx";
 import LocaleContextProvider from "../lib/context/locale.tsx";
 import RemoteSettingsContextProvider from "../lib/context/remoteSettings.tsx";
 import ToastWrapper from "@/components/ToastWrapper/ToastWrapper.tsx";
-import {UseMaybeShowSessionToasts} from "@/lib/hooks/UseMaybeShowSessionToasts.ts";
+import {GoogleAnalytics} from "@next/third-parties/google";
+import {UseGA4Consent} from "@/lib/ga/client.tsx";
 
 export const metadata: Metadata = {
     title: "Glow Me!",
@@ -24,16 +25,6 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({children}: { children: ReactNode }) {
-    // TODO: GA4 Integration
-    // if (!process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID) {
-    //   console.error("No NEXT_PUBLIC_GA4_MEASUREMENT_ID is set");
-    // } else {
-    //   initGA4(
-    //     process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID!,
-    //     process.env.NODE_ENV === "development",
-    //   );
-    // }
-
     return (
         <html lang="en" data-bs-theme="light">
         <body>
@@ -42,9 +33,9 @@ export default function RootLayout({children}: { children: ReactNode }) {
                 <RemoteSettingsContextProvider>
                     <ToastWrapper>
                         <LayoutContextInternal>
-                            <main>
-                                {children}
-                            </main>
+                            {children}
+                            <UseGA4Consent/>
+                            <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID!}/>
                         </LayoutContextInternal>
                     </ToastWrapper>
                 </RemoteSettingsContextProvider>
@@ -57,9 +48,8 @@ export default function RootLayout({children}: { children: ReactNode }) {
 
 function LayoutContextInternal({children}: { children: ReactNode }) {
     return (<>
-            <UseMaybeShowSessionToasts/>
             <Header/>
-            {children}
+            <main>{children}</main>
             <Footer/>
         </>
     )
