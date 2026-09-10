@@ -5,6 +5,7 @@ import {callRPC} from "./server.ts";
 import type {IToast} from "@/lib/types/toasts.ts";
 
 export function createClient() {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_DATABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY) return null
     return createBrowserClient(
         process.env.NEXT_PUBLIC_SUPABASE_DATABASE_URL!,
         process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
@@ -25,7 +26,7 @@ export function useGetUser(supabase: SupabaseClient) {
 }
 
 export async function login(email: string, password: string) {
-    const supabase = createClient();
+    const supabase = createClient()!;
     console.log("Get User ", await supabase.auth.getUser())
     const {data: emailExists, error: emailCheckError} = await supabase.rpc("email_exists", {email_to_check: email})
     if (emailCheckError) {console.error(emailCheckError); return;}
@@ -52,7 +53,7 @@ export async function login(email: string, password: string) {
 }
 
 export async function logout() {
-    const supabase = createClient();
+    const supabase = createClient()!;
     await supabase.auth.signOut();
 }
 

@@ -23,7 +23,7 @@ export interface SessionNotif {
  */
 export async function determineRemoteSettings() {
     let remoteSettings: RemoteSettings;
-    const supabase = createClient()
+    const supabase = createClient()!
 
     // Use a locally defined variable to allow for immediate manipulation. If we used the remoteSettings in state
     // it would still be `{}` until the next render loop.

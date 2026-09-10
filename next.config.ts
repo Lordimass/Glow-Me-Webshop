@@ -39,7 +39,6 @@ const nextConfig: NextConfig = {
             }
         ]
     },
-    distDir: "dist", // Changes the build output directory to `dist`
     images: {
         remotePatterns: [new URL("https://bvxxbkafrjoboauypopg.supabase.co/**")],
     }

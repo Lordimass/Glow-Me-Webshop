@@ -23,7 +23,7 @@ export default function Page() {
   // be on this page and will be redirected home
   useEffect(redirectIfEmptyBasket, []);
 
-  const supabase = createClient()
+  const supabase = createClient()!
 
   useEffect(() => {
     /**

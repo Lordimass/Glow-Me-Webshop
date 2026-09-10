@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "concurrently --kill-others \"npm run startStripeListener\" \"next dev\"",
-    "start": "npx serve@latest ./build",
+    "start": "next start",
     "startStripeListener": "stripe listen --forward-to localhost:8888/api/stripeWebhook --events checkout.session.completed,refund.created",
     "build": "tsc -b && next build",
     "lint": "eslint .",
@@ -50,7 +50,7 @@
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
     "lighthouse": "^13.0.3",
-    "netlify-cli": "^24.5.1",
+    "netlify-cli": "^27.5.2",
     "prettier": "3.8.1",
     "raw-loader": "^4.0.2",
     "sass": "^1.101.0",
