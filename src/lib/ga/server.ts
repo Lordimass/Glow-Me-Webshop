@@ -19,9 +19,7 @@ export async function sendGA4Event(
     const GA4_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID;
 
     if (!GA4_MEASUREMENT_PROTOCOL_SECRET || !GA4_MEASUREMENT_ID) {
-        throw new Error(
-            "Missing required NEXT_PUBLIC_GA4_MEASUREMENT_ID or GA4_MEASUREMENT_PROTOCOL_SECRET",
-        );
+        throw new Error("Missing required NEXT_PUBLIC_GA4_MEASUREMENT_ID or GA4_MEASUREMENT_PROTOCOL_SECRET");
     }
 
   const response = await fetch(

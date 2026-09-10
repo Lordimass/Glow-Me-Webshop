@@ -1,3 +1,5 @@
+"use server";
+
 import "./global.css";
 import type {ReactNode} from "react";
 import {Carousel, CarouselItem} from "react-bootstrap";
@@ -6,16 +8,14 @@ import Products from "../../components/Product/Products/Products.tsx";
 import GoHome from "../../components/GoHome/GoHome.tsx";
 import {getGroupedProducts} from "@/lib/functions/supabaseRPC.ts";
 import {createClient} from "@/lib/supabase/server.ts";
+import {GoogleMapsEmbed} from "@next/third-parties/google";
 
 interface ShopShowcaseProps {
   /** The name of the shop */
   shopName: string;
   description: ReactNode;
   metaDescription: string;
-  /**
-   * Google Maps embed link for the location of the shop
-   * @example https://maps.google.com/maps?amp;hl=en&amp;q=GHOSTS, 74 Low Petergate, York&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed
-   */
+  /** Google Maps query for the location of the shop */
   mapEmbed: string;
   images?: MinimalImage[];
   /** Submark logo */
@@ -25,29 +25,41 @@ interface ShopShowcaseProps {
 }
 
 export default async function ShopShowcase(props: ShopShowcaseProps) {
-  const groups = await getGroupedProducts(await createClient(), undefined, undefined, undefined, props.tags);
+  const groups = await getGroupedProducts(
+      await createClient(),
+      undefined,
+      undefined,
+      process.env.NODE_ENV === "production",
+      props.tags
+  );
 
   return (
     <div
       id={`shop-showcase`}
-      // TODO: title={props.shopName}
-      // metaDescription={props.metaDescription}
     >
       <GoHome />
       <h1 className={"shop-title"}>
-        <hr />
-        {props.shopName}
-        <hr />
+        <hr />{props.shopName}<hr />
       </h1>
       <div className={"split"}>
         <div className={"left"}>
           <p>{props.description}</p>
         </div>
-        <iframe
-          className="gmap_iframe right neon-border"
-          width="100%"
-          src={props.mapEmbed}
-        />
+        <div className={"gmap_iframe right neon-border"}>
+          <GoogleMapsEmbed
+              mode={"place"}
+              apiKey={process.env.GOOGLE_MAPS_SECRET_KEY!}
+              q={props.mapEmbed}
+              style={"width: 100%; height: 100%"}
+              height={1}
+          />
+        </div>
+
+        {/*<iframe*/}
+        {/*  className="gmap_iframe right neon-border"*/}
+        {/*  width="100%"*/}
+        {/*  src={props.mapEmbed}*/}
+        {/*/>*/}
       </div>
       <div className={"split"}>
         <div className={"left carousel-outer neon-border"}>

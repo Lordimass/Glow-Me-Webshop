@@ -5,27 +5,15 @@ import {getProductPagePath, ProductData} from "@/lib";
 import {LocaleContext} from "@/lib/context/locale.tsx";
 import SquareImageBox from "@/components/SquareImageBox/SquareImageBox.tsx";
 import Price from "@/components/Price/Price.tsx";
+import {trackViewItemAutoConvert} from "@/lib/ga/helpers.ts";
 
 export default function ProductGroup() {
-  const { product, group, hoveredVariant, setHoveredVariant } =
-    useContext(ProductContext);
-  if (!group || group?.products.length <= 1) return
-
+  const { product, group, hoveredVariant, setHoveredVariant } = useContext(ProductContext);
   const groupRef = useRef<HTMLDivElement>(null);
-  /**
-   * The name of the current hovered variant, or the selected product if none is hovered.
-   * Prioritises the variant_name first, then the full product name if that doesn't exist.
-   */
-  const name =
-    hoveredVariant?.metadata.variant_name ??
-    hoveredVariant?.name ??
-    product.metadata.variant_name ??
-    product.name;
-  if (!setHoveredVariant) return <></>;
 
   // Only change back to normal after mouse leaves this box
   useEffect(() => {
-    if (!groupRef.current) return;
+    if (!groupRef.current || !setHoveredVariant) return;
     groupRef.current.addEventListener("mouseleave", () =>
       setHoveredVariant(undefined),
     );
@@ -35,9 +23,16 @@ export default function ProductGroup() {
       );
   }, [groupRef.current]);
 
-  if (!group || group.products.length === 0) {
-    return <></>;
-  }
+  /**
+   * The name of the current hovered variant, or the selected product if none is hovered.
+   * Prioritises the variant_name first, then the full product name if that doesn't exist.
+   */
+  const name =
+      hoveredVariant?.metadata.variant_name ??
+      hoveredVariant?.name ??
+      product.metadata.variant_name ??
+      product.name;
+  if (!setHoveredVariant || !group || group.products.length <= 1) return null;
   return (
     <>
       <p className="p-small">Variant: {name}</p>
@@ -62,7 +57,7 @@ function ProductVariant({ product }: { product: ProductData }) {
       product.name,
       getProductPagePath(product.sku),
     );
-    // TODO: trackViewItemAutoConvert(currency, product);
+    trackViewItemAutoConvert(currency, product);
   }
 
   const {

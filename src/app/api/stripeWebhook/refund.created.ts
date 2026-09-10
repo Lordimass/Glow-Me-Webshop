@@ -3,6 +3,8 @@ import {stripe} from "@/lib/stripe/server.ts";
 import {getCheckoutSessionItems} from "@/lib/functions/checkoutSessionUtils.ts";
 import {BasketProduct} from "@/lib";
 import {createClient} from "@/lib/supabase/server.ts";
+import {sendGA4Event} from "@/lib/ga/server.ts";
+import {GAItem} from "@/lib/types/ga.ts";
 
 /**
  * Triggers a GA4 event for a refund.
@@ -47,7 +49,7 @@ export async function handleRefundCreated(event: Stripe.RefundCreatedEvent) {
           tax: (session.total_details?.amount_tax ?? 0) / 100,
           shipping: (session.total_details?.amount_shipping ?? 0) / 100,
           currency: refund.currency,
-          // items: lineItems.map((p) => new GAItem(p)),
+          items: lineItems.map((p) => new GAItem(p)),
         },
       },
     ],
@@ -55,5 +57,5 @@ export async function handleRefundCreated(event: Stripe.RefundCreatedEvent) {
   console.log(
     `Triggering REFUND event for transaction with value ${payload.events[0].params.currency} ${payload.events[0].params.value}`,
   );
-  // TODO: await sendGA4Event(payload);
+  await sendGA4Event(payload);
 }

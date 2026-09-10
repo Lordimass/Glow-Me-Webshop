@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import "./ProductPageComponent.css";
 import {ProductContext} from "./lib";
 import {ProductData, ProductGroup, snakeToTitleCase} from "@/lib";
@@ -11,6 +11,8 @@ import ProductPrice from "../../Price/ProductPrice/ProductPrice";
 import GoHome from "@/components/GoHome/GoHome.tsx";
 import BasketModifier from "@/components/Ticker/BasketModifier/BasketModifier.tsx";
 import Tags from "@/components/Tag/Tags.tsx";
+import {trackViewItemAutoConvert, trackViewItemListAutoConvert} from "@/lib/ga/helpers.ts";
+import {LocaleContext} from "@/lib/context/locale.tsx";
 
 interface ProductPageComponentProps {
   /** Product to display, or serialised string representing {@link ProductData}*/
@@ -27,19 +29,14 @@ export default function ProductPageComponent({
   p_group,
   clickableTags = true,
 }: ProductPageComponentProps) {
-  // The product being viewed
-  const [product, setProduct] = useState<ProductData>(typeof p_product === "string"
-      ? ProductData.deserialize(p_product)
-      : p_product
-  );
-  // The group being viewed
+  const {currency} = useContext(LocaleContext);
+
+  const [product, _setProduct] = useState<ProductData>(ProductData.NULL);
   const [group, setGroup] = useState<ProductGroup | undefined>();
-
-  // Displays the first image of the hovered product in place of the carousel if set.
   const [hoveredVariant, setHoveredVariant] = useState<ProductData>();
-
-  // Images to display on the carousel
   const images = group ? group.getCarouselImages(product.sku) : product.images;
+
+  const groupAnalyticsTriggered = useRef<boolean>(false);
 
   // When the parameter changes, update the selected product to match. This is also useful to allow late updating of the
   // product data if content is still loading
@@ -50,10 +47,20 @@ export default function ProductPageComponent({
   }, [p_product]);
 
   useEffect(() => {
-    setGroup(typeof p_group === "string"
+    const newGroup = typeof p_group === "string"
         ? ProductGroup.deserialize(p_group)
-        : p_group)
+        : p_group
+    setGroup(newGroup);
+    if (newGroup && !groupAnalyticsTriggered.current) {
+      trackViewItemListAutoConvert(currency, newGroup?.products, newGroup.groupName, newGroup.groupName);
+      groupAnalyticsTriggered.current = true;
+    }
   }, [p_group]);
+
+  function setProduct(newProduct: ProductData) {
+    if (newProduct.sku != product.sku) trackViewItemAutoConvert(currency, newProduct);
+    _setProduct(newProduct);
+  }
 
   return (
     <div className={"product-page-component"}>

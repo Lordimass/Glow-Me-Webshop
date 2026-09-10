@@ -2,6 +2,7 @@ import type {StripeEmbeddedCheckoutShippingDetails} from "@stripe/stripe-js/dist
 import {Basket, type StockDiscrepency} from "@/lib";
 import type {SupabaseClient} from "@supabase/supabase-js";
 import type {Currency} from "dinero.js";
+import {getGAClientId, getGASessionId} from "@/lib/ga/ga.ts";
 
 
 export function redirectIfEmptyBasket() {
@@ -22,10 +23,8 @@ export async function createCheckoutSession(currency: Currency): Promise<string>
   // Construct parameters for request to createCheckoutSession
   const prices = fetchStripePrices();
   const basketString = localStorage.getItem("basket");
-  // TODO: const gaClientID = getGAClientId();
-  // const gaSessionID = await getGASessionId(
-  //   process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID,
-  // );
+  const gaClientID = getGAClientId();
+  const gaSessionID = await getGASessionId(process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID!);
   const response = await fetch("api/createCheckoutSession", {
     method: "POST",
     headers: {
@@ -35,8 +34,8 @@ export async function createCheckoutSession(currency: Currency): Promise<string>
       stripe_line_items: prices,
       basket: JSON.parse(basketString ? basketString : "{\"products\":[]}"),
       origin: window.location.origin,
-      // gaClientID,
-      // gaSessionID,
+      gaClientID,
+      gaSessionID,
       // Stripe uses the location to determine currency automatically, so we pass the location instead of currency.
       currency,
     }),

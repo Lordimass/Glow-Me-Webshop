@@ -1,8 +1,8 @@
-import { createContext, Dispatch, SetStateAction } from "react";
-import { ProductData, ProductGroup } from "../../../lib";
+import {createContext, type Dispatch, type SetStateAction} from "react";
+import {ProductData, ProductGroup} from "@/lib";
 
 export const ProductContext = createContext<{
-  setProduct?: Dispatch<SetStateAction<ProductData>>;
+  setProduct?: (p: ProductData) => void;
   product: ProductData;
   group?: ProductGroup;
   hoveredVariant?: ProductData;

@@ -1,9 +1,10 @@
 import "./global.css";
 import {notFound} from "next/navigation";
-import {getGroupedProducts} from "@/lib/functions/supabaseRPC.ts";
-import {ProductCollection, ProductData, ProductGroup} from "@/lib";
+import {getGroupedProducts, getProducts} from "@/lib/functions/supabaseRPC.ts";
+import {ProductCollection, ProductData, ProductGroup, SITE_NAME} from "@/lib";
 import ProductPageComponent from "@/components/Product/ProductPageComponent/ProductPageComponent.tsx";
 import {createClient} from "@/lib/supabase/server.ts";
+import type {Metadata} from "next";
 
 export default async function ProductPage({
   params,
@@ -22,10 +23,6 @@ export default async function ProductPage({
       ? group?.products[0] ?? ProductData.NULL
       : group;
 
-  // TODO:
-  // title={`${SITE_NAME} - ${product.name}`}
-  // metaDescription={product.metadata.description}
-
   return (
     <div>
         <ProductPageComponent
@@ -35,4 +32,18 @@ export default async function ProductPage({
         />
     </div>
   );
+}
+
+export async function generateMetadata({params}: {params: Promise<{ id: string }>}): Promise<Metadata> {
+  const { id } = await params;
+  const supabase = await createClient()
+  const products: ProductData[] = await getProducts(
+      supabase, [id], true, process.env.NODE_ENV === "production"
+  )
+  const product = products[0] ?? ProductData.NULL;
+
+  return {
+    title: `${SITE_NAME} - ${product.name}`,
+    description: product.metadata.description,
+  }
 }

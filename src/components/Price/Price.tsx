@@ -31,17 +31,16 @@ export default function Price({
     country,
   } = useContext(LocaleContext);
   const curr = currency ?? defaultCurrency;
-  if (!baseDinero) {
-    baseDinero = DineroFactory({ amount: 0, currency: curr });
-  }
-
+  if (!baseDinero) baseDinero = DineroFactory({ amount: 0, currency: curr });
   useEffect(() => {
     async function convert() {
       if (curr === baseDinero.getCurrency() || noConversion) {
         setDinero(baseDinero);
+        console.log(baseDinero.getAmount(), baseDinero.getCurrency())
       } else {
         const convertedDinero = await convertDinero(baseDinero, curr);
         setDinero(convertedDinero);
+        console.log(baseDinero.getAmount(), baseDinero.getCurrency());
       }
     }
     convert().then();

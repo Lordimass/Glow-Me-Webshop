@@ -11,9 +11,10 @@ import RemoteSettingsContextProvider from "../lib/context/remoteSettings.tsx";
 import ToastWrapper from "@/components/ToastWrapper/ToastWrapper.tsx";
 import {GoogleAnalytics} from "@next/third-parties/google";
 import {UseGA4Consent} from "@/lib/ga/client.tsx";
+import {SITE_NAME} from "@/lib";
 
 export const metadata: Metadata = {
-    title: "Glow Me!",
+    title: SITE_NAME,
     description:
         "We hand-craft glow in the dark models using resin and a variety of different glowing powders and colours. Each " +
         "has its own personality, imperfections, and love put into it by us.",
@@ -33,9 +34,12 @@ export default function RootLayout({children}: { children: ReactNode }) {
                 <RemoteSettingsContextProvider>
                     <ToastWrapper>
                         <LayoutContextInternal>
-                            {children}
                             <UseGA4Consent/>
-                            <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID!}/>
+                            <GoogleAnalytics
+                                gaId={process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID!}
+                                debugMode={process.env.NODE_ENV !== "production"}
+                            />
+                            {children}
                         </LayoutContextInternal>
                     </ToastWrapper>
                 </RemoteSettingsContextProvider>

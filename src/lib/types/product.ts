@@ -1,6 +1,8 @@
 import {type Currency} from "dinero.js";
-import {type ImageHolder, MinimalImage, type MinimalProductImage} from "./image.ts";
-import {DEFAULT_LOCALE} from "../../config.ts";
+import {type ImageHolder, MinimalImage, type MinimalProductImage} from "@/lib";
+import {DEFAULT_LOCALE} from "@/config.ts";
+import {GAItem} from "@/lib/types/ga.ts";
+import {trackModifyCart} from "@/lib/ga/helpers.ts";
 
 /** A product object with the absolute minimum data to be identifiable as a product */
 export interface MinimalProduct {
@@ -126,7 +128,7 @@ export class ProductData implements MinimalProduct, ImageHolder {
     // Save to localStorage
     localStorage.setItem("basket", JSON.stringify(basket));
     window.dispatchEvent(new CustomEvent("basketUpdate"));
-    // TODO: trackModifyCart(currency, this, diff);
+    trackModifyCart(currency, this, diff);
   }
 
   serialise() {
@@ -190,13 +192,12 @@ export class Basket {
     return value;
   }
 
-  // TODO
-  // /**
-  //  * Get the basket as an array of Google Analytics items.
-  //  */
-  // getGAItems(): GAItem[] {
-  //   return this.products.map((p) => new GAItem(p));
-  // }
+  /**
+   * Get the basket as an array of Google Analytics items.
+   */
+  getGAItems(): GAItem[] {
+    return this.products.map((p) => new GAItem(p));
+  }
 
   /**
    * Fetch and return the basket from `localStorage`.

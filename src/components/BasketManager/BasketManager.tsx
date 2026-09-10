@@ -11,6 +11,9 @@ import {ToastContext} from "@/lib/context/toasts.tsx";
 import {LocaleContext} from "@/lib/context/locale.tsx";
 import Product from "@/components/Product/Product.tsx";
 import "./BasketManager.css"
+import {trackViewCart} from "@/lib/ga/events.ts";
+import {GAItem} from "@/lib/types/ga.ts";
+import {DEFAULT_LOCALE} from "@/config.ts";
 
 export interface BasketProps {
   /** Path to the checkout page. Defaults to `"/checkout"` */
@@ -39,14 +42,12 @@ export default function BasketManager({
     if (newIsOpen) {
       const basket = Basket.getBasket().products;
       let value = 0;
-      basket.forEach((item) => {
-        value += item.price;
-      });
-      // TODO: trackViewCart(
-      //   currency,
-      //   value,
-      //   basket.map((p) => new GAItem(p)),
-      // );
+      basket.forEach(item => value += item.price);
+      trackViewCart(
+        currency,
+        value,
+        basket.map((p) => new GAItem(p)),
+      );
     }
   }
 
@@ -171,6 +172,7 @@ export default function BasketManager({
               <Price
                 baseDinero={DineroFactory({
                   amount: Math.round(basketPrice * 100),
+                  currency: DEFAULT_LOCALE.currency
                 })}
                 simple={true}
               />

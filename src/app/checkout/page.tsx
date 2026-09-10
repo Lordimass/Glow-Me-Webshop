@@ -9,13 +9,14 @@
 
 import "./global.css";
 import {checkStock, createCheckoutSession, redirectIfEmptyBasket, updateShippingOptions,} from "./lib.ts";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import {EmbeddedCheckout, EmbeddedCheckoutProvider,} from "@stripe/react-stripe-js";
 import {ToastContext} from "@/lib/context/toasts.tsx";
 import {LocaleContext} from "@/lib/context/locale.tsx";
 import {RemoteSettingsContext} from "@/lib/context/remoteSettings.tsx";
 import {createClient} from "@/lib/supabase/client.ts";
 import {stripePromise} from "@/lib/stripe/client.ts";
+import {trackBeginCheckoutWithBasket} from "@/lib/ga/helpers.ts";
 
 export default function Page() {
   // If the user has nothing in their basket, they should not
@@ -55,24 +56,21 @@ export default function Page() {
   const { currency } = useContext(LocaleContext);
   const [canCheckout, setCanCheckout] = useState<boolean>(false);
   const siteSettings = useContext(RemoteSettingsContext);
+  const analyticsTracked = useRef(false)
 
-  // TODO: useEffect(() => {
-  //   trackBeginCheckoutWithBasket(currency);
-  // }, []);
+  useEffect(() => {
+    if (!analyticsTracked.current) {
+      trackBeginCheckoutWithBasket(currency);
+      analyticsTracked.current = true;
+    }
+  }, []);
 
-  return (
-      // id="checkout-content"
-      // noindex={true}
-      // canonical="https://thisshopissogay.com/checkout"
-      // title={SITE_NAME + " - Checkout"}
-      // TODO: loadCondition={canCheckout && !siteSettings.kill_switch?.enabled}
-      // loadingText="We're loading your basket..."
-
-      canCheckout && !siteSettings.kill_switch?.enabled && currency && !!toast ? (
+  return <>
+    {canCheckout && !siteSettings.kill_switch?.enabled && currency && !!toast ? (
         <EmbeddedCheckoutProvider
           stripe={stripePromise}
           options={{
-            fetchClientSecret: () => {return createCheckoutSession(currency)},
+            fetchClientSecret: async () => {return createCheckoutSession(currency)},
             onShippingDetailsChange: async (e) => {
               console.log("Checkout Session Data:", JSON.stringify(e));
               const resp = await updateShippingOptions(
@@ -94,6 +92,6 @@ export default function Page() {
         >
           <EmbeddedCheckout className={"embedded-checkout"} />
         </EmbeddedCheckoutProvider>
-      ) : null
-  );
+      ) : null}
+  </>;
 }

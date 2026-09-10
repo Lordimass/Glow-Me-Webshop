@@ -3,34 +3,33 @@ import "./global.css";
 import GoHome from "@/components/GoHome/GoHome.tsx";
 import Products from "@/components/Product/Products/Products.tsx";
 import {createClient} from "@/lib/supabase/server.ts";
+import Client from "@/app/tag/[tag]/client.tsx";
+import type {Metadata} from "next";
+import {SITE_NAME} from "@/lib";
 
-export default async function Page({ params }: { params: Promise<{ tag: string }> }) {
-  const livemode = import.meta.env.NEXT_PUBLIC_ENVIRONMENT !== "DEVELOPMENT";
-  const {tag} = await params
-  const supabase = await createClient()
-  const groups = await getGroupedProducts(supabase, undefined, true, livemode, [tag])
+export default async function Page({params}: { params: Promise<{ tag: string }> }) {
+    const livemode = process.env.NEXT_PUBLIC_ENVIRONMENT !== "DEVELOPMENT";
+    const {tag} = await params
+    const supabase = await createClient()
+    const groups = await getGroupedProducts(supabase, undefined, true, livemode, [tag])
 
-  // useEffect(() => {
-  //   if (groups == null || groups.length === 0) return;
-  //   const representatives = groups.map((group) => group.products[0]);
-  //   // TODO: trackViewItemListAutoConvert(
-  //   //   currency,
-  //   //   representatives,
-  //   //   tag + "-items",
-  //   //   `Items tagged "${tag}"`,
-  //   // );
-  // }, [groups]);
+    return (<>
+        <GoHome/>
+        <Client tag={tag} serialisedGroups={groups.serialise()}/>
+        <h1 id={"tag-info"}>
+            Viewing all products with tag{" "}
+            <span style={{fontFamily: "monospace"}}>"{tag}"</span>
+        </h1>
+        {
+            groups ? <Products prods={groups.serialise()} pageSize={20}/> : null
+        }
+    </>);
+}
 
-  // TODO: title={`Glow Me! - ${tag}`}
-  // metaDescription={`All products with tag: ${tag}`}
-  // noindex={groups != null && groups.length == 0}
-
-  return (<>
-      <GoHome />
-      <h1 id={"tag-info"}>
-        Viewing all products with tag{" "}
-        <span style={{ fontFamily: "monospace" }}>"{tag}"</span>
-      </h1>
-      {groups ? <Products prods={groups.serialise()} pageSize={20} /> : null}
-  </>);
+export async function generateMetadata({params}: {params: Promise<{ tag: string }>}): Promise<Metadata> {
+    const {tag} = await params
+    return {
+        title: SITE_NAME + " - " + tag,
+        description: "All products with tag: " + tag
+    }
 }

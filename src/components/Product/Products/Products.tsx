@@ -7,6 +7,8 @@ import PageSelector from "../../Ticker/PageSelector/PageSelector";
 import Product from "../Product";
 import {type Currency} from "dinero.js";
 import {LocaleContext} from "../../../lib/context/locale.tsx";
+import {trackViewItemList} from "@/lib/ga/events.ts";
+import {GAItem} from "@/lib/types/ga.ts";
 
 export interface ProductsProps {
   /**
@@ -93,11 +95,10 @@ function paginatedTrackViewItemList(
     props.itemListName.replace("$page", "" + page);
   }
 
-  // TODO:
-  // trackViewItemList(
-  //   currency,
-  //   items.map((p) => new GAItem(p)),
-  //   props.itemListId,
-  //   props.itemListName,
-  // );
+  trackViewItemList(
+    currency,
+    items.map((p) => new GAItem(p)),
+    props.itemListId,
+    props.itemListName,
+  );
 }

@@ -1,13 +1,8 @@
 #shop-showcase {
   --map-height: min(500px, 40vh);
+  margin: 0 1rem;
   align-items: center;
 
-  .go-home-button {
-    position: absolute;
-    @media screen and (max-width: 1000px){
-      position: initial;
-    }
-  }
   .shop-title {
     text-decoration: none;
     hr {
@@ -27,8 +22,8 @@
       width: 100%;
       max-width: 100%;
       background-color: var(--bs-body-bg);
-      padding: 10px;
       border-radius: 10px;
+      overflow: hidden;
     }
 
     .right {
@@ -43,6 +38,11 @@
       height: var(--map-height);
       margin: 5px var(--margin) 5px var(--margin);
       width: calc(100% - 2 * var(--margin));
+
+      > div, > div > iframe {
+        min-width: 100%;
+        min-height: 100%;
+      }
     }
 
     @media screen and (max-width: 1000px) {

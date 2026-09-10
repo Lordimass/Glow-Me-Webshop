@@ -3,6 +3,9 @@ import {BasketProduct} from "@/lib";
 import {getCheckoutSessionItems} from "@/lib/functions/checkoutSessionUtils.ts";
 import type {SupabaseClient} from "@supabase/supabase-js";
 import {createServiceRoleClient} from "@/lib/supabase/server.ts";
+import {GAItem} from "@/lib/types/ga.ts";
+import {sendGA4Event} from "@/lib/ga/server.ts";
+import {NextResponse} from "next/server";
 
 export default async function handleCheckoutSessionCompleted(
     event: Stripe.CheckoutSessionCompletedEvent,
@@ -176,9 +179,9 @@ async function triggerGA4PurchaseEvent(
             : session.metadata?.gaClientID;
     const session_id = Number(session.metadata!.gaSessionID);
 
-    // TODO: Compile payload for GA4.
-    // const items = prods.map((p) => new GAItem(p)); // Map to GA4 item format
-    // console.log("GAItems are:", items);
+    // Compile payload for GA4.
+    const items = prods.map((p) => new GAItem(p)); // Map to GA4 item format
+    console.log("GAItems are:", items);
     const payload = {
         client_id,
         events: [
@@ -195,7 +198,7 @@ async function triggerGA4PurchaseEvent(
                             (session.shipping_cost?.amount_total ?? 0)) /
                         100,
                     currency: session.currency,
-                    // items,
+                    items,
                 },
             },
         ],
@@ -203,7 +206,7 @@ async function triggerGA4PurchaseEvent(
     console.log(
         `Triggering PURCHASE event for transaction with value ${payload.events[0].params.currency} ${payload.events[0].params.value}`,
     );
-    // if (!(await sendGA4Event(payload))) {
-    //     throw new NetworkError("Failed to trigger GA4 Purchase Event", 500);
-    // }
+    if (!(await sendGA4Event(payload))) {
+        throw new NextResponse("Failed to trigger GA4 Purchase Event", {status: 500});
+    }
 }

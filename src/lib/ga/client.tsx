@@ -1,6 +1,6 @@
 "use client";
 
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useRef} from "react";
 import {ToastContext} from "@/lib/context/toasts.tsx";
 import {acceptCookies, declineCookies} from "@/lib/ga/ga.ts";
 import {BsCookie} from "react-icons/bs";
@@ -9,9 +9,12 @@ import type {IToastContext} from "@/lib/types/toasts.ts";
 
 export function UseGA4Consent() {
     const { toast, closeToast } = useContext(ToastContext);
+    const done = useRef(false);
 
     // Initialise gtag function
     useEffect(() => {
+        if (done.current) return;
+        done.current = true;
         if (!localStorage.getItem("consentModeAnswer")) {
             useGetGA4Consent(toast, closeToast)
             return;
