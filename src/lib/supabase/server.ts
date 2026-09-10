@@ -3,6 +3,7 @@
 import {createServerClient} from "@supabase/ssr";
 import {cookies} from "next/headers";
 import {createClient as createSupabaseClient, SupabaseClient, type User} from "@supabase/supabase-js";
+import type {IToast} from "@/lib/types/toasts.ts";
 
 export async function createClient() {
     const cookieStore = await cookies();

@@ -1,6 +1,15 @@
 import type {NextConfig} from "next";
 
 const nextConfig: NextConfig = {
+    turbopack: {
+        resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.mjs', '.json', '.md'],
+        rules: {
+            "*.md": {
+                loaders: ["raw-loader"],
+                as: "*.js"
+            }
+        }
+    },
     async redirects() {
         return [
             {
@@ -33,17 +42,7 @@ const nextConfig: NextConfig = {
     distDir: "dist", // Changes the build output directory to `dist`
     images: {
         remotePatterns: [new URL("https://bvxxbkafrjoboauypopg.supabase.co/**")],
-    },
-    sassOptions: {
-        silenceDeprecations: [
-            "import",
-            "legacy-js-api",
-            "color-functions",
-            "if-function",
-            "global-builtin",
-            "function-units",
-        ],
-    },
+    }
 };
 
 export default nextConfig;

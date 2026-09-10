@@ -36,11 +36,9 @@ export default function Price({
     async function convert() {
       if (curr === baseDinero.getCurrency() || noConversion) {
         setDinero(baseDinero);
-        console.log(baseDinero.getAmount(), baseDinero.getCurrency())
       } else {
         const convertedDinero = await convertDinero(baseDinero, curr);
         setDinero(convertedDinero);
-        console.log(baseDinero.getAmount(), baseDinero.getCurrency());
       }
     }
     convert().then();

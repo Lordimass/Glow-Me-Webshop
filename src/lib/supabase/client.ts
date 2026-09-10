@@ -2,6 +2,7 @@ import {createBrowserClient} from '@supabase/ssr'
 import {SupabaseClient, type User} from "@supabase/supabase-js";
 import {useEffect, useState} from "react";
 import {callRPC} from "./server.ts";
+import type {IToast} from "@/lib/types/toasts.ts";
 
 export function createClient() {
     return createBrowserClient(

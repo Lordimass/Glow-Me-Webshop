@@ -1,4 +1,5 @@
 .policy {
+    --neon-border-colour: var(--secondary);
     margin: 2vh 3vw 2vh 3vw;
     padding: 3vw;
     background-color: white;
