@@ -1,13 +1,13 @@
-import "./Header.scss";
-import { BasketManager } from "lordis-react-components";
-import { SUBMARK_WEBP } from "../../../shared/assets.ts";
+import "./Header.css";
+import {SUBMARK_WEBP} from "@/lib";
+import BasketManager from "@/components/BasketManager/BasketManager.tsx";
 
 export default function Header() {
   return (
     <>
       <div className="header-page-space" />
-      <div className="header">
-        <a href={"/"} aria-label='Return to "This Shop Is So Gay" Home Page'>
+      <div className="header neon-border">
+        <a href={"/"} aria-label='Return to "Glow Me!" Home Page'>
           <img
             className="logo"
             src={SUBMARK_WEBP}

@@ -1,0 +1,94 @@
+.homeTitleContainer {
+  padding: 30px;
+  border-radius: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    max-height: 40vh;
+  }
+}
+
+.ghostFactoryShowcase {
+  display: flex;
+  gap: 10px;
+  margin-bottom: -15px;
+  width: 100%;
+
+  > .showcaseItem {
+    --neon-border-colour: var(--secondary);
+    display: flex;
+    overflow: hidden;
+    box-sizing: border-box;
+    background-color: transparent;
+    padding: 0;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  @media screen and (orientation: portrait) {
+    gap: 2px
+  }
+}
+
+.textBlock {
+  position: relative;
+  padding: 10px;
+  background-color: var(--bs-body-bg);
+  text-align: center;
+}
+
+#shopNavigator {
+  display: flex;
+  gap: 5vw;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: center;
+  margin: 2rem 0;
+
+  .btn {
+    --neon-border-radius: 25px;
+    background-color: var(--bs-body-bg);
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    max-width: min(40%, 400px);
+    max-height: 400px;
+    box-sizing: border-box;
+
+    .shopNavigatorImg {
+      width: 80%;
+    }
+
+    @media screen and (max-width: 600px) {
+      .shopNavigatorHeader {
+        font-size: 35px;
+      }
+    }
+  }
+}
+
+#lightsChangeVideo {
+  --neon-border-colour: var(--secondary);
+  max-width: min(800px, 100%);
+  max-height: 400px;
+  align-self: center;
+}
+
+@media screen and (max-width: 1400px) {
+  #lightsChangeVideo {
+    order: 1;
+  }
+
+  #shopNavigator {
+    flex-wrap: wrap;
+  }
+}

@@ -1,0 +1,126 @@
+/*@use "lordis-react-components/index" as bs with (*/
+/* $primary: #f4a635,*/
+/* $secondary: #7c746b,*/
+/* $font-family-sans-serif: "Open Dyslexic",*/
+/* $enable-dark-mode: false*/
+/*);*/
+
+@font-face {
+  font-family: Open Dyslexic;
+  src: url("https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public/other-assets/Glow%20Me!/open_dyslexic/OpenDyslexicAlta-Regular.otf");
+  font-display: swap;
+}
+
+:root {
+  --bs-body-bg: white;
+  --body-bg-translucent: rgba(255,255,255,0.6);
+
+  --primary: #f4a635;
+  --primary-dark: #b8700a;
+  --primary-translucent: rgb(244 166 53 / 0.6);
+
+  --secondary-light: #b3aea8;
+  --secondary: #7c746b;
+  --secondary-dark: #4a4540;
+  --secondary-darker: #312e2b;
+
+  --bs-primary: var(--primary) !important;
+  --bs-secondary: var(--secondary) !important;
+
+  --bs-font-sans-serif: "Open Dyslexic";
+  --bs-box-shadow: 1px 0 2px rgba(0, 0, 0, 0.3);
+  font-family: Open Dyslexic, sans-serif;
+}
+
+#root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-family: "Open Dyslexic", sans-serif;
+  font-size: 2.5rem;
+  color: var(--primary);
+  filter: drop-shadow(0px 0px 1px var(--primary-dark));
+
+  @media screen and (min-width: 1000px){
+    font-size: 3rem;
+  }
+}
+
+/* Starry Background */
+body:before {
+  content: "";
+  background-image: url("https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public/other-assets/Glow%20Me!/StarsGold.svg");
+  background-size: 210px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  gap: 20px;
+  padding: 2vh 1vw 3vh 1vw;
+}
+
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: var(--primary);
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+:root {
+  --neon-border-colour: var(--primary);
+  --neon-border-radius: 3px;
+}
+
+.neon-border {
+  box-shadow: 0 0 0 2px var(--neon-border-colour), 0 0 0 3px white, 0 0 0 5px var(--neon-border-colour);
+  filter: drop-shadow(0 0 3px var(--neon-border-colour));
+  border-radius: var(--neon-border-radius);
+  margin: 5px;
+}
+
+/*============ Bootstrap ============*/
+.btn-outline-primary {
+  --bs-btn-border-color: var(--primary);
+  --bs-btn-hover-border-color: var(--primary);
+  --bs-btn-color: var(--primary);
+  --bs-btn-hover-bg: var(--primary);
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--primary);
+  --bs-btn-hover-bg: var(--primary-dark);
+  --bs-btn-active-bg: var(--primary);
+  --bs-btn-border-color: none;
+  --bs-btn-disabled-bg: var(--primary-dark);
+}

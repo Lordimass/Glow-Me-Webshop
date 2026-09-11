@@ -1,0 +1,76 @@
+#shop-showcase {
+  --map-height: min(500px, 40vh);
+  margin: 0 1rem;
+  align-items: center;
+
+  .shop-title {
+    text-decoration: none;
+    hr {
+      margin: 10px 0 10px 0;
+      border-width: 3px;
+    }
+    font-size: 4rem
+  }
+
+  .split {
+    display: flex;
+    box-sizing: border-box;
+    margin: 10px 0;
+    width: 100%;
+
+    .left {
+      width: 100%;
+      max-width: 100%;
+      background-color: var(--bs-body-bg);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .right {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gmap_iframe {
+      --margin: 20px;
+      height: var(--map-height);
+      margin: 5px var(--margin) 5px var(--margin);
+      width: calc(100% - 2 * var(--margin));
+
+      > div, > div > iframe {
+        min-width: 100%;
+        min-height: 100%;
+      }
+    }
+
+    @media screen and (max-width: 1000px) {
+      flex-direction: column;
+    }
+  }
+
+  .left.carousel-outer {
+    --neon-border-colour: var(--secondary);
+    width: 150%;
+    .carousel {
+      height: var(--map-height);
+      width: 100%;
+      overflow: hidden;
+
+      .carousel-image {
+        min-height: var(--map-height);
+        background-position: center;
+        background-size: cover;
+      }
+    }
+  }
+
+  .submark {
+    height: var(--map-height);
+
+    @media screen and (max-width: 1000px){
+      display: none;
+    }
+  }
+}

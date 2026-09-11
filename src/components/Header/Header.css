@@ -1,0 +1,54 @@
+:root {
+  --header-height: 64px;
+}
+
+.header-page-space {
+  height: calc(var(--header-height) + 5px);
+}
+
+.header {
+  background-color: var(--body-bg-translucent);
+  position: fixed;
+  top: 0;
+  box-sizing: border-box;
+  width: calc(100vw - 10px);
+
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  height: var(--header-height);
+  filter: none;
+
+  .logo {
+    height: var(--header-height);
+    padding: 4px;
+  }
+}
+
+.header-spacer{
+  width: 100%;
+  flex-grow: 1;
+}
+
+/*============ Basket Manager ============*/
+
+#basket {
+  margin: 10px;
+
+  svg {
+    color: var(--primary);
+  }
+}
+
+#basket #basket-item-count {
+  background-color: var(--primary-translucent);
+}
+
+.basket-display {
+  overflow-x: visible;
+}
+
+.basketItems {
+  padding-right: 10px;
+  overflow-x: hidden !important;
+}

@@ -1,0 +1,216 @@
+.product {
+  display: flex;
+  flex-direction: column;
+
+  width: 320px;
+  height: 530px;
+
+  background-color: white;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: var(--bs-box-shadow);
+}
+
+.product-image-link {
+  width: 100%;
+}
+
+.product-name {
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-name:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.product-text {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  color: inherit;
+  flex-grow: 1;
+  margin: 15px;
+}
+
+.basket-button:hover {
+  transform: scale(105%);
+  cursor: pointer;
+}
+
+.prod-footer, .prod-footer-main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.basket-modifier-container {
+  padding: 10px;
+  box-sizing: content-box;
+}
+
+/* Special layout for really narrow screens */
+@media screen and (max-width: 375px) {
+  .product {
+    --horizontal-product-height: 100px;
+  }
+
+  .prod-footer {
+    padding: 2px 4px 2px 4px;
+  }
+
+  .product-text {
+    .price, .price-range {
+      margin-top: -10px;
+    }
+  }
+
+  .basket-modifier-container {
+    margin-top: 0;
+    zoom: 75%
+  }
+}
+
+.product.horizontal-product {
+
+  --horizontal-product-height: 160px;
+  flex-direction: row;
+  height: var(--horizontal-product-height);
+  width: 100%;
+  max-width: 100%;
+
+  .product-image-link {
+    display: flex;
+    align-items: center;
+    background-color: dimgray;
+    border-radius: 0 10px 10px 0;
+    height: var(--horizontal-product-height);
+    width: var(--horizontal-product-height);
+    min-width: var(--horizontal-product-height);
+  }
+
+  .prod-footer {
+    max-width: calc(100% - var(--horizontal-product-height));
+    overflow: clip;
+    display: flex;
+    flex-direction: row;
+    padding: 7px;
+  }
+
+  .prod-footer-main {
+    max-width: 100%;
+  }
+
+  .prod-footer-right {
+    display: flex;
+    width: 15%;
+    align-items: center;
+    font-family: "Perfect Penmanship", sans-serif;
+  }
+
+  :not(.prod-footer:has(.basket-modifier-container)) > .prod-footer-main > .product-text {
+    display: flex;
+    justify-content: center;
+    margin-left: 10px;
+  }
+
+  .prod-locked-quantity span:last-of-type {
+    font-size: 24px;
+  }
+
+  .product-text {
+    margin: 0;
+
+    a.product-name {
+      font-size: 17px;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .basket-modifier-container {
+    padding: 0;
+    margin-top: 5px;
+
+    p {
+      scale: 90%;
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .product:not(.vertical-product) {
+    --horizontal-product-height: 160px;
+    flex-direction: row;
+    height: var(--horizontal-product-height);
+    width: 100%;
+    max-width: 100%;
+
+    .product-image-link {
+      display: flex;
+      align-items: center;
+      background-color: dimgray;
+      border-radius: 0 10px 10px 0;
+      height: var(--horizontal-product-height);
+      width: var(--horizontal-product-height);
+      min-width: var(--horizontal-product-height);
+    }
+
+    .prod-footer {
+      max-width: calc(100% - var(--horizontal-product-height));
+      overflow: clip;
+      display: flex;
+      flex-direction: row;
+      padding: 7px;
+    }
+
+    .prod-footer-main {
+      max-width: 100%;
+    }
+
+    .prod-footer-right {
+      display: flex;
+      width: 15%;
+      align-items: center;
+      font-family: "Perfect Penmanship", sans-serif;
+    }
+
+    :not(.prod-footer:has(.basket-modifier-container)) > .prod-footer-main > .product-text {
+      display: flex;
+      justify-content: center;
+      margin-left: 10px;
+    }
+
+    .prod-locked-quantity span:last-of-type {
+      font-size: 24px;
+    }
+
+    .product-text {
+      margin: 0;
+
+      a.product-name {
+        font-size: 17px;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .basket-modifier-container {
+      padding: 0;
+      margin-top: 5px;
+
+      p {
+        scale: 90%;
+      }
+    }
+  }
+}

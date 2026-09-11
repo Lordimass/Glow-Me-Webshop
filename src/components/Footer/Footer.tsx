@@ -1,7 +1,6 @@
-import "./Footer.scss";
+import "./Footer.css";
 
 export default function Footer() {
-  // Include credit to Abelardo Gonzalez OpenDyslexic font https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public/other-assets/Glow%20Me!/open_dyslexic/README.txt
   return (
     <div className="footer">
       <p>
@@ -34,19 +33,19 @@ export default function Footer() {
       </p>
       <br />
       <p className="footer-policy-links">
-        <a href={"/privacy"}>Privacy Policy</a>
+        <a href={"/policy/privacy"}>Privacy Policy</a>
         <span className="policy-separator" aria-hidden="true">
           /
         </span>
-        <a href={"/returns"}>Refund and Return Policy</a>
+        <a href={"/policy/refunds"}>Refund and Return Policy</a>
         <span className="policy-separator" aria-hidden="true">
           /
         </span>
-        <a href={"/cancellations"}>Cancellation Policy</a>
+        <a href={"/policy/cancellations"}>Cancellation Policy</a>
         <span className="policy-separator" aria-hidden="true">
           /
         </span>
-        <a href={"/shipping"}>Shipping Policy</a>
+        <a href={"/policy/shipping"}>Shipping Policy</a>
       </p>
       <br />
       <p className="footer-company-information">

@@ -1,0 +1,24 @@
+.footer {
+  background-color: var(--bs-body-bg);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+
+  justify-self: flex-end;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.policy-separator {
+  color: var(--bs-gray-600);
+  margin-left: 0.5ch;
+  margin-right: 0.5ch;
+}
+
+.footer .additional-links {
+  color: var(--primary);
+}
+
+.footer-company-information {
+  font-size: 11px;
+}

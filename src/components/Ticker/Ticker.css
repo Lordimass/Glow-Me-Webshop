@@ -1,0 +1,76 @@
+.ticker {
+  width: 100%;
+
+  display: flex;
+  align-self: center;
+  user-select: none;
+}
+
+.ticker-text {
+  background-color: white;
+  width: 100%;
+  min-height: 100%;
+
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 5px;
+
+  border: 1px solid grey;
+  border-left: none;
+  border-right: none;
+}
+
+.ticker-input {
+  height: 100%;
+  padding: 0;
+  border: none;
+  box-sizing: content-box;
+
+  font-size: 1em;
+  text-align: right;
+}
+
+.ticker-input.hidden-max-value {
+  padding: 0 5px;
+  text-align: center;
+  overflow-x: visible;
+}
+
+.ticker-text:has(.hidden-max-value) {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.ticker-input:focus-visible {
+  outline: none;
+}
+
+.ticker-decrementer, .ticker-incrementer {
+  padding-right: 10px;
+  padding-left: 10px;
+  box-sizing: content-box;
+  border: none;
+  display: flex;
+  align-items: center;
+}
+
+.ticker-decrementer {
+  border-radius: 20px 3px 3px 20px !important;
+}
+
+.ticker-incrementer {
+  border-radius: 3px 20px 20px 3px !important;
+}
+
+.ticker-slash {
+  color: grey;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.ticker-text p {
+  margin-bottom: 0 !important;
+}
