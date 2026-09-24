@@ -2,6 +2,7 @@ import {type MinimalProductImage, ProductCollection, ProductData, ProductGroup, 
 import type {SupabaseClient} from "@supabase/supabase-js";
 import {callRPC} from "../supabase/server.ts";
 import type {IToast} from "@/lib/types/toasts.ts";
+import type {TSISGProductData} from "@/lib/types/tsisg/supabaseTypes.ts";
 
 export async function getProducts(
     supabase: SupabaseClient,
@@ -19,6 +20,21 @@ export async function getProducts(
     );
 
     return handleGetProductsResponse(products);
+}
+
+export async function getTSISGProducts(
+    supabase: SupabaseClient,
+    skus?: string[],
+    in_stock_only = false,
+    active_only = true,
+    toast?: (toast: IToast | string) => void,
+): Promise<TSISGProductData[]> {
+    return await callRPC(
+        supabase,
+        "get_products",
+        {skus, in_stock_only, active_only},
+        toast
+    );
 }
 
 export async function getGroupedProducts(
