@@ -1,17 +1,9 @@
 import styles from "./page.module.css";
 import {getGroupedProducts} from "../lib/functions/supabaseRPC.ts";
-import {
-    CAT_WEBP,
-    GHOST_FACTORY_1,
-    GHOST_FACTORY_2,
-    GHOST_FACTORY_3,
-    GHOST_WEBP,
-    LIGHTS_CHANGE_VIDEO,
-    PRIMARY_WEBP,
-} from "@/lib";
-import {Button} from "react-bootstrap";
+import {GHOST_FACTORY_1, GHOST_FACTORY_2, GHOST_FACTORY_3, PRIMARY_WEBP,} from "@/lib";
 import {createClient} from "../lib/supabase/server.ts";
 import Products from "@/components/Product/Products/Products.tsx";
+import GlowGifSelector from "@/components/GlowGifSelector/GlowGifSelector.tsx";
 
 export default async function Page() {
     const groups = await getGroupedProducts(
@@ -53,40 +45,7 @@ export default async function Page() {
                     </p>
                 </div>
 
-                <div id={styles.shopNavigator}>
-                    <Button
-                        className={styles.btn + " ratio-1x1 neon-border"}
-                        id={styles.ghostsNavigator}
-                        href={"/shop/GHOSTS"}
-                    >
-                        <img
-                            className={styles.shopNavigatorImg}
-                            src={GHOST_WEBP}
-                            alt="A vector graphic of a smiling ghost with a gold outline and glow"
-                        />
-                        <h1 className={styles.shopNavigatorHeader}>Ghosts</h1>
-                    </Button>
-                    <video
-                        id={styles.lightsChangeVideo}
-                        className={"neon-border"}
-                        src={LIGHTS_CHANGE_VIDEO}
-                        autoPlay
-                        loop
-                        muted
-                    />
-                    <Button
-                        id={styles.catsNavigator}
-                        className={styles.btn + " ratio-1x1 neon-border"}
-                        href={"/shop/CATS"}
-                    >
-                        <img
-                            className={styles.shopNavigatorImg}
-                            src={CAT_WEBP}
-                            alt="A vector graphic of a happy black cat with a gold glow"
-                        />
-                        <h1 className={styles.shopNavigatorHeader}>Cats</h1>
-                    </Button>
-                </div>
+                <GlowGifSelector/>
 
                 {groups ? <Products prods={JSON.stringify(groups)} pageSize={20} /> : null}
 
