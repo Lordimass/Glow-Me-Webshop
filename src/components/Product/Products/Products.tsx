@@ -2,7 +2,7 @@
 
 import "./Products.css";
 import {ProductCollection, ProductData, ProductGroup,} from "../../../lib";
-import {useContext, useEffect, useState} from "react";
+import {type ReactNode, useContext, useEffect, useState} from "react";
 import PageSelector from "../../Ticker/PageSelector/PageSelector";
 import Product from "../Product";
 import {type Currency} from "dinero.js";
@@ -31,15 +31,17 @@ export interface ProductsProps {
      */
     itemListName: string;
   };
+  children?: ReactNode;
 }
 
 /**
  * Display a list of products, optionally paginated
  */
 export default function Products({
-  prods,
-  pageSize,
-  trackViewItemListProps,
+    prods,
+    pageSize,
+    trackViewItemListProps,
+    children
 }: ProductsProps) {
   const products: ProductCollection = typeof prods === "string" ? ProductCollection.deserialise(prods) : prods;
   const { currency } = useContext(LocaleContext);
@@ -68,6 +70,7 @@ export default function Products({
     <div className="products-box">
       {!toShow || toShow.length === 0 ? <p>There's nothing here...</p> : null}
       <div className="products">
+        {children}
         {toShow.map((p, i) => (
           <Product prod={p} key={i} />
         ))}

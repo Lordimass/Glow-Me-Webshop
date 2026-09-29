@@ -1,6 +1,6 @@
 import styles from "./page.module.css";
 import {getGroupedProducts} from "../lib/functions/supabaseRPC.ts";
-import {GHOST_FACTORY_1, GHOST_FACTORY_2, GHOST_FACTORY_3, PRIMARY_WEBP,} from "@/lib";
+import {GHOST_FACTORY_1, GHOST_FACTORY_2, GHOST_FACTORY_3, PRIMARY_WEBP, ProductCollection,} from "@/lib";
 import {createClient} from "../lib/supabase/server.ts";
 import Products from "@/components/Product/Products/Products.tsx";
 import GlowGifSelector from "@/components/GlowGifSelector/GlowGifSelector.tsx";
@@ -28,9 +28,9 @@ export default async function Page() {
             </div>
             <div className={"content"}>
 
-                <GlowGifSelector/>
-
-                {groups ? <Products prods={JSON.stringify(groups)} pageSize={20} /> : null}
+                <Products prods={groups ? JSON.stringify(groups) : new ProductCollection()} pageSize={20}>
+                    <GlowGifSelector/>
+                </Products>
 
                 <div className={styles.ghostFactoryShowcase}>
                     <div className={styles.showcaseItem + " neon-border"}>
