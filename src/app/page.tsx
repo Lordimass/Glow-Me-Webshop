@@ -28,23 +28,6 @@ export default async function Page() {
             </div>
             <div className={"content"}>
 
-                <div className={styles.textBlock + " neon-border"}>
-                    <h1>Welcome!</h1>
-                    <p>
-                        We hand-craft glow in the dark models using resin and a variety of
-                        different glowing powders and colours. Each has its own personality,
-                        imperfections, and love put into it by us.
-                    </p>
-                    <p>🧡💛🧡💛🧡💛🧡💛🧡💛</p>
-                    <p>
-                        This website is a showcase of our models, as well as a place to buy
-                        them! We have two shops in York, England called GHOSTS and CATS
-                        (you'll never guess what they sell) where you can go to see our full
-                        selection of Glows, or find out more about each shop and see the full
-                        selection from each on their pages below:
-                    </p>
-                </div>
-
                 <GlowGifSelector/>
 
                 {groups ? <Products prods={JSON.stringify(groups)} pageSize={20} /> : null}
