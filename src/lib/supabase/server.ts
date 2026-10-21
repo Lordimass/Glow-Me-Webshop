@@ -3,7 +3,6 @@
 import {createServerClient} from "@supabase/ssr";
 import {cookies} from "next/headers";
 import {createClient as createSupabaseClient, SupabaseClient, type User} from "@supabase/supabase-js";
-import type {IToast} from "@/lib/types/toasts.ts";
 
 export async function createClient() {
     const cookieStore = await cookies();
@@ -82,44 +81,4 @@ export async function getMfaUser(supabase: SupabaseClient) {
     if (assuranceError || assurance.currentLevel !== "aal2") return null;
 
     return getUser(supabase);
-}
-
-/**
- * @param supabase The Supabase client to call the function with.
- * Safe call of {@link SupabaseClient.rpc} with the option to notify users when something goes wrong. It's recommended
- * that you wrap this function with other functions for each Postgres function you want to call, e.g. a `getProducts`
- * function which wraps `callRPC("get_products", {})`, and returns [`ProductData[]`]{@link ProductData} for type safety.
- * @param functionName The name of the Postgres function to call.
- * @param params Any parameters for the function.
- * @param toast A method with which to notify the user if something goes wrong.
- */
-export async function callRPC(
-    supabase: SupabaseClient,
-    functionName: string,
-    params?: { [key: string]: any },
-    toast?: (toast: IToast | string) => void,
-): Promise<any> {
-    // Check that the client exists
-    if (!supabase) {
-        console.error("`supabase` was not defined.");
-        if (toast) {
-            toast(
-                `An error occurred while calling the "${functionName}" function because the Supabase client was not defined"`,
-            );
-        }
-        return undefined;
-    }
-
-    // Call the function and handle any errors
-    const { data, error } = await supabase.rpc(functionName, params);
-    if (error) {
-        console.error(`Error calling RPC function "${functionName}":`, error);
-        if (toast)
-            toast(
-                `An error occurred while calling the "${functionName}" function. Please try again later.`,
-            );
-        return Promise.reject(error);
-    } else {
-        return data;
-    }
 }

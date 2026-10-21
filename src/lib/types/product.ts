@@ -29,6 +29,10 @@ export type ProductDataConstructorOpts = {
   groupName?: string;
   /** All images associated with this product */
   images?: MinimalProductImage[];
+  /**
+   * Whether this product should be visible in lists of products, or only accessible directly.
+   */
+  hidden?: boolean;
   /** Whether this is a product which is currently active and available to buy */
   active?: boolean;
   [key: string]: unknown;
@@ -53,6 +57,10 @@ export class ProductData implements MinimalProduct, ImageHolder {
   public images: MinimalProductImage[];
   /** Whether this is a product which is currently active and available to buy */
   public active: boolean;
+  /**
+   * Whether this product should be visible in lists of products, or only accessible directly.
+   */
+  public hidden: boolean;
   /** Additional data on this product which isn't encoded in the standard class attributes.*/
   public metadata: ProductMetadata;
   [key: string]: unknown;
@@ -61,9 +69,7 @@ export class ProductData implements MinimalProduct, ImageHolder {
 
   constructor(sku: number | string, opts: ProductDataConstructorOpts = {}) {
     this.sku = sku;
-    let { name, stock, price, groupName, images, active, ...metadata } = {
-      ...opts,
-    };
+    let { name, stock, price, groupName, images, active, hidden, ...metadata } = opts;
     if (metadata.metadata != undefined) {
       metadata = { ...metadata, ...metadata.metadata };
       delete metadata.metadata;
@@ -75,6 +81,7 @@ export class ProductData implements MinimalProduct, ImageHolder {
     this.groupName = groupName;
     this.images = images ? images.sort(MinimalImage.compare) : [];
     this.active = active ?? true;
+    this.hidden = hidden ?? false;
     this.metadata = metadata;
   }
 
@@ -129,6 +136,16 @@ export class ProductData implements MinimalProduct, ImageHolder {
     localStorage.setItem("basket", JSON.stringify(basket));
     window.dispatchEvent(new CustomEvent("basketUpdate"));
     trackModifyCart(currency, this, diff);
+  }
+
+  /**
+   * Where applicable, fill missing properties in this product with those from another product.
+   * @param other The other product to get filler properties from.
+   */
+  fillFromOther(other: ProductData) {
+    if (!this.images || this.images.length === 0) this.images = other.images
+    if (!this.metadata.description) this.metadata.description = other.metadata.description;
+    return this;
   }
 
   serialise() {
@@ -260,6 +277,11 @@ interface ProductMetadata {
    * Short informational strings used to identify this product.
    */
   tags?: string[];
+  sizes?: {
+    name: string;
+    product_id: string;
+    other_product_id: string;
+  }[]
   [key: string]: any;
 }
 
@@ -340,6 +362,16 @@ export class ProductGroup implements ImageHolder {
     );
     if (variantIcons.length > 0) return variantIcons[0];
     else return this.getCarouselImages(sku)[0];
+  }
+
+  /**
+   * Truthy if and only if all products in this group are marked as `hidden`.
+   */
+  isHidden() {
+    for (let product of this.products) {
+      if (!product.hidden) return false;
+    }
+    return true;
   }
 
   public serialise(): string {

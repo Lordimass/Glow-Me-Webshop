@@ -1,12 +1,12 @@
 "use client";
 
 import "./Products.css";
-import {ProductCollection, ProductData, ProductGroup,} from "../../../lib";
+import {ProductCollection, ProductData, ProductGroup} from "@/lib";
 import {type ReactNode, useContext, useEffect, useState} from "react";
 import PageSelector from "../../Ticker/PageSelector/PageSelector";
 import Product from "../Product";
 import {type Currency} from "dinero.js";
-import {LocaleContext} from "../../../lib/context/locale.tsx";
+import {LocaleContext} from "@/lib/context/locale.tsx";
 import {trackViewItemList} from "@/lib/ga/events.ts";
 import {GAItem} from "@/lib/types/ga.ts";
 
@@ -30,6 +30,10 @@ export interface ProductsProps {
      * @example "Home Page $page"
      */
     itemListName: string;
+    /**
+     * Whether products marked as `hidden` should be excluded from this view. Defaults to `true`
+     */
+    excludeHidden: boolean;
   };
   children?: ReactNode;
 }
@@ -71,9 +75,13 @@ export default function Products({
       {!toShow || toShow.length === 0 ? <p>There's nothing here...</p> : null}
       <div className="products">
         {children}
-        {toShow.map((p, i) => (
-          <Product prod={p} key={i} />
-        ))}
+        {toShow.map((p, i) => {
+          console.log(p)
+          if (p instanceof ProductData && p.hidden
+              || p instanceof ProductGroup && p.isHidden()
+          ) return null;
+          return <Product prod={p} key={i}/>
+        })}
       </div>
       {pageCount && pageCount > 1 ? (
         <PageSelector

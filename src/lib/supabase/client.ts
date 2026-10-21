@@ -1,10 +1,10 @@
 import {createBrowserClient} from '@supabase/ssr'
 import {SupabaseClient, type User} from "@supabase/supabase-js";
 import {useEffect, useState} from "react";
-import {callRPC} from "./server.ts";
 import type {IToast} from "@/lib/types/toasts.ts";
+import {callRPC} from "@/lib/functions/supabaseRPC.ts";
 
-export function createClient() {
+export function createClient(): SupabaseClient | null {
     if (!process.env.NEXT_PUBLIC_SUPABASE_DATABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY) return null
     return createBrowserClient(
         process.env.NEXT_PUBLIC_SUPABASE_DATABASE_URL!,

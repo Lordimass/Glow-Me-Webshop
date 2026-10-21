@@ -12,6 +12,7 @@ export default async function ProductPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  console.log("Page for " + id)
   const supabase = await createClient()
   const productGroups: ProductCollection = await getGroupedProducts(
       supabase, [id], true, process.env.NODE_ENV === "production"

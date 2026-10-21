@@ -3,7 +3,7 @@
 import {useContext, useEffect, useRef, useState} from "react";
 import "./ProductPageComponent.css";
 import {ProductContext} from "./lib";
-import {ProductData, ProductGroup, snakeToTitleCase} from "@/lib";
+import {getProductPagePath, ProductData, ProductGroup, snakeToTitleCase} from "@/lib";
 import SquareImageBox from "../../SquareImageBox/SquareImageBox";
 import ProductGroupComponent from "./ProductGroup";
 import Markdown from "react-markdown";
@@ -13,6 +13,7 @@ import BasketModifier from "@/components/Ticker/BasketModifier/BasketModifier.ts
 import Tags from "@/components/Tag/Tags.tsx";
 import {trackViewItemAutoConvert, trackViewItemListAutoConvert} from "@/lib/ga/helpers.ts";
 import {LocaleContext} from "@/lib/context/locale.tsx";
+import ProductSizes from "@/components/Product/ProductPageComponent/ProductSizes.tsx";
 
 interface ProductPageComponentProps {
   /** Product to display, or serialised string representing {@link ProductData}*/
@@ -32,7 +33,7 @@ export default function ProductPageComponent({
   const {currency} = useContext(LocaleContext);
 
   const [product, _setProduct] = useState<ProductData>(ProductData.NULL);
-  const [group, setGroup] = useState<ProductGroup | undefined>();
+  const [group, _setGroup] = useState<ProductGroup | undefined>();
   const [hoveredVariant, setHoveredVariant] = useState<ProductData>();
   const images = group ? group.getCarouselImages(product.sku) : product.images;
 
@@ -50,7 +51,7 @@ export default function ProductPageComponent({
     const newGroup = typeof p_group === "string"
         ? ProductGroup.deserialize(p_group)
         : p_group
-    setGroup(newGroup);
+    _setGroup(newGroup);
     if (newGroup && !groupAnalyticsTriggered.current) {
       trackViewItemListAutoConvert(currency, newGroup?.products, newGroup.groupName, newGroup.groupName);
       groupAnalyticsTriggered.current = true;
@@ -58,8 +59,21 @@ export default function ProductPageComponent({
   }, [p_group]);
 
   function setProduct(newProduct: ProductData) {
-    if (newProduct.sku != product.sku) trackViewItemAutoConvert(currency, newProduct);
+    console.log("Setting product to " + newProduct.sku, newProduct);
+    if (newProduct.sku !== product.sku) trackViewItemAutoConvert(currency, newProduct);
     _setProduct(newProduct);
+    window.history.pushState(
+        undefined,
+        product.name,
+        getProductPagePath(newProduct.sku),
+    );
+  }
+
+  function setGroup(newGroup: ProductGroup) {
+    if (group && newGroup.groupName === group.groupName) return
+    _setGroup(newGroup);
+    trackViewItemListAutoConvert(currency, newGroup?.products, newGroup.groupName, newGroup.groupName);
+    groupAnalyticsTriggered.current = true;
   }
 
   return (
@@ -68,7 +82,7 @@ export default function ProductPageComponent({
         value={{
           product, setProduct,
           hoveredVariant, setHoveredVariant,
-          group,
+          group, setGroup
         }}
       >
         {/* Above actual product. */}
@@ -99,10 +113,11 @@ export default function ProductPageComponent({
           ) : null}
 
           <div className="desc">
-            <Markdown>{product.metadata.description}</Markdown>
+            <Markdown>{product.metadata.description ?? ""}</Markdown>
           </div>
 
           <div className="prod-ticker">
+            <ProductSizes/>
             <ProductGroupComponent />
             <BasketModifier
               inputId={"prod-page-basket-modifier"}
