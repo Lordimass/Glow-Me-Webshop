@@ -36,7 +36,6 @@ export default function ProductGroup() {
       <p className="p-small">Variant: {name}</p>
       <div className="product-group" ref={groupRef}>
         {group.products.map((p) => {
-          if (p.hidden) return;
           return <ProductVariant product={p} key={p.sku}/>
         })}
       </div>
