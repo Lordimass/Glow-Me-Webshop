@@ -23,6 +23,7 @@ export default function ProductOptions() {
         toast
     )
 
+    // Group by option group for multiple toggle options
     const groupedSizes: {[key: string]: typeof sizes} = {}
     sizes?.forEach(s => {
         let groupedSize = groupedSizes[s.option_group];
@@ -38,13 +39,11 @@ export default function ProductOptions() {
             if (sizedProductCollection instanceof ProductGroup) {
                 for (let groupProduct of sizedProductCollection.products) {
                     if (groupProduct.sku !== id) continue;
-                    groupProduct.fillFromOther(product)
                     setProduct(groupProduct);
                     setGroup(sizedProductCollection)
                 }
             } else {
                 if (sizedProductCollection.sku !== id) continue;
-                sizedProductCollection.fillFromOther(product)
                 setProduct(product)
                 setGroup(new ProductGroup([sizedProductCollection]))
             }
@@ -55,6 +54,9 @@ export default function ProductOptions() {
     return <>
         {Object.values(groupedSizes).map(sizeGroup => {
             if (!sizeGroup) return null;
+            // Sort alphabetically
+            sizeGroup.sort((a, b) => a.name.localeCompare(b.name));
+            // console.log(sizeGroup);
             return <ButtonGroup className={"product-options"}>{sizeGroup.map((size, i) => {
                 const selected = size.other_product_id === product.sku
                 return <Button
