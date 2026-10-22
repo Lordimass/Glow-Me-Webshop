@@ -13,7 +13,7 @@ import BasketModifier from "@/components/Ticker/BasketModifier/BasketModifier.ts
 import Tags from "@/components/Tag/Tags.tsx";
 import {trackViewItemAutoConvert, trackViewItemListAutoConvert} from "@/lib/ga/helpers.ts";
 import {LocaleContext} from "@/lib/context/locale.tsx";
-import ProductSizes from "@/components/Product/ProductPageComponent/ProductSizes.tsx";
+import ProductOptions from "@/components/Product/ProductPageComponent/ProductOptions.tsx";
 
 interface ProductPageComponentProps {
   /** Product to display, or serialised string representing {@link ProductData}*/
@@ -117,7 +117,7 @@ export default function ProductPageComponent({
           </div>
 
           <div className="prod-ticker">
-            <ProductSizes/>
+            <ProductOptions/>
             <ProductGroupComponent />
             <BasketModifier
               inputId={"prod-page-basket-modifier"}

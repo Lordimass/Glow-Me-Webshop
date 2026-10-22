@@ -8,10 +8,10 @@ import {ToastContext} from "@/lib/context/toasts.tsx";
 import {useGetGroupedProducts} from "@/lib/functions/supabaseRPCClient.ts";
 import {ProductGroup} from "@/lib";
 
-export default function ProductSizes() {
+export default function ProductOptions() {
     const { product, setProduct, setGroup } = useContext(ProductContext);
     const {toast} = useContext(ToastContext);
-    const sizes = product.metadata.sizes
+    const sizes = product.metadata.options
 
     const supabase = createClient()!
     const sizedProducts = useGetGroupedProducts(
@@ -23,7 +23,16 @@ export default function ProductSizes() {
         toast
     )
 
-    async function selectSize(id: string) {
+    const groupedSizes: {[key: string]: typeof sizes} = {}
+    sizes?.forEach(s => {
+        let groupedSize = groupedSizes[s.option_group];
+        if (!groupedSize) {
+            groupedSize = [s]
+            groupedSizes[s.option_group] = groupedSize
+        } else groupedSize.push(s)
+    })
+
+    async function selectOption(id: string) {
         if (!sizedProducts) return;
         for (let sizedProductCollection of sizedProducts) {
             if (sizedProductCollection instanceof ProductGroup) {
@@ -43,16 +52,21 @@ export default function ProductSizes() {
     }
 
     if (!product || !sizes || sizes.length === 0) return null;
-    return <ButtonGroup id={"product-sizes"}>{sizes.map((size, i) => {
-        const selected = size.other_product_id === product.sku
-        return <Button
-            variant={selected ? "primary" : "outline-primary"}
-            disabled={selected}
-            onClick={() => selectSize(size.other_product_id)}
-            key={i}
-        >
-            {size.name}
-        </Button>
-    })}
-    </ButtonGroup>;
+    return <>
+        {Object.values(groupedSizes).map(sizeGroup => {
+            if (!sizeGroup) return null;
+            return <ButtonGroup className={"product-options"}>{sizeGroup.map((size, i) => {
+                const selected = size.other_product_id === product.sku
+                return <Button
+                    variant={selected ? "primary" : "outline-primary"}
+                    disabled={selected}
+                    onClick={() => selectOption(size.other_product_id)}
+                    key={i}
+                >
+                    {size.name}
+                </Button>
+            })}
+            </ButtonGroup>
+        })}
+        </>;
 }

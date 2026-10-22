@@ -277,10 +277,11 @@ interface ProductMetadata {
    * Short informational strings used to identify this product.
    */
   tags?: string[];
-  sizes?: {
+  options?: {
     name: string;
     product_id: string;
     other_product_id: string;
+    option_group: string;
   }[]
   [key: string]: any;
 }
