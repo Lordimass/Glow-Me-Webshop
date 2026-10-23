@@ -57,7 +57,7 @@ export default function ProductOptions() {
             // Sort alphabetically
             sizeGroup.sort((a, b) => a.name.localeCompare(b.name));
             // console.log(sizeGroup);
-            return <ButtonGroup className={"product-options"}>{sizeGroup.map((size, i) => {
+            return <><ButtonGroup className={"product-options"}>{sizeGroup.map((size, i) => {
                 const selected = size.other_product_id === product.sku
                 return <Button
                     variant={selected ? "primary" : "outline-primary"}
@@ -68,7 +68,7 @@ export default function ProductOptions() {
                     {size.name}
                 </Button>
             })}
-            </ButtonGroup>
+            </ButtonGroup><br/></>
         })}
         </>;
 }
