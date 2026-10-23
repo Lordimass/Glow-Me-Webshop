@@ -52,9 +52,12 @@ export default function ProductOptions() {
 
     if (!product || !sizes || sizes.length === 0) return null;
     return <>
-        {Object.values(groupedSizes).map(sizeGroup => {
+        {Object.values(groupedSizes)
+            // Sort option groups alphabetically
+            .sort((a,b) => a![0].option_group.localeCompare(b![0].option_group))
+            .map(sizeGroup => {
             if (!sizeGroup) return null;
-            // Sort alphabetically
+            // Sort the actual options alphabetically
             sizeGroup.sort((a, b) => a.name.localeCompare(b.name));
             // console.log(sizeGroup);
             return <><ButtonGroup className={"product-options"}>{sizeGroup.map((size, i) => {
