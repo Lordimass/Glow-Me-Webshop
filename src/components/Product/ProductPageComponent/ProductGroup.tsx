@@ -31,6 +31,7 @@ export default function ProductGroup() {
       product.metadata.variant_name ??
       product.name;
   if (!group || group.products.length <= 1) return null;
+
   return (
     <>
       <p className="p-small">Variant: {name}</p>

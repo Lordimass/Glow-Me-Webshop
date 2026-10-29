@@ -13,39 +13,14 @@
   }
 }
 
-.ghostFactoryShowcase {
+#transitionButtons {
   display: flex;
-  gap: 10px;
-  margin-bottom: -15px;
-  width: 100%;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 
-  > .showcaseItem {
-    --neon-border-colour: var(--secondary);
-    display: flex;
-    overflow: hidden;
-    box-sizing: border-box;
-    background-color: transparent;
-    padding: 0;
-
-    img {
-      width: 100%;
-    }
-  }
-
-  @media screen and (orientation: portrait) {
-    gap: 2px
-  }
-}
-
-.textBlock {
-  position: relative;
-  padding: 10px;
-  background-color: var(--bs-body-bg);
-  text-align: center;
-}
-
-@media screen and (max-width: 1400px) {
-  #shopNavigator {
-    flex-wrap: wrap;
+  .lightsChangeVideoLink {
+    width: min(400px, 40%);
+    aspect-ratio: 1 / 1;
   }
 }

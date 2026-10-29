@@ -1,18 +1,8 @@
 import styles from "./page.module.css";
-import {getGroupedProducts} from "../lib/functions/supabaseRPC.ts";
-import {PRIMARY_WEBP, ProductCollection,} from "@/lib";
-import {createClient} from "../lib/supabase/server.ts";
-import Products from "@/components/Product/Products/Products.tsx";
-import GlowGifSelector from "@/components/GlowGifSelector/GlowGifSelector.tsx";
+import {PRIMARY_WEBP, SUPABASE_STORAGE,} from "@/lib";
+import TransitionButton from "@/components/TransitionButton/TransitionButton.tsx";
 
 export default async function Page() {
-    const groups = await getGroupedProducts(
-        await createClient(),
-        undefined,
-        true,
-        process.env.NODE_ENV === "production",
-    );
-
     return (
         <>
             <div className={styles.homeTitleContainer}>
@@ -27,11 +17,28 @@ export default async function Page() {
                 </div>
             </div>
             <div className={"content"}>
-
-                <Products prods={groups ? JSON.stringify(groups) : new ProductCollection()} pageSize={20}>
-                    <GlowGifSelector/>
-                </Products>
-
+                <div id={styles.transitionButtons}>
+                    <TransitionButton
+                        videoSrc={SUPABASE_STORAGE + "/glow_me_product_images/transitions/cat-blue-square.webm"}
+                        href={"/products/prod_VQVip1eow8fZAt"}
+                        square={true}
+                    />
+                    <TransitionButton
+                        videoSrc={SUPABASE_STORAGE + "/glow_me_product_images/transitions/fu-ghost-blue-square.webm"}
+                        href={"/products/prod_VOdETxsOL2clAR"}
+                        square={true}
+                    />
+                    <TransitionButton
+                        videoSrc={SUPABASE_STORAGE + "/glow_me_product_images/transitions/cat-blue-square.webm"}
+                        href={"/products/prod_VOKTaC3xy4WswD"}
+                        square={true}
+                    />
+                    <TransitionButton
+                        videoSrc={SUPABASE_STORAGE + "/glow_me_product_images/transitions/ghost-holding-cat-blue-square.webm"}
+                        href={"/products/prod_VOdK6lqYAf3iAH"}
+                        square={true}
+                    />
+                </div>
             </div>
         </>
     );

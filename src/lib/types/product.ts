@@ -138,16 +138,6 @@ export class ProductData implements MinimalProduct, ImageHolder {
     trackModifyCart(currency, this, diff);
   }
 
-  /**
-   * Where applicable, fill missing properties in this product with those from another product.
-   * @param other The other product to get filler properties from.
-   */
-  fillFromOther(other: ProductData) {
-    if (!this.images || this.images.length === 0) this.images = other.images
-    if (!this.metadata.description) this.metadata.description = other.metadata.description;
-    return this;
-  }
-
   serialise() {
     return JSON.stringify(this)
   }
@@ -373,6 +363,10 @@ export class ProductGroup implements ImageHolder {
       if (!product.hidden) return false;
     }
     return true;
+  }
+
+  getProductWithSku(sku: string | number) {
+    return this.products.find(p => p.sku == sku)
   }
 
   public serialise(): string {

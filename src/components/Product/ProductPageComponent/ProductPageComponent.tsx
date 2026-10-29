@@ -14,6 +14,7 @@ import Tags from "@/components/Tag/Tags.tsx";
 import {trackViewItemAutoConvert, trackViewItemListAutoConvert} from "@/lib/ga/helpers.ts";
 import {LocaleContext} from "@/lib/context/locale.tsx";
 import ProductOptions from "@/components/Product/ProductPageComponent/ProductOptions.tsx";
+import TransitionButton from "@/components/TransitionButton/TransitionButton.tsx";
 
 interface ProductPageComponentProps {
   /** Product to display, or serialised string representing {@link ProductData}*/
@@ -76,7 +77,10 @@ export default function ProductPageComponent({
     groupAnalyticsTriggered.current = true;
   }
 
-  return (
+  const hasSizeOption = product.metadata.options?.some(
+      option => option.option_group === "Size")
+
+  return (<>
     <div className={"product-page-component"}>
       <ProductContext.Provider
         value={{
@@ -130,7 +134,15 @@ export default function ProductPageComponent({
         <AdditionalInformation prod={product} />
       </ProductContext.Provider>
     </div>
-  );
+
+    {hasSizeOption ? <div className={"sizeComparison"}>
+      <h2>Size Comparison</h2>
+      <TransitionButton
+          videoSrc={"https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public/glow_me_product_images/transitions/scale.webm"}
+      />
+    </div> : null}
+    
+  </>);
 }
 
 /** Displays additional information about the given product */

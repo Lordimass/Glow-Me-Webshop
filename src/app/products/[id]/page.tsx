@@ -21,18 +21,18 @@ export default async function ProductPage({
 
   const group = productGroups[0];
   const product = group instanceof ProductGroup
-      ? group?.products[0] ?? ProductData.NULL
+      ? group.getProductWithSku(id) ?? group.products[0] ?? ProductData.NULL
       : group;
 
-  return (
-    <div>
+
+
+  return (<>
         <ProductPageComponent
           p_product={product.serialise()}
           p_group={group.serialise()}
           clickableTags={true}
         />
-    </div>
-  );
+  </>);
 }
 
 export async function generateMetadata({params}: {params: Promise<{ id: string }>}): Promise<Metadata> {

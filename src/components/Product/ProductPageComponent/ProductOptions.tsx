@@ -1,6 +1,6 @@
 "use client";
 
-import {useContext} from "react";
+import {Fragment, useContext} from "react";
 import {ProductContext} from "@/components/Product/ProductPageComponent/lib.tsx";
 import {Button, ButtonGroup} from "react-bootstrap";
 import {createClient} from "@/lib/supabase/client.ts";
@@ -60,18 +60,22 @@ export default function ProductOptions() {
             // Sort the actual options alphabetically
             sizeGroup.sort((a, b) => a.name.localeCompare(b.name));
             // console.log(sizeGroup);
-            return <><ButtonGroup className={"product-options"}>{sizeGroup.map((size, i) => {
-                const selected = size.other_product_id === product.sku
-                return <Button
-                    variant={selected ? "primary" : "outline-primary"}
-                    disabled={selected}
-                    onClick={() => selectOption(size.other_product_id)}
-                    key={i}
-                >
-                    {size.name}
-                </Button>
-            })}
-            </ButtonGroup><br/></>
+            return <Fragment key={sizeGroup[0].option_group}>
+                <ButtonGroup className={"product-options"}>
+                    {sizeGroup.map((size, i) => {
+                        const selected = size.other_product_id === product.sku
+                        return <Button
+                            variant={selected ? "primary" : "outline-primary"}
+                            disabled={selected}
+                            onClick={() => selectOption(size.other_product_id)}
+                            key={i}
+                        >
+                            {size.name}
+                        </Button>
+                    })}
+                </ButtonGroup>
+                <br/>
+            </Fragment>
         })}
         </>;
 }

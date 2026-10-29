@@ -138,7 +138,6 @@
     display: block;
     box-sizing: border-box;
     width: calc(100% - 80px);
-    background-image: linear-gradient(gray -10px, white 12px);
     align-self: center;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -168,6 +167,23 @@
 
             font-size: 14px
         }
+    }
+}
+
+
+.sizeComparison {
+    display: flex;
+    align-items: center;
+    border-radius: 1rem;
+    background-color: var(--bs-gray-200);
+    flex-direction: column;
+    padding: 1rem;
+    max-width: 100%;
+    margin: 2rem;
+
+    .lightsChangeVideoLink {
+        --neon-border-colour: var(--secondary);
+        width: min(1000px, 100%);
     }
 }
 
