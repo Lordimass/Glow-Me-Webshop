@@ -12,3 +12,8 @@ export * from "./assets.ts";
 export * from "./currencySymbols.ts"
 export * from "./formatting.ts"
 export * from "./price.ts"
+
+export function isProduction() {
+    return true; // Override dev environment to show production products as needed.
+    // return process.env.NODE_ENV === "production";
+}

@@ -6,7 +6,7 @@ import {Button, ButtonGroup} from "react-bootstrap";
 import {createClient} from "@/lib/supabase/client.ts";
 import {ToastContext} from "@/lib/context/toasts.tsx";
 import {useGetGroupedProducts} from "@/lib/functions/supabaseRPCClient.ts";
-import {ProductGroup} from "@/lib";
+import {isProduction, ProductGroup} from "@/lib";
 
 export default function ProductOptions() {
     const { product, setProduct, setGroup } = useContext(ProductContext);
@@ -18,7 +18,7 @@ export default function ProductOptions() {
         supabase,
         sizes?.map(size => size.other_product_id),
         false,
-        process.env.NODE_ENV === "production",
+        isProduction(),
         undefined,
         toast
     )
