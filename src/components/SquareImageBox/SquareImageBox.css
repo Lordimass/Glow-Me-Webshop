@@ -4,10 +4,8 @@
   overflow: hidden;
   touch-action: pan-y;
   align-self: center;
-}
 
-.square-image-spacer {
-  padding-top: 100%;
+  aspect-ratio: 1;
 }
 
 .square-image-blur {
