@@ -24,8 +24,6 @@ export default async function ProductPage({
       ? group.getProductWithSku(id) ?? group.products[0] ?? ProductData.NULL
       : group;
 
-
-
   return (<>
         <ProductPageComponent
           p_product={product.serialise()}

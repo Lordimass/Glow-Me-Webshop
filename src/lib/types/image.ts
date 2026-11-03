@@ -72,6 +72,11 @@ export interface AssociationMetadata {
    */
   group_representative?: boolean | null;
 
+  /**
+   * Whether this image should be part of a comparison.
+   */
+  comparison?: boolean | null;
+
   [key: string]: unknown;
 }
 

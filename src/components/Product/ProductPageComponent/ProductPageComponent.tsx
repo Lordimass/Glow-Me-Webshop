@@ -15,6 +15,7 @@ import {trackViewItemAutoConvert, trackViewItemListAutoConvert} from "@/lib/ga/h
 import {LocaleContext} from "@/lib/context/locale.tsx";
 import ProductOptions from "@/components/Product/ProductPageComponent/ProductOptions.tsx";
 import TransitionButton from "@/components/TransitionButton/TransitionButton.tsx";
+import CompareSliderAuto from "@/components/CompareSliderAuto/CompareSliderAuto.tsx";
 
 interface ProductPageComponentProps {
   /** Product to display, or serialised string representing {@link ProductData}*/
@@ -80,6 +81,8 @@ export default function ProductPageComponent({
   const hasSizeOption = product.metadata.options?.some(
       option => option.option_group === "Size")
 
+  const comparisonImages = product.images.filter(i => i.association_metadata?.comparison)
+
   return (<>
     <div className={"product-page-component"}>
       <ProductContext.Provider
@@ -95,15 +98,16 @@ export default function ProductPageComponent({
         {/* Actual box containing this product's primary information */}
         <div className="product-box neon-border">
           <div className="image">
-            <SquareImageBox
-              image={
-                hoveredVariant
-                  ? group?.getCarouselImages(hoveredVariant.sku)[0]
-                  : images
-              }
-              size="100%"
-              loading="eager"
-            />
+            {comparisonImages.length >= 2
+                ? <CompareSliderAuto itemOne={comparisonImages[0]} itemTwo={comparisonImages[1]} className={"productImageComparison"} />
+                : <SquareImageBox
+                    image={hoveredVariant
+                          ? group?.getCarouselImages(hoveredVariant.sku)[0]
+                          : images}
+                    size="100%"
+                    loading="eager"
+                />}
+
           </div>
 
           <h1 className="title">{product.groupName ?? product.name}</h1>

@@ -102,6 +102,7 @@ export function handleGetProductsResponse(respData: any[] | undefined): ProductD
             let uri = `${SUPABASE_STORAGE}/${img.bucket_id}`;
             img.path_tokens.forEach((token: string) => (uri += "/" + token));
             return {
+                ...img,
                 display_order: img.display_order,
                 alt: img.user_metadata?.alt,
                 uri,
