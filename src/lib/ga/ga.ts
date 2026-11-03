@@ -17,6 +17,7 @@ export function acceptCookies() {
  * Update consent to deny use of Google Analytics cookies.
  */
 export function declineCookies() {
+    sessionStorage.setItem("consentModeAnswer", "decline");
     sendGAEvent("consent", "update", {
         analytics_storage: "denied",
         ad_user_data: "granted",

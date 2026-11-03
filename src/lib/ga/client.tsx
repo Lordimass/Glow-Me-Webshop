@@ -15,7 +15,7 @@ export function UseGA4Consent() {
     useEffect(() => {
         if (done.current) return;
         done.current = true;
-        if (!localStorage.getItem("consentModeAnswer")) {
+        if (!localStorage.getItem("consentModeAnswer") && !sessionStorage.getItem("consentModeAnswer")) {
             useGetGA4Consent(toast, closeToast)
             return;
         }
@@ -24,7 +24,9 @@ export function UseGA4Consent() {
         const consent =
             localStorage.getItem("consentModeAnswer") === "accept"
                 ? "granted"
-                : "denied";
+                : sessionStorage.getItem("consentModeAnswer") === "accept"
+                    ? "granted"
+                    : "denied";
 
         // Consent Mode V2 defaults (deny until user chooses)
         sendGAEvent("consent", "update", {
