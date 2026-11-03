@@ -10,12 +10,16 @@ export default function TransitionButton
     playbackRate = 1,
     respectReducedMotion = true,
     square = false,
+    isVideo = true,
+    alt
 }:{
     videoSrc: string,
     href?: string,
     playbackRate?: number,
     respectReducedMotion?: boolean
     square?: boolean
+    isVideo?: boolean
+    alt?: string
 }){
     const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -28,12 +32,20 @@ export default function TransitionButton
     }, []);
 
     return <a href={href} className={"lightsChangeVideoLink neon-border" + (square ? " square" : "")}>
-        <video
-            className={"lightsChangeVideo"}
-            src={videoSrc}
-            autoPlay loop muted
-            ref={videoRef}
-        />
+        {isVideo ?
+            <video
+                className={"lightsChangeVideo"}
+                src={videoSrc}
+                autoPlay loop muted
+                ref={videoRef}
+            /> :
+            <img
+                className={"lightsChangeVideo"}
+                alt={alt}
+                src={videoSrc}
+            />
+        }
+
     </a>
 }
 

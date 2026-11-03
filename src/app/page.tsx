@@ -25,11 +25,11 @@ export default async function Page() {
                     />
                     <TransitionButton
                         videoSrc={SUPABASE_STORAGE + "/glow_me_product_images/transitions/fu-ghost-blue-square.webm"}
-                        href={"/products/prod_VOdETxsOL2clAR"}
+                        href={"/products/prod_VXGmian6JBWKov"}
                         square={true}
                     />
                     <TransitionButton
-                        videoSrc={SUPABASE_STORAGE + "/glow_me_product_images/transitions/cat-blue-square.webm"}
+                        videoSrc={SUPABASE_STORAGE + "/glow_me_product_images/transitions/cat-ghost-blue.webm"}
                         href={"/products/prod_VOKTaC3xy4WswD"}
                         square={true}
                     />
@@ -38,6 +38,26 @@ export default async function Page() {
                         href={"/products/prod_VOdK6lqYAf3iAH"}
                         square={true}
                     />
+
+                    <TransitionButton
+                        videoSrc={SUPABASE_STORAGE + "/glow_me_product_images/cat/cat-11.webp"}
+                        href={"/products/prod_VQViVPvtbL79k5"}
+                        square={true}
+                        isVideo={false}
+                    />
+                    <TransitionButton
+                        videoSrc={SUPABASE_STORAGE + "/glow_me_product_images/fu-ghost/fu-ghost-6.webp"}
+                        href={"/products/prod_VOKYjPvJJxXgbl"}
+                        square={true}
+                        isVideo={false}
+                    />
+                    <TransitionButton
+                        videoSrc={SUPABASE_STORAGE + "/glow_me_product_images/ghost-holding-cat/ghost-holding-cat-6.webp"}
+                        href={"/products/prod_VOdGzB8fZVMRw3"}
+                        square={true}
+                        isVideo={false}
+                    />
+                    
                 </div>
             </div>
         </>
