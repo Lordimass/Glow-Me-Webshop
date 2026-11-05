@@ -38,7 +38,9 @@ export default async function Page() {
                         href={"/products/prod_VOdK6lqYAf3iAH"}
                         square={true}
                     />
-
+                </div>
+                <br/>
+                <div id={styles.transitionButtons}>
                     <TransitionButton
                         videoSrc={SUPABASE_STORAGE + "/glow_me_product_images/cat/cat-11.webp"}
                         href={"/products/prod_VQViVPvtbL79k5"}
@@ -57,7 +59,7 @@ export default async function Page() {
                         square={true}
                         isVideo={false}
                     />
-                    
+
                 </div>
             </div>
         </>
