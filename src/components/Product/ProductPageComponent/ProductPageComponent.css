@@ -131,6 +131,27 @@
 
 .productImageComparison {
     border-radius: 1rem;
+    aspect-ratio: 1;
+
+    [data-rcs-item="itemOne"] img, [data-rcs-item="itemTwo"] img {
+    }
+
+    [data-rcs-item="itemOne"]::after, [data-rcs-item="itemTwo"]::after {
+        text-align: center;
+        display: block;
+        position: relative;
+        top: -95%;
+        font-size: 2rem;
+    }
+
+    [data-rcs-item="itemTwo"]::after {
+        content: "Daylight!";
+    }
+
+    [data-rcs-item="itemOne"]::after {
+        content: "Pitch Black!";
+        color: white
+    }
 }
 
 .hover-product-image {
