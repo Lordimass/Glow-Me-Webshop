@@ -38,6 +38,16 @@ export default async function Page() {
                         href={"/products/prod_VOdK6lqYAf3iAH"}
                         square={true}
                     />
+                    <TransitionButton
+                        videoSrc={SUPABASE_STORAGE + "/glow_me_product_images/transitions/ghost-blue-transition.webm"}
+                        href={"/products/prod_VZZpkQ9ZS8cV5v"}
+                        square={true}
+                    />
+                    <TransitionButton
+                        videoSrc={SUPABASE_STORAGE + "/glow_me_product_images/transitions/two-ghost-blue-transition.webm"}
+                        href={"/products/prod_VZZY5bghGbt7dU"}
+                        square={true}
+                    />
                 </div>
                 <br/>
                 <div id={styles.transitionButtons}>
@@ -59,7 +69,12 @@ export default async function Page() {
                         square={true}
                         isVideo={false}
                     />
-
+                    <TransitionButton
+                        videoSrc={SUPABASE_STORAGE + "/glow_me_product_images/ghost/ng-ghost-blue.webp"}
+                        href={"/products/prod_VZZV6oitiMGWoY"}
+                        square={true}
+                        isVideo={false}
+                    />
                 </div>
             </div>
         </>
