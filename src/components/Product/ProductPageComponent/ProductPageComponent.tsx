@@ -14,7 +14,7 @@ import Tags from "@/components/Tag/Tags.tsx";
 import {trackViewItemAutoConvert, trackViewItemListAutoConvert} from "@/lib/ga/helpers.ts";
 import {LocaleContext} from "@/lib/context/locale.tsx";
 import ProductOptions from "@/components/Product/ProductPageComponent/ProductOptions.tsx";
-import TransitionButton from "@/components/TransitionButton/TransitionButton.tsx";
+import TransitionVideo from "@/components/TransitionButton/TransitionVideo.tsx";
 import CompareSliderAuto from "@/components/CompareSliderAuto/CompareSliderAuto.tsx";
 
 interface ProductPageComponentProps {
@@ -145,7 +145,7 @@ export default function ProductPageComponent(
 
         {hasSizeOption ? <div className={"sizeComparison"}>
             <h2>Size Comparison</h2>
-            <TransitionButton
+            <TransitionVideo
                 videoSrc={"https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public/glow_me_product_images/transitions/scale.webm"}
             />
         </div> : null}

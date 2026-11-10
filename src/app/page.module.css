@@ -13,6 +13,10 @@
   }
 }
 
+.spacer {
+  height: 1rem;
+}
+
 #transitionButtons {
   display: flex;
   align-items: center;

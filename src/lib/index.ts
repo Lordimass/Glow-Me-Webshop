@@ -17,3 +17,10 @@ export function isProduction() {
     return true; // Override dev environment to show production products as needed.
     // return process.env.NODE_ENV === "production";
 }
+
+export function isVideo(src?: string) {
+    if (!src) return false;
+    return src.endsWith(".webm")
+        || src.endsWith(".mov")
+        || src.endsWith(".mp4");
+}

@@ -2,23 +2,22 @@
 
 import "./TransitionButton.css"
 import {useEffect, useRef} from "react";
+import {isVideo} from "@/lib";
 
-export default function TransitionButton
+export default function TransitionVideo
 ({
     videoSrc,
     href,
     playbackRate = 1,
     respectReducedMotion = true,
     square = false,
-    isVideo = true,
     alt
 }:{
-    videoSrc: string,
+    videoSrc?: string,
     href?: string,
     playbackRate?: number,
     respectReducedMotion?: boolean
     square?: boolean
-    isVideo?: boolean
     alt?: string
 }){
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -31,21 +30,23 @@ export default function TransitionButton
             : playbackRate;
     }, []);
 
-    return <a href={href} className={"lightsChangeVideoLink" + (square ? " square" : "")}>
-        {isVideo ?
-            <video
-                className={"lightsChangeVideo"}
-                src={videoSrc}
-                autoPlay loop muted
-                ref={videoRef}
-            /> :
-            <img
-                className={"lightsChangeVideo"}
-                alt={alt}
-                src={videoSrc}
-            />
-        }
+    const inner = isVideo(videoSrc) ?
+        <video
+            className={"lightsChangeVideo"}
+            src={videoSrc}
+            autoPlay loop muted
+            ref={videoRef}
+        /> :
+        <img
+            className={"lightsChangeVideo"}
+            alt={alt}
+            src={videoSrc}
+        />
 
-    </a>
+    const className = "lightsChangeVideoLink" + (square ? " square" : "")
+
+    return href
+        ? <a href={href} className={className}>{inner}</a>
+        : <div className={className}>{inner}</div>
 }
 
