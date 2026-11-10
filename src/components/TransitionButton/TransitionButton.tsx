@@ -31,7 +31,7 @@ export default function TransitionButton
             : playbackRate;
     }, []);
 
-    return <a href={href} className={"lightsChangeVideoLink neon-border" + (square ? " square" : "")}>
+    return <a href={href} className={"lightsChangeVideoLink" + (square ? " square" : "")}>
         {isVideo ?
             <video
                 className={"lightsChangeVideo"}
