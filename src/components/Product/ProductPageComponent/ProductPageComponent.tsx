@@ -18,165 +18,169 @@ import TransitionButton from "@/components/TransitionButton/TransitionButton.tsx
 import CompareSliderAuto from "@/components/CompareSliderAuto/CompareSliderAuto.tsx";
 
 interface ProductPageComponentProps {
-  /** Product to display, or serialised string representing {@link ProductData}*/
-  p_product: ProductData | string;
-  /** Group that this product is part of to display, or serialised string representing {@link ProductGroup} */
-  p_group?: ProductGroup | string;
-  /** Whether tags should be clickable to go to a /tag/TAG_NAME page. Defaults to `true` */
-  clickableTags?: boolean;
+    /** Product to display, or serialised string representing {@link ProductData}*/
+    p_product: ProductData | string;
+    /** Group that this product is part of to display, or serialised string representing {@link ProductGroup} */
+    p_group?: ProductGroup | string;
+    /** Whether tags should be clickable to go to a /tag/TAG_NAME page. Defaults to `true` */
+    clickableTags?: boolean;
+    /** Whether a preview image should be shown when hovering over a variant. Only applicable if this is part of a {@link ProductGroup} */
+    hoveredVariantPreviews?: boolean;
 }
 
 /** A full screen component giving information on a product. Designed to be used on a dedicated page. */
-export default function ProductPageComponent({
-  p_product = ProductData.NULL,
-  p_group,
-  clickableTags = true,
-}: ProductPageComponentProps) {
-  const {currency} = useContext(LocaleContext);
+export default function ProductPageComponent(
+    {
+        p_product = ProductData.NULL,
+        p_group,
+        clickableTags = true,
+        hoveredVariantPreviews = false,
+    }: ProductPageComponentProps) {
+    const {currency} = useContext(LocaleContext);
 
-  const [product, _setProduct] = useState<ProductData>(ProductData.NULL);
-  const [group, _setGroup] = useState<ProductGroup | undefined>();
-  const [hoveredVariant, setHoveredVariant] = useState<ProductData>();
-  const images = group ? group.getCarouselImages(product.sku) : product.images;
+    const [product, _setProduct] = useState<ProductData>(ProductData.NULL);
+    const [group, _setGroup] = useState<ProductGroup | undefined>();
+    const [hoveredVariant, setHoveredVariant] = useState<ProductData>();
+    const images = group ? group.getCarouselImages(product.sku) : product.images;
 
-  const groupAnalyticsTriggered = useRef<boolean>(false);
+    const groupAnalyticsTriggered = useRef<boolean>(false);
 
-  // When the parameter changes, update the selected product to match. This is also useful to allow late updating of the
-  // product data if content is still loading
-  useEffect(() => {
-    setProduct(typeof p_product === "string"
-        ? ProductData.deserialize(p_product)
-        : p_product);
-  }, [p_product]);
+    // When the parameter changes, update the selected product to match. This is also useful to allow late updating of the
+    // product data if content is still loading
+    useEffect(() => {
+        setProduct(typeof p_product === "string"
+            ? ProductData.deserialize(p_product)
+            : p_product);
+    }, [p_product]);
 
-  useEffect(() => {
-    const newGroup = typeof p_group === "string"
-        ? ProductGroup.deserialize(p_group)
-        : p_group
-    _setGroup(newGroup);
-    if (newGroup && !groupAnalyticsTriggered.current) {
-      trackViewItemListAutoConvert(currency, newGroup?.products, newGroup.groupName, newGroup.groupName);
-      groupAnalyticsTriggered.current = true;
+    useEffect(() => {
+        const newGroup = typeof p_group === "string"
+            ? ProductGroup.deserialize(p_group)
+            : p_group
+        _setGroup(newGroup);
+        if (newGroup && !groupAnalyticsTriggered.current) {
+            trackViewItemListAutoConvert(currency, newGroup?.products, newGroup.groupName, newGroup.groupName);
+            groupAnalyticsTriggered.current = true;
+        }
+    }, [p_group]);
+
+    function setProduct(newProduct: ProductData) {
+        console.log("Setting product to " + newProduct.sku, newProduct);
+        if (newProduct.sku !== product.sku) trackViewItemAutoConvert(currency, newProduct);
+        _setProduct(newProduct);
+        window.history.pushState(
+            undefined,
+            product.name,
+            getProductPagePath(newProduct.sku),
+        );
     }
-  }, [p_group]);
 
-  function setProduct(newProduct: ProductData) {
-    console.log("Setting product to " + newProduct.sku, newProduct);
-    if (newProduct.sku !== product.sku) trackViewItemAutoConvert(currency, newProduct);
-    _setProduct(newProduct);
-    window.history.pushState(
-        undefined,
-        product.name,
-        getProductPagePath(newProduct.sku),
-    );
-  }
+    function setGroup(newGroup: ProductGroup) {
+        if (group && newGroup.groupName === group.groupName) return
+        _setGroup(newGroup);
+        trackViewItemListAutoConvert(currency, newGroup?.products, newGroup.groupName, newGroup.groupName);
+        groupAnalyticsTriggered.current = true;
+    }
 
-  function setGroup(newGroup: ProductGroup) {
-    if (group && newGroup.groupName === group.groupName) return
-    _setGroup(newGroup);
-    trackViewItemListAutoConvert(currency, newGroup?.products, newGroup.groupName, newGroup.groupName);
-    groupAnalyticsTriggered.current = true;
-  }
+    const hasSizeOption = product.metadata.options?.some(
+        option => option.option_group === "Size")
 
-  const hasSizeOption = product.metadata.options?.some(
-      option => option.option_group === "Size")
+    const comparisonImages = product.images.filter(i => i.association_metadata?.comparison)
 
-  const comparisonImages = product.images.filter(i => i.association_metadata?.comparison)
+    return (<>
+        <div className={"product-page-component"}>
+            <ProductContext.Provider
+                value={{
+                    product, setProduct,
+                    hoveredVariant, setHoveredVariant,
+                    group, setGroup
+                }}
+            >
+                {/* Above actual product. */}
+                <GoHome />
 
-  return (<>
-    <div className={"product-page-component"}>
-      <ProductContext.Provider
-        value={{
-          product, setProduct,
-          hoveredVariant, setHoveredVariant,
-          group, setGroup
-        }}
-      >
-        {/* Above actual product. */}
-        <GoHome />
+                {/* Actual box containing this product's primary information */}
+                <div className="product-box neon-border">
+                    <div className="image">
+                        {comparisonImages.length >= 2
+                            ? <CompareSliderAuto itemOne={comparisonImages[0]} itemTwo={comparisonImages[1]} className={"productImageComparison"} />
+                            : <SquareImageBox
+                                image={hoveredVariant
+                                    ? group?.getCarouselImages(hoveredVariant.sku)[0]
+                                    : images}
+                                size="100%"
+                                loading="eager"
+                            />}
 
-        {/* Actual box containing this product's primary information */}
-        <div className="product-box neon-border">
-          <div className="image">
-            {comparisonImages.length >= 2
-                ? <CompareSliderAuto itemOne={comparisonImages[0]} itemTwo={comparisonImages[1]} className={"productImageComparison"} />
-                : <SquareImageBox
-                    image={hoveredVariant
-                          ? group?.getCarouselImages(hoveredVariant.sku)[0]
-                          : images}
-                    size="100%"
-                    loading="eager"
-                />}
+                    </div>
 
-          </div>
+                    <h1 className="title">{product.groupName ?? product.name}</h1>
 
-          <h1 className="title">{product.groupName ?? product.name}</h1>
+                    <div className="price-container">
+                        <ProductPrice prod={product} />
+                    </div>
 
-          <div className="price-container">
-            <ProductPrice prod={product} />
-          </div>
+                    {product.metadata.tags ? (
+                        <Tags tags={product.metadata.tags} clickable={clickableTags} />
+                    ) : null}
 
-          {product.metadata.tags ? (
-            <Tags tags={product.metadata.tags} clickable={clickableTags} />
-          ) : null}
+                    <div className="desc">
+                        <Markdown>{product.metadata.description ?? ""}</Markdown>
+                    </div>
 
-          <div className="desc">
-            <Markdown>{product.metadata.description ?? ""}</Markdown>
-          </div>
+                    <div className="prod-ticker">
+                        <ProductOptions/>
+                        <ProductGroupComponent hoveredVariantPreviews={hoveredVariantPreviews}/>
+                        <BasketModifier
+                            inputId={"prod-page-basket-modifier"}
+                            product={product}
+                            height={"50px"}
+                        />
+                    </div>
+                </div>
 
-          <div className="prod-ticker">
-            <ProductOptions/>
-            <ProductGroupComponent />
-            <BasketModifier
-              inputId={"prod-page-basket-modifier"}
-              product={product}
-              height={"50px"}
-            />
-          </div>
+                <AdditionalInformation prod={product} />
+            </ProductContext.Provider>
         </div>
 
-        <AdditionalInformation prod={product} />
-      </ProductContext.Provider>
-    </div>
+        {hasSizeOption ? <div className={"sizeComparison"}>
+            <h2>Size Comparison</h2>
+            <TransitionButton
+                videoSrc={"https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public/glow_me_product_images/transitions/scale.webm"}
+            />
+        </div> : null}
 
-    {hasSizeOption ? <div className={"sizeComparison"}>
-      <h2>Size Comparison</h2>
-      <TransitionButton
-          videoSrc={"https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public/glow_me_product_images/transitions/scale.webm"}
-      />
-    </div> : null}
-    
-  </>);
+    </>);
 }
 
 /** Displays additional information about the given product */
 function AdditionalInformation({ prod }: { prod: ProductData }) {
-  const data = {
-    SKU: prod.sku,
-    weight: prod.metadata.weight
-      ? prod.metadata.weight > 500
-        ? Math.round(prod.metadata.weight / 100) / 10 + "kg"
-        : prod.metadata.weight + "g"
-      : undefined,
-    category: prod.metadata.category,
-    ...prod.metadata.customer_metadata,
-  };
-  const keys = Object.keys(data);
+    const data = {
+        SKU: prod.sku,
+        weight: prod.metadata.weight
+            ? prod.metadata.weight > 500
+                ? Math.round(prod.metadata.weight / 100) / 10 + "kg"
+                : prod.metadata.weight + "g"
+            : undefined,
+        category: prod.metadata.category,
+        ...prod.metadata.customer_metadata,
+    };
+    const keys = Object.keys(data);
 
-  return (
-    <div className="product-box additional-product-information neon-border">
-      <h2>Item Details</h2>
-      <div className="additional-product-information-container">
-        {keys.map((key) => {
-          const value = data[key as keyof typeof data];
-          return value ? (
-            <div key={key}>
-              <span>{snakeToTitleCase(key)}</span>
-              <span>{data[key as keyof typeof data]}</span>
+    return (
+        <div className="product-box additional-product-information neon-border">
+            <h2>Item Details</h2>
+            <div className="additional-product-information-container">
+                {keys.map((key) => {
+                    const value = data[key as keyof typeof data];
+                    return value ? (
+                        <div key={key}>
+                            <span>{snakeToTitleCase(key)}</span>
+                            <span>{data[key as keyof typeof data]}</span>
+                        </div>
+                    ) : null;
+                })}
             </div>
-          ) : null;
-        })}
-      </div>
-    </div>
-  );
+        </div>
+    );
 }

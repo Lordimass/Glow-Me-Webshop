@@ -5,7 +5,15 @@ import {ProductData} from "@/lib";
 import SquareImageBox from "@/components/SquareImageBox/SquareImageBox.tsx";
 import Price from "@/components/Price/Price.tsx";
 
-export default function ProductGroup() {
+interface Props {
+  /** Whether a preview image should be shown when hovering over a variant. Only applicable if this is part of a {@link ProductGroup} */
+  hoveredVariantPreviews: boolean;
+}
+
+export default function ProductGroup(
+    {
+      hoveredVariantPreviews
+    }: Props) {
   const { product, group, hoveredVariant, setHoveredVariant } = useContext(ProductContext);
   const groupRef = useRef<HTMLDivElement>(null);
 
@@ -37,14 +45,14 @@ export default function ProductGroup() {
       <p className="p-small">Variant: {name}</p>
       <div className="product-group" ref={groupRef}>
         {group.products.map((p) => {
-          return <ProductVariant product={p} key={p.sku}/>
+          return <ProductVariant product={p} key={p.sku} hoveredVariantPreviews={hoveredVariantPreviews}/>
         })}
       </div>
     </>
   );
 }
 
-function ProductVariant({ product }: { product: ProductData }) {
+function ProductVariant({ product, hoveredVariantPreviews }: { product: ProductData, hoveredVariantPreviews: boolean }) {
   const { group } = useContext(ProductContext);
 
   const {
@@ -66,7 +74,7 @@ function ProductVariant({ product }: { product: ProductData }) {
         "product-variant" +
         (product.sku === mainProduct.sku ? " selected-product-variant" : "")
       }
-      onMouseEnter={() => setHoveredVariant(product)}
+      onMouseEnter={() => {if (hoveredVariantPreviews) setHoveredVariant(product)}}
       onClick={() => {setProduct(product)}}
     >
       <SquareImageBox image={group?.getVariantIcon(product.sku)} size="100px" />
