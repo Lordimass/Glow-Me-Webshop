@@ -3,15 +3,15 @@
   flex-direction: column;
 
   width: 320px;
-  height: 530px;
+  /*height: 490px;*/
 
   background-color: white;
-  overflow: hidden;
-  border-radius: 15px;
+  border-radius: 4px;
   box-shadow: var(--bs-box-shadow);
 }
 
 .product-image-link {
+  position: relative;
   width: 100%;
 }
 
@@ -54,6 +54,15 @@
   box-sizing: content-box;
 }
 
+.scaleBadge {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  z-index: 10;
+  width: 50%;
+  height: auto;
+}
+
 /* Special layout for really narrow screens */
 @media screen and (max-width: 375px) {
   .product {
@@ -88,7 +97,7 @@
     display: flex;
     align-items: center;
     background-color: dimgray;
-    border-radius: 0 10px 10px 0;
+    border-radius: 0 4px 4px 0;
     height: var(--horizontal-product-height);
     width: var(--horizontal-product-height);
     min-width: var(--horizontal-product-height);
@@ -145,7 +154,18 @@
   }
 }
 
+
+
 @media screen and (max-width: 1000px) {
+  .vertical-product {
+    /*height: 160px;*/
+    width: 150px;
+
+    .product-group-basket-modifier {
+      font-size: 13px;
+    }
+  }
+
   .product:not(.vertical-product) {
     --horizontal-product-height: 160px;
     flex-direction: row;
@@ -155,9 +175,8 @@
 
     .product-image-link {
       display: flex;
-      align-items: center;
       background-color: dimgray;
-      border-radius: 0 10px 10px 0;
+      border-radius: 0 4px 4px 0;
       height: var(--horizontal-product-height);
       width: var(--horizontal-product-height);
       min-width: var(--horizontal-product-height);

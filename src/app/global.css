@@ -10,13 +10,13 @@
 
   /*--primary: #f4a635;*/
   --primary: #111139;
-  --primary-dark: #b8700a;
-  --primary-translucent: rgb(244 166 53 / 0.6);
+  --primary-dark: #330098;
+  --primary-translucent: rgb(17 17 57 / 0.6);
 
-  --secondary-light: #b3aea8;
-  --secondary: #7c746b;
-  --secondary-dark: #4a4540;
-  --secondary-darker: #312e2b;
+  --secondary-light: #a8b3b3;
+  --secondary: #6b797c;
+  --secondary-dark: #404a4a;
+  --secondary-darker: #2b3031;
 
   --bs-primary: var(--primary) !important;
   --bs-secondary: var(--secondary) !important;
@@ -53,6 +53,10 @@ h1 {
   @media screen and (min-width: 1000px){
     font-size: 3rem;
   }
+}
+
+h2 {
+  margin-bottom: 15px;
 }
 
 /* Starry Background */

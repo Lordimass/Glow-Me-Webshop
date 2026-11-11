@@ -7,6 +7,7 @@ import BasketModifier from "../Ticker/BasketModifier/BasketModifier.tsx";
 import SquareImageBox from "../SquareImageBox/SquareImageBox.tsx";
 import "./Product.css"
 import CompareSliderAuto from "@/components/CompareSliderAuto/CompareSliderAuto.tsx";
+import Image from "next/image";
 
 interface ProductProps {
     /** The product or product group to display. */
@@ -33,6 +34,10 @@ interface ProductProps {
      * Whether to allow this product's image to be a comparison slider image, if applicable for the product. Defaults to `true`
      */
     allowComparisonSliderImage?: boolean
+    /**
+     * Hide the display of price and name from the product, saving some space. Defaults to `false`
+     */
+    hideText?: boolean
 }
 
 /** Displays a product or product group with an optional basket ticker. */
@@ -43,7 +48,8 @@ export default function Product(
         horizontal = false,
         quantityLocked = false,
         forceVertical = false,
-        allowComparisonSliderImage = true
+        allowComparisonSliderImage = true,
+        hideText = false
     }: ProductProps) {
     /** Name to display for the product, including SKU if in admin mode */
     let name: string;
@@ -86,19 +92,19 @@ export default function Product(
                 (forceVertical ? " vertical-product" : "")
             }
         >
-            <HyperlinkedProductImage href={prodPagePath} prod={prod} allowComparisonSliderImage={allowComparisonSliderImage}/>
+            <HyperlinkedProductImage href={prodPagePath} prod={prod} representativeProduct={representativeProduct} allowComparisonSliderImage={allowComparisonSliderImage}/>
 
             {/* Bottom half of the product display */}
             <div className="prod-footer">
                 {/* Primary content of the footer */}
                 <div className="prod-footer-main">
-                    <div className="product-text">
+                    {!hideText ? <div className="product-text">
                         {/* Product Name + Link to dedicated product page, as well as SKU if in admin mode */}
                         <a className="product-name" href={prodPagePath}>
                             {name}
                         </a>
                         <ProductPrice prod={prod} currency={currency} />
-                    </div>
+                    </div> : null}
 
                     {!quantityLocked ? (
                         <div className="basket-modifier-container">
@@ -124,10 +130,12 @@ function HyperlinkedProductImage(
     {
         href,
         prod,
+        representativeProduct,
         allowComparisonSliderImage
     }: {
     href: string;
     prod: ProductData | ProductGroup;
+    representativeProduct: ProductData;
     allowComparisonSliderImage: boolean;
 }) {
     const comparisonImages = allowComparisonSliderImage
@@ -137,11 +145,20 @@ function HyperlinkedProductImage(
     const representativeImage = prod.getRepresentativeImage();
     return (
         <a className="product-image-link" href={href}>
+            {representativeProduct.metadata.options?.find(opt => opt.option_group = "Size")
+                ? <Image
+                    className="scaleBadge"
+                    src={"/scaleBadge.svg"}
+                    alt={"Size options available, 4cm or 6.5cm"}
+                    width={128}
+                    height={128}
+                />
+                : null
+            }
             {comparisonImages.length >= 2
                 ? <CompareSliderAuto itemOne={comparisonImages[0]} itemTwo={comparisonImages[1]}/>
                 : <SquareImageBox image={representativeImage} size="100%" />
             }
-
         </a>
     );
 }

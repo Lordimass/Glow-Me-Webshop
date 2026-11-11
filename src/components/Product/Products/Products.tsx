@@ -40,6 +40,15 @@ export interface ProductsProps {
      * Whether to allow this product images to be a comparison slider image, if applicable for that product. Defaults to `true`
      */
     allowComparisonSliderImage?: boolean
+    /**
+     * Hide the display of price and name from the products, saving some space. Defaults to `false`
+     */
+    hideText?: boolean
+    /**
+     * Forces the product to render vertically, even when horizontal space dictates that it should be horizontal.
+     * Defaults to `false`
+     */
+    forceVertical?: boolean;
 }
 
 /**
@@ -52,7 +61,9 @@ export default function Products(
         trackViewItemListProps,
         children,
         excludeHidden = true,
-        allowComparisonSliderImage = true
+        allowComparisonSliderImage = true,
+        hideText = false,
+        forceVertical = false,
     }: ProductsProps) {
     const products: ProductCollection = typeof prods === "string" ? ProductCollection.deserialise(prods) : prods;
     const { currency } = useContext(LocaleContext);
@@ -87,7 +98,12 @@ export default function Products(
                     if (excludeHidden && (p instanceof ProductData && p.hidden
                         || p instanceof ProductGroup && p.isHidden()
                     )) return null;
-                    return <Product prod={p} key={i} allowComparisonSliderImage={allowComparisonSliderImage}/>
+                    return <Product
+                        prod={p} key={i}
+                        allowComparisonSliderImage={allowComparisonSliderImage}
+                        hideText={hideText}
+                        forceVertical={forceVertical}
+                    />
                 })}
             </div>
             {pageCount && pageCount > 1 ? (

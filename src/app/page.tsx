@@ -58,19 +58,22 @@ export default async function Page() {
             </div>
             <div className={"content"}>
                 <hr/>
-                <h1 className={"text-center"}>GLOW<br/>(in the dark)</h1>
-                <h2 className={"text-center"}>GHOSTS</h2>
-                <Products prods={glowGhosts.serialise()} excludeHidden={false} allowComparisonSliderImage={false} />
-                <div className={styles.spacer}/>
-                <h2 className={"text-center"}>CATS</h2>
-                <Products prods={glowCats.serialise()} excludeHidden={false} />
+                <h1 className={"text-center"} style={{lineHeight: "35px"}}>GLOW<br/><span style={{fontSize: "35px"}}>In The Dark</span></h1>
                 <hr/>
-                <h1 className={"text-center"}>NON-GLOW<br/>(special edition)</h1>
                 <h2 className={"text-center"}>GHOSTS</h2>
-                <Products prods={ghosts.serialise()} excludeHidden={false} />
+                <Products prods={glowGhosts.serialise()} excludeHidden={false} allowComparisonSliderImage={false} hideText={true} forceVertical={true}/>
                 <div className={styles.spacer}/>
                 <h2 className={"text-center"}>CATS</h2>
-                <Products prods={cats.serialise()} excludeHidden={false} />
+                <Products prods={glowCats.serialise()} excludeHidden={false} hideText={true} forceVertical={true} />
+                <div className={styles.spacer}/><div className={styles.spacer}/>
+                <hr/>
+                <h1 className={"text-center"} style={{lineHeight: "35px"}}>NON-GLOW<br/><span style={{fontSize: "35px"}}>Special Edition</span></h1>
+                <hr/>
+                <h2 className={"text-center"}>GHOSTS</h2>
+                <Products prods={ghosts.serialise()} excludeHidden={false} hideText={true} forceVertical={true} />
+                <div className={styles.spacer}/>
+                <h2 className={"text-center"}>CATS</h2>
+                <Products prods={cats.serialise()} excludeHidden={false} hideText={true} forceVertical={true} />
             </div>
         </>
     );
