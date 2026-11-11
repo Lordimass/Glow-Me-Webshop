@@ -341,10 +341,8 @@ export class ProductGroup implements ImageHolder {
         const imgs = this.products
             .map((p: ProductData) => {
                 if (p.sku === sku) {
-                    return p.images.filter(
-                        (i) =>
-                            !i.association_metadata?.group_representative &&
-                            !i.association_metadata?.variant_icon,
+                    return p.images.filter((i) =>
+                        !i.association_metadata?.exclude
                     );
                 }
             })

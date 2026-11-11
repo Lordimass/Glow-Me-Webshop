@@ -73,6 +73,12 @@ export interface AssociationMetadata {
   group_representative?: boolean | null;
 
   /**
+   * Whether this image should be excluded from the standard image carousel. This is usually used with one of the other
+   * association options. For example, a variant icon usually doesn't want to be used in the carousel.
+   */
+  exclude?: boolean | null;
+
+  /**
    * Whether this image should be part of a comparison.
    */
   comparison?: boolean | null;
