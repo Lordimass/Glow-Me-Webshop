@@ -3,6 +3,7 @@ import "./Footer.css";
 export default function Footer() {
   return (
     <div className="footer">
+      <hr/>
       <p>
         Website made by <a href="https://lordimass.net">Sam Knight</a> <br />
       </p>

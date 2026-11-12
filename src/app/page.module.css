@@ -13,11 +13,19 @@
   }
 }
 
+.spacer {
+  height: 2rem;
+}
+
 #transitionButtons {
   display: flex;
+  align-items: center;
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
+  border: 2px solid black;
+  padding: 1rem;
+  background-color: white;
 
   .lightsChangeVideoLink {
     width: min(400px, 40%);

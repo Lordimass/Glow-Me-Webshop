@@ -1,3 +1,5 @@
+"use client"
+
 import {MinimalImage} from "@/lib";
 import {ReactCompareSlider, ReactCompareSliderImage} from "react-compare-slider";
 import {useEffect, useState} from "react";

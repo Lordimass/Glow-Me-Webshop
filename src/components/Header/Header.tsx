@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <>
       <div className="header-page-space" />
-      <div className="header neon-border">
+      <div className="header">
         <a href={"/"} aria-label='Return to "Glow Me!" Home Page'>
           <img
             className="logo"

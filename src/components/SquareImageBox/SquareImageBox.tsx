@@ -2,10 +2,11 @@
 
 import React, {useEffect, useRef, useState} from "react";
 import {AnimatePresence, motion} from "motion/react";
-import {MinimalImage} from "@/lib";
+import {isVideo, MinimalImage} from "@/lib";
 import {Carousel, type CarouselProps} from "react-bootstrap";
 import {type CarouselRef} from "react-bootstrap/cjs/Carousel";
 import "./SquareImageBox.css"
+import TransitionVideo from "@/components/TransitionButton/TransitionVideo.tsx";
 
 interface SquareImageBoxProps extends CarouselProps {
     /** Image or images to display. */
@@ -50,7 +51,6 @@ export default function SquareImageBox({
         <>
             <HoverPopup image={activeImage} isHoverShowing={isHoverShowing}/>
 
-
             <Carousel
                 {...props}
                 className="square-image-box"
@@ -76,7 +76,10 @@ export default function SquareImageBox({
                         />
 
                         <div className="square-image-center">
-                            <Image className="square-image-foreground" img={img}/>
+                            {isVideo(img?.uri)
+                                ? <TransitionVideo videoSrc={img?.uri}/>
+                                : <Image className="square-image-foreground" img={img}/>
+                            }
                         </div>
                     </Carousel.Item>
                 ))}
