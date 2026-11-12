@@ -7,7 +7,6 @@ import BasketModifier from "../Ticker/BasketModifier/BasketModifier.tsx";
 import SquareImageBox from "../SquareImageBox/SquareImageBox.tsx";
 import "./Product.css"
 import CompareSliderAuto from "@/components/CompareSliderAuto/CompareSliderAuto.tsx";
-import Image from "next/image";
 
 interface ProductProps {
     /** The product or product group to display. */
@@ -92,7 +91,7 @@ export default function Product(
                 (forceVertical ? " vertical-product" : "")
             }
         >
-            <HyperlinkedProductImage href={prodPagePath} prod={prod} representativeProduct={representativeProduct} allowComparisonSliderImage={allowComparisonSliderImage}/>
+            <HyperlinkedProductImage href={prodPagePath} prod={prod} allowComparisonSliderImage={allowComparisonSliderImage}/>
 
             {/* Bottom half of the product display */}
             <div className="prod-footer">
@@ -130,12 +129,10 @@ function HyperlinkedProductImage(
     {
         href,
         prod,
-        representativeProduct,
         allowComparisonSliderImage
     }: {
     href: string;
     prod: ProductData | ProductGroup;
-    representativeProduct: ProductData;
     allowComparisonSliderImage: boolean;
 }) {
     const comparisonImages = allowComparisonSliderImage
@@ -145,16 +142,6 @@ function HyperlinkedProductImage(
     const representativeImage = prod.getRepresentativeImage();
     return (
         <a className="product-image-link" href={href}>
-            {representativeProduct.metadata.options?.find(opt => opt.option_group = "Size")
-                ? <Image
-                    className="scaleBadge"
-                    src={"/scaleBadge.svg"}
-                    alt={"Size options available, 4cm or 6.5cm"}
-                    width={128}
-                    height={128}
-                />
-                : null
-            }
             {comparisonImages.length >= 2
                 ? <CompareSliderAuto itemOne={comparisonImages[0]} itemTwo={comparisonImages[1]}/>
                 : <SquareImageBox image={representativeImage} size="100%" />
