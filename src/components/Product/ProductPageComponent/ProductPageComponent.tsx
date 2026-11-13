@@ -85,7 +85,7 @@ export default function ProductPageComponent(
     const hasSizeOption = product.metadata.options?.some(
         option => option.option_group === "Size")
 
-    const comparisonImages = product.images.filter(i => i.association_metadata?.comparison)
+    const comparisonImages = product.getComparisonImages()
 
     return (<>
         <div className={"product-page-component"}>

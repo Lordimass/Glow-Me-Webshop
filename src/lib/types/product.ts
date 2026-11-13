@@ -94,7 +94,10 @@ export class ProductData implements MinimalProduct, ImageHolder {
     };
 
     getComparisonImages(): MinimalProductImage[] {
-        return this.images.filter(img => img.association_metadata?.comparison)
+        return this.images.filter(img =>
+            img.association_metadata?.comparison &&
+            !img.association_metadata?.exclude
+        )
     }
 
     /**
@@ -319,14 +322,28 @@ export class ProductGroup implements ImageHolder {
      */
     getRepresentativeImage() {
         const all = this.getAllImages().sort(MinimalImage.compare);
-        const repr = all.filter(
-            (image: MinimalProductImage) =>
-                image.association_metadata?.group_representative,
-        );
+        const repr = this.getRepresentativeImages()
         return repr.length > 0 ? repr[0] : all[0];
     }
 
+    /**
+     * Get all images marked as a group representative.
+     */
+    getRepresentativeImages() {
+        const all = this.getAllImages().sort(MinimalImage.compare);
+        return all.filter(
+            (image: MinimalProductImage) =>
+                image.association_metadata?.group_representative,
+        );
+    }
+
     getComparisonImages(): MinimalProductImage[] {
+        const representatives = this.getRepresentativeImages()
+        const representativeComparisons = representatives.filter(img =>
+            img.association_metadata?.comparison
+        )
+        if (representativeComparisons.length >= 2) return representativeComparisons;
+
         return this.products.length > 0
             ? this.products[0].getComparisonImages()
             : [];
