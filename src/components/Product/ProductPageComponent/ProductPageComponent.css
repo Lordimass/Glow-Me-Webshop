@@ -20,6 +20,7 @@
     margin: 0 10px 0 10px;
     padding: 20px;
     background-color: white;
+    box-shadow: var(--bs-box-shadow-lg);
 
     /* Mostly so that it doesn't disappear while testing/developing */
     min-height: 25vh;
@@ -29,7 +30,8 @@
     box-sizing: border-box;
     overflow-x: hidden;
 
-    border-radius: 15px;
+    border-radius: 5px;
+
 
     .image {
         grid-area: image;
@@ -82,7 +84,6 @@
     align-items: end;
     gap: 5px;
     max-width: 100%;
-    border-radius: 10px;
     padding-bottom: 10px;
     padding-top: 10px;
     padding-right: 10px;
@@ -97,7 +98,7 @@
     height: 150px;
     box-sizing: border-box;
     padding: 5px;
-    border-radius: 10px;
+    border-radius: 5px;
     border: 2px solid rgb(0 0 0 / 0.2);
 
     background-color: rgb(0 0 0 / 0.2);
@@ -130,7 +131,7 @@
 }
 
 .productImageComparison {
-    border-radius: 1rem;
+    border-radius: 5px;
     aspect-ratio: 1;
 
     [data-rcs-item="itemOne"] img, [data-rcs-item="itemTwo"] img {
@@ -198,8 +199,8 @@
 .sizeComparison {
     display: flex;
     align-items: center;
-    border-radius: 1rem;
-    background-color: var(--bs-gray-200);
+    border-radius: 5px;
+    box-shadow: var(--bs-box-shadow-lg);
     flex-direction: column;
     padding: 1rem;
     max-width: 100%;

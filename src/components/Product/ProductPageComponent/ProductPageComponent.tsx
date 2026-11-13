@@ -100,7 +100,7 @@ export default function ProductPageComponent(
                 <GoHome />
 
                 {/* Actual box containing this product's primary information */}
-                <div className="product-box neon-border">
+                <div className="product-box">
                     <div className="image">
                         {comparisonImages.length >= 2
                             ? <CompareSliderAuto itemOne={comparisonImages[0]} itemTwo={comparisonImages[1]} className={"productImageComparison"} />
@@ -168,7 +168,7 @@ function AdditionalInformation({ prod }: { prod: ProductData }) {
     const keys = Object.keys(data);
 
     return (
-        <div className="product-box additional-product-information neon-border">
+        <div className="product-box additional-product-information">
             <h2>Item Details</h2>
             <div className="additional-product-information-container">
                 {keys.map((key) => {
