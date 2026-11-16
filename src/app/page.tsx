@@ -6,9 +6,9 @@ import Products from "@/components/Product/Products/Products.tsx";
 
 const HOME_PAGE_SKUS = [
         "prod_VXGmian6JBWKov", // FU Glow Ghost
-        "prod_VZZpkQ9ZS8cV5v", // Glow Ghost
-        "prod_VZZY5bghGbt7dU", // Partner Glow Ghosts
         "prod_VOdK6lqYAf3iAH", // Glow Ghost Holding Cat
+        "prod_VZZY5bghGbt7dU", // Partner Glow Ghosts
+        "prod_VZZpkQ9ZS8cV5v", // Glow Ghost
         "prod_VQVip1eow8fZAt", // Glow Cat
         "prod_VOKTaC3xy4WswD", // Cat Glow Ghost
         "prod_VOKYjPvJJxXgbl", // FU Ghost
@@ -38,7 +38,7 @@ export default async function Page() {
     const ghost = homePageProds.find(p => p.hasSku("prod_VZZV6oitiMGWoY")) || ProductData.NULL
     const cat = homePageProds.find(p => p.hasSku("prod_VQViVPvtbL79k5")) || ProductData.NULL
 
-    const glowGhosts = new ProductCollection(fuGlowGhost, glowGhost, partnerGlowGhosts, glowGhostHoldingCat)
+    const glowGhosts = new ProductCollection(fuGlowGhost, glowGhostHoldingCat, glowGhost, partnerGlowGhosts)
     const glowCats = new ProductCollection(glowCat, catGlowGhost)
     const ghosts = new ProductCollection(fuGhost, ghostHoldingCat, ghost)
     const cats = new ProductCollection(cat)
@@ -61,19 +61,19 @@ export default async function Page() {
                 <h1 className={"text-center"} style={{lineHeight: "35px"}}>GLOW<br/><span style={{fontSize: "35px"}}>In The Dark</span></h1>
                 <hr/>
                 <h2 className={"text-center"}>GHOSTS</h2>
-                <Products prods={glowGhosts.serialise()} excludeHidden={false} allowComparisonSliderImage={false} hideText={true} forceVertical={true}/>
+                <Products prods={glowGhosts.serialise()} excludeHidden={false} allowComparisonSliderImage={false} forceVertical={true}/>
                 <div className={styles.spacer}/>
                 <h2 className={"text-center"}>CATS</h2>
-                <Products prods={glowCats.serialise()} excludeHidden={false} hideText={true} forceVertical={true} />
+                <Products prods={glowCats.serialise()} excludeHidden={false} forceVertical={true} />
                 <div className={styles.spacer}/><div className={styles.spacer}/>
                 <hr/>
                 <h1 className={"text-center"} style={{lineHeight: "35px"}}>NON-GLOW<br/><span style={{fontSize: "35px"}}>Special Edition</span></h1>
                 <hr/>
                 <h2 className={"text-center"}>GHOSTS</h2>
-                <Products prods={ghosts.serialise()} excludeHidden={false} hideText={true} forceVertical={true} />
+                <Products prods={ghosts.serialise()} excludeHidden={false} forceVertical={true} />
                 <div className={styles.spacer}/>
                 <h2 className={"text-center"}>CATS</h2>
-                <Products prods={cats.serialise()} excludeHidden={false} hideText={true} forceVertical={true} />
+                <Products prods={cats.serialise()} excludeHidden={false} forceVertical={true} />
             </div>
         </>
     );

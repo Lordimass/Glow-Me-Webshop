@@ -14,7 +14,6 @@ import Tags from "@/components/Tag/Tags.tsx";
 import {trackViewItemAutoConvert, trackViewItemListAutoConvert} from "@/lib/ga/helpers.ts";
 import {LocaleContext} from "@/lib/context/locale.tsx";
 import ProductOptions from "@/components/Product/ProductPageComponent/ProductOptions.tsx";
-import TransitionVideo from "@/components/TransitionButton/TransitionVideo.tsx";
 import CompareSliderAuto from "@/components/CompareSliderAuto/CompareSliderAuto.tsx";
 
 interface ProductPageComponentProps {
@@ -142,21 +141,12 @@ export default function ProductPageComponent(
                 <AdditionalInformation prod={product} />
             </ProductContext.Provider>
         </div>
-
-        {hasSizeOption ? <div className={"sizeComparison"}>
-            <h2>Size Comparison</h2>
-            <TransitionVideo
-                videoSrc={"https://iumlpfiybqlkwoscrjzt.supabase.co/storage/v1/object/public/glow_me_product_images/transitions/scale.webm"}
-            />
-        </div> : null}
-
     </>);
 }
 
 /** Displays additional information about the given product */
 function AdditionalInformation({ prod }: { prod: ProductData }) {
     const data = {
-        SKU: prod.sku,
         weight: prod.metadata.weight
             ? prod.metadata.weight > 500
                 ? Math.round(prod.metadata.weight / 100) / 10 + "kg"

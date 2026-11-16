@@ -146,11 +146,11 @@
     }
 
     [data-rcs-item="itemTwo"]::after {
-        content: "Daylight!";
+        content: "Daylight";
     }
 
     [data-rcs-item="itemOne"]::after {
-        content: "Pitch Black!";
+        content: "Pitch Black";
         color: white
     }
 }
