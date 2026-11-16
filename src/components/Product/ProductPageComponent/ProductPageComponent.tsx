@@ -81,10 +81,8 @@ export default function ProductPageComponent(
         groupAnalyticsTriggered.current = true;
     }
 
-    const hasSizeOption = product.metadata.options?.some(
-        option => option.option_group === "Size")
-
     const comparisonImages = product.getComparisonImages()
+    const displayName = product.groupName ?? product.name
 
     return (<>
         <div className={"product-page-component"}>
@@ -113,7 +111,7 @@ export default function ProductPageComponent(
 
                     </div>
 
-                    <h1 className="title">{product.groupName ?? product.name}</h1>
+                    <h1 className="title">{displayName}</h1>
 
                     <div className="price-container">
                         <ProductPrice prod={product} />
@@ -123,9 +121,7 @@ export default function ProductPageComponent(
                         <Tags tags={product.metadata.tags} clickable={clickableTags} />
                     ) : null}
 
-                    <div className="desc">
-                        <Markdown>{product.metadata.description ?? ""}</Markdown>
-                    </div>
+                    <Description prod={product} displayName={displayName}/>
 
                     <div className="prod-ticker">
                         <ProductOptions/>
@@ -142,6 +138,21 @@ export default function ProductPageComponent(
             </ProductContext.Provider>
         </div>
     </>);
+}
+
+/**
+ * Description for the product, supports placeholders:
+ *  - {{displayName}}
+ *  - {{customer_metadata.[KEY]}}
+ */
+function Description({prod, displayName}: {prod: ProductData, displayName: string}) {
+    var description = prod.metadata.description ?? "";
+    description = description.replaceAll(/{{displayName}}/g, displayName);
+    description = description.replaceAll(/{{customer_metadata\.(.*)}}/g, (_, args) => prod.metadata.customer_metadata?.[args] ?? "");
+
+    return <div className="desc">
+        <Markdown>{description}</Markdown>
+    </div>
 }
 
 /** Displays additional information about the given product */

@@ -58,21 +58,21 @@ export default async function Page() {
             </div>
             <div className={"content"}>
                 <hr/>
-                <h1 className={"text-center"} style={{lineHeight: "35px"}}>GLOW<br/><span style={{fontSize: "35px"}}>In The Dark</span></h1>
+                <h1 className={"text-center"} style={{lineHeight: "35px"}}>GLOW<br/><span style={{fontSize: "35px"}}>(In The Dark)</span></h1>
                 <hr/>
-                <h2 className={"text-center"}>GHOSTS</h2>
+                <h1 className={"text-center"}>GHOSTS</h1>
                 <Products prods={glowGhosts.serialise()} excludeHidden={false} allowComparisonSliderImage={false} forceVertical={true}/>
                 <div className={styles.spacer}/>
-                <h2 className={"text-center"}>CATS</h2>
+                <h1 className={"text-center"}>CATS</h1>
                 <Products prods={glowCats.serialise()} excludeHidden={false} forceVertical={true} />
                 <div className={styles.spacer}/><div className={styles.spacer}/>
                 <hr/>
-                <h1 className={"text-center"} style={{lineHeight: "35px"}}>NON-GLOW<br/><span style={{fontSize: "35px"}}>Special Edition</span></h1>
+                <h1 className={"text-center"} style={{lineHeight: "35px"}}>NON-GLOW<br/><span style={{fontSize: "35px"}}>(Special Edition)</span></h1>
                 <hr/>
-                <h2 className={"text-center"}>GHOSTS</h2>
+                <h1 className={"text-center"}>GHOSTS</h1>
                 <Products prods={ghosts.serialise()} excludeHidden={false} forceVertical={true} />
                 <div className={styles.spacer}/>
-                <h2 className={"text-center"}>CATS</h2>
+                <h1 className={"text-center"}>CATS</h1>
                 <Products prods={cats.serialise()} excludeHidden={false} forceVertical={true} />
             </div>
         </>
