@@ -153,6 +153,14 @@ export class ProductData implements MinimalProduct, ImageHolder {
         return this.sku == sku;
     }
 
+    getDescription() {
+        const displayName = this.groupName ?? this.name
+        let description = this.metadata.description ?? "";
+        description = description.replaceAll(/{{displayName}}/g, displayName);
+        description = description.replaceAll(/{{customer_metadata\.(.*)}}/g, (_, args) => this.metadata.customer_metadata?.[args] ?? "");
+        return description;
+    }
+
     serialise() {
         return JSON.stringify(this)
     }

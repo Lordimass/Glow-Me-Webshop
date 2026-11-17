@@ -2,7 +2,7 @@ import {type NextRequest, NextResponse} from "next/server";
 import {createClient} from "@/lib/supabase/server.ts";
 import {getProducts, getTSISGProducts} from "@/lib/functions/supabaseRPC.ts";
 import {authenticateSupabaseLink, GOOGLE_ACCOUNT_ID, GOOGLE_SOURCE_ID} from "@/lib/server/google/auth.ts";
-import {ProductData} from "@/lib";
+import {MinimalProductImage, ProductData} from "@/lib";
 import type {TSISGProductData} from "@/lib/types/tsisg/supabaseTypes.ts";
 
 export async function GET(request: NextRequest) {
@@ -10,7 +10,6 @@ export async function GET(request: NextRequest) {
     const supabase = await createClient()
     const prods = await getProducts(supabase)
     const tsisgProds = await getTSISGProducts(supabase)
-
     if (!(typeof gToken === "string")) return gToken;
 
     const errors = []
@@ -118,6 +117,8 @@ async function addTSISGProductToMerchantCentre(gToken: string, prod: TSISGProduc
 }
 
 async function addProductToMerchantCentre(gToken: string, prod: ProductData) {
+    prod.images.sort(MinimalProductImage.compare)
+
     return await fetch(
         `https://merchantapi.googleapis.com/products/v1/accounts/${GOOGLE_ACCOUNT_ID}/productInputs:insert?dataSource=accounts/${GOOGLE_ACCOUNT_ID}/dataSources/${GOOGLE_SOURCE_ID}`,
         {
@@ -132,7 +133,7 @@ async function addProductToMerchantCentre(gToken: string, prod: ProductData) {
                 "feedLabel": "GB",
                 "productAttributes": {
                     "title": prod.name,
-                    "description": prod.description,
+                    "description": prod.getDescription(),
                     "link": "https://thisshopissogay.com/glow/products/" + prod.sku.toString(10),
                     "imageLink": prod.images[0]?.uri,
                     "additionalImageLinks": prod.images.length > 1 ? prod.images.slice(1).map(img => img.uri) : undefined,

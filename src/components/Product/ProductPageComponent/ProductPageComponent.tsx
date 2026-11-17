@@ -121,7 +121,9 @@ export default function ProductPageComponent(
                         <Tags tags={product.metadata.tags} clickable={clickableTags} />
                     ) : null}
 
-                    <Description prod={product} displayName={displayName}/>
+                    <div className="desc">
+                        <Markdown>{product.getDescription()}</Markdown>
+                    </div>
 
                     <div className="prod-ticker">
                         <ProductOptions/>
@@ -138,21 +140,6 @@ export default function ProductPageComponent(
             </ProductContext.Provider>
         </div>
     </>);
-}
-
-/**
- * Description for the product, supports placeholders:
- *  - {{displayName}}
- *  - {{customer_metadata.[KEY]}}
- */
-function Description({prod, displayName}: {prod: ProductData, displayName: string}) {
-    var description = prod.metadata.description ?? "";
-    description = description.replaceAll(/{{displayName}}/g, displayName);
-    description = description.replaceAll(/{{customer_metadata\.(.*)}}/g, (_, args) => prod.metadata.customer_metadata?.[args] ?? "");
-
-    return <div className="desc">
-        <Markdown>{description}</Markdown>
-    </div>
 }
 
 /** Displays additional information about the given product */
