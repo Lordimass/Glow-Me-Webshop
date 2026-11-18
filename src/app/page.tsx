@@ -57,6 +57,21 @@ export default async function Page() {
                 </div>
             </div>
             <div className={"content"}>
+                <div className={styles.introBox}>
+                    <div className={styles.introBoxInner}>
+                        <p>
+                            Handmade Special Ghosts and Cats. Individually designed by Xander Platz in <i>Yorkshire,
+                            England</i>. Each glowing ghost contains his signature duck… will you find it? 🤔
+                        </p>
+                        <hr/>
+                        <ol>
+                            <li>Choose a gorgeous glowing ghost or cat for your best friend or yourself.</li>
+                            <li>Hold it near your phone torch for a minute then turn the lights off.</li>
+                            <li>Watch it glow in the dark!</li>
+                        </ol>
+                    </div>
+                </div>
+
                 <hr/>
                 <h1 className={"text-center"} style={{lineHeight: "35px"}}>GLOW<br/><span style={{fontSize: "35px"}}>(In The Dark)</span></h1>
                 <hr/>
