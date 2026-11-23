@@ -164,7 +164,7 @@ export default function BasketManager({
             <p> Basket ({basketQuantity} items)</p>
             <div className="basketItems">
               {Basket.getBasket().products.map((p) => (
-                <Product prod={p} key={p.sku} horizontal />
+                <Product prod={p} key={p.sku} horizontal allowComparisonSliderImage={false} />
               ))}
             </div>
             <div id={"subtotal"}>

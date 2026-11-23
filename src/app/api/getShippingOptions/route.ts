@@ -52,8 +52,13 @@ export async function POST(request: NextRequest) {
         if (UK.includes(country)) applicableRateNames = rateNames.uk;
         else if (EU.includes(country)) applicableRateNames = rateNames.eu;
 
+        if (!applicableRateNames || applicableRateNames.length == 0) return new NextResponse(
+            "The server has no configured rates for this region. Please contact us for help at support@thisshopissogay.com!", {status: 500}
+        )
+
         // Fetch list of active shipping rates
         const rates = await stripe.shippingRates.list({ active: true });
+
         // Find rates with descriptions in the applicable array
         console.log(rates.data.map((r) => r.display_name));
         const applicableRates = rates.data

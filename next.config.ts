@@ -26,16 +26,6 @@ const nextConfig: NextConfig = {
                 source: "/sitemapProducts.xml",
                 destination: "/api/sitemap/products",
                 permanent: true,
-            },
-            {
-                source: "/CATS/",
-                destination: "/shop/CATS",
-                permanent: true,
-            },
-            {
-                source: "/GHOSTS/",
-                destination: "/shop/GHOSTS",
-                permanent: true,
             }
         ]
     },

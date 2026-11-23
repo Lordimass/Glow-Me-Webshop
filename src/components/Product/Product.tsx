@@ -140,6 +140,7 @@ function HyperlinkedProductImage(
         : [];
 
     const representativeImage = prod.getRepresentativeImage();
+    console.log(representativeImage, comparisonImages.length >= 2)
     return (
         <a className="product-image-link" href={href}>
             {comparisonImages.length >= 2

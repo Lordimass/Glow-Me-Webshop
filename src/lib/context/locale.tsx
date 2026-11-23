@@ -1,8 +1,8 @@
 "use client";
 
 import {createContext, type ReactNode, useEffect, useState} from "react";
-import type {Locale} from "../types";
-import {DEFAULT_LOCALE} from "../../config.ts";
+import type {Locale} from "@/lib";
+import {DEFAULT_LOCALE} from "@/config.ts";
 import determineUserLocale from "../types/locale.ts";
 
 export const LocaleContext = createContext<Locale>(DEFAULT_LOCALE);
